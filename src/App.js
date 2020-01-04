@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button,Icon} from 'antd';
 import Animate from 'rc-animate';
-import QueueAnim from 'rc-queue-anim';
 import Texty from 'rc-texty';
 import 'rc-texty/assets/index.css'
 import logo from './logo.svg';
@@ -95,7 +94,11 @@ class App extends React.Component{
               <MenuButton text='点我' handleClick={this.hanleClick.bind(this, 'JCZ')} color="white"/>
             </div>
             <Icon type="stock" style={{fontSize: '5vmin'}}/>
-            <div style={{fontFamily:'楷体',fontSize:'3vmin',color:'white'}}>大邑烧瓷轻且坚，扣如哀玉锦城传。</div>
+            <div style={{fontFamily:'楷体',fontSize:'3vmin',color:'white'}}>
+              <Texty type='alpha' mode='sync' duration='3000'>
+                大邑烧瓷轻且坚，扣如哀玉锦城传。
+              </Texty>
+            </div>
           </header>
         :
           <header className="App-header">

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button} from 'antd';
+import Texty from 'rc-texty';
 import './index.less';
 
 class MenuButton extends React.Component{
@@ -18,7 +19,9 @@ class MenuButton extends React.Component{
               ghost
               onClick={this.props.handleClick}
               disabled={disable?disable:false}>
-        {text}
+        <Texty type='alpha' mode='sync' duration='3000'>
+          {text}
+        </Texty>
       </Button>
     )
   }
