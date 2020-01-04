@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .App {
   text-align: center;
 }
@@ -14,7 +16,10 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-image: url("./Image/bgI3.gif");
+  background-size:100%;
+  background-repeat: no-repeat;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +40,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.MenuTab{
+  height:15vmin;
+  width:15vmin;
+}
+
+.testContent{
+  display:inline-block;
+  font-size:4vmin;
+  color:black;
+  width:90%;
+  height:100%;
+  font-family: '楷体';
+  writing-mode:vertical-rl
+}
+.testTitle{
+  display:inline-block;
+  color:black;
+  font-size:6vmin;
+  font-weight: bold;
+  width:10%;
+  height:100%;
+  font-family: '楷体';
+  writing-mode:vertical-rl
 }
