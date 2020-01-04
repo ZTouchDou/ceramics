@@ -1,6 +1,11 @@
 import React from 'react';
-import {Button} from 'antd';
+import {Button,Icon} from 'antd';
+import Animate from 'rc-animate';
+import QueueAnim from 'rc-queue-anim';
+import Texty from 'rc-texty';
+import 'rc-texty/assets/index.css'
 import logo from './logo.svg';
+import bgm from './Music/bgm1.mp3';
 import './App.css';
 import MenuButton from "./components/MenuButton";
 
@@ -10,12 +15,14 @@ class App extends React.Component{
     super(props);
     this.state = {
       title:'起源',
-      content:'陶瓷是陶器和瓷器的总称。' +
-      '人们早在约8000年前的新石器时代就发明了陶器。' +
-      ' 远在九千多年前,中国先民在从事渔猎、农业生产活动的同时,' +
-      '不但开始可最原始的建筑活动,并且随着火的发明和使用,在改造大自然的长期劳动实践中,' +
-      '伴随着无数次时间与成功的体验,开始制造和使用成为中国古文化之一的艺术……'
+      content:'江南无所有，聊赠一枝春。',
+      color:'#666',
+      isShow:false
     }
+  }
+
+  componentDidMount() {
+
   }
 
   hanleClick = (type)=>{
@@ -38,9 +45,15 @@ class App extends React.Component{
       title='工坊';
       content='话说，有没有极度清晰的背景图，网上找了半天，都是如此模糊的图片，' +
         '这个花都变成马赛克花了。';
-    }else{
+    }else if(type==='HD'){
       title='花灯';
       content='';
+    }else{
+      this.setState({
+        isShow:true
+      },()=>{
+        this.changeMusic();
+      });
     }
     this.setState({
       title,
@@ -48,32 +61,77 @@ class App extends React.Component{
     })
   };
 
+  changeMusic = ()=>{
+    let audio = document.getElementById('audioOfBgm');
+    if(audio!==null){
+      if(audio.paused)                     {
+        audio.play();//audio.play();// 这个就是播放
+        this.setState({
+          color:'#E74962'
+        })
+      }else{
+        audio.pause();// 这个就是暂停
+        this.setState({
+          color:'#666'
+        })
+      }
+    }else{
+      return;
+    }
+  }
+
   render() {
-    let {title,content} = this.state;
+    let {title,content,color,isShow} = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <div style={{position:'absolute',width:'50vw',height:'50vh',top:'20vh',left:'10vw'}}>
-            <div className="testContent">{content}</div>
-            <div className="testTitle">{title}</div>
+        <Animate
+          transitionName="fade"
+          transitionAppear
+        >
+        {
+          !isShow ?
+          <header className="App-In">
+            <div className="MenuTab">
+              <MenuButton text='点我' handleClick={this.hanleClick.bind(this, 'JCZ')} color="white"/>
+            </div>
+            <Icon type="stock" style={{fontSize: '5vmin'}}/>
+            <div style={{fontFamily:'楷体',fontSize:'3vmin',color:'white'}}>大邑烧瓷轻且坚，扣如哀玉锦城传。</div>
+          </header>
+        :
+          <header className="App-header">
+          <div style={{position: 'absolute', width: '50vw', height: '50vh', top: '20vh', left: '10vw'}}>
+            <div className="testContent">
+                {content}
+            </div>
+            <div className="testTitle">
+                {title}
+            </div>
           </div>
 
           <div>
-            <div className="MenuTab" style={{position:'absolute',left:'10vw',top:'60vh'}}>
-              <MenuButton text='起源' handleClick={this.hanleClick.bind(this,'QY')}/>
+            <div className="MenuTab" style={{position: 'absolute', left: '10vw', top: '60vh'}}>
+              <MenuButton text='起源' handleClick={this.hanleClick.bind(this, 'QY')} color="black"/>
             </div>
-            <div className="MenuTab" style={{position:'absolute',left:'30vw',top:'72vh'}}>
-              <MenuButton text='工序' handleClick={this.hanleClick.bind(this,'GX')}/>
+            <div className="MenuTab" style={{position: 'absolute', left: '30vw', top: '72vh'}}>
+              <MenuButton text='工序' handleClick={this.hanleClick.bind(this, 'GX')} color="black"/>
             </div>
-            <div className="MenuTab" style={{position:'absolute',left:'53vw',top:'81vh'}}>
-              <MenuButton text='工坊' handleClick={this.hanleClick.bind(this,'GF')}/>
+            <div className="MenuTab" style={{position: 'absolute', left: '53vw', top: '81vh'}}>
+              <MenuButton text='工坊' handleClick={this.hanleClick.bind(this, 'GF')} color="black"/>
             </div>
-            <div className="MenuTab" style={{position:'absolute',left:'77vw',top:'85vh'}}>
-              <MenuButton text='花灯' handleClick={this.hanleClick.bind(this,'HD')} disable={true} />
+            <div className="MenuTab" style={{position: 'absolute', left: '77vw', top: '85vh'}}>
+              <MenuButton text='花灯' handleClick={this.hanleClick.bind(this, 'HD')} disable={true} color="black"/>
             </div>
           </div>
-          {/*<img src={logo} className="App-logo" alt="logo" />*/}
+          <label for="audioOfBgm" style={{position: 'absolute', left: '94vw', top: '90vh'}}>
+            <Icon type="sound" style={{color: color, cursor: 'pointer', fontSize: '5vmin'}}
+                  onClick={this.changeMusic}/>
+            <audio autoPlay loop={false} id="audioOfBgm">
+              <source src={bgm}/>
+            </audio>
+          </label>
         </header>
+        }
+        </Animate>
       </div>
     );
   }

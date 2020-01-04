@@ -6,6 +6,9 @@
     "antd": "^3.19.0",
     "dva": "^1.2.1",
     "dva-loading": "^0.2.1",
+    "rc-animate": "^2.10.2",
+    "rc-queue-anim": "^1.8.3",
+    "rc-texty": "^0.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0"

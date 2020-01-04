@@ -13,7 +13,7 @@ class MenuButton extends React.Component{
   render(){
     let {text,disable} = this.props;
     return(
-      <Button style={{height:'100%',width:'100%',fontSize:'3vmin',color:'black',fontFamily:'楷体',fontWeight:'bold',border:'0.5vmin solid'}}
+      <Button style={{height:'100%',width:'100%',fontSize:'3vmin',color:this.props.color,fontFamily:'楷体',fontWeight:'bold',border:'0.5vmin solid'}}
               shape="circle"
               ghost
               onClick={this.props.handleClick}
