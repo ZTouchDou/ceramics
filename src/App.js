@@ -90,10 +90,16 @@ class App extends React.Component{
         {
           !isShow ?
           <header className="App-In">
+            <div style={{fontFamily:'楷体',fontSize:'9vmin',color:'white',position:'absolute',top:'22vh'}}>
+              <Texty type='alpha' mode='sync' duration='3000'>
+                釉个陶瓷
+              </Texty>
+            </div>
             <div className="MenuTab">
-              <MenuButton text='点我' handleClick={this.hanleClick.bind(this, 'JCZ')} color="white"/>
+              <MenuButton text='点击进入' handleClick={this.hanleClick.bind(this, 'JCZ')} color="white"/>
             </div>
             <Icon type="stock" style={{fontSize: '5vmin'}}/>
+            <br/>
             <div style={{fontFamily:'楷体',fontSize:'3vmin',color:'white'}}>
               <Texty type='alpha' mode='sync' duration='3000'>
                 大邑烧瓷轻且坚，扣如哀玉锦城传。
