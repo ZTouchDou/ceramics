@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button,Icon} from 'antd';
+import {withRouter} from "react-router-dom";
 import Animate from 'rc-animate';
 import Texty from 'rc-texty';
 import 'rc-texty/assets/index.css'
@@ -25,6 +26,7 @@ class App extends React.Component{
   }
 
   hanleClick = (type)=>{
+    let t = this;
     let {title,content} = this.state;
     if(type==='QY'){
       title='起源';
@@ -33,6 +35,7 @@ class App extends React.Component{
         ' 远在九千多年前,中国先民在从事渔猎、农业生产活动的同时,' +
         '不但开始可最原始的建筑活动,并且随着火的发明和使用,在改造大自然的长期劳动实践中,' +
         '伴随着无数次时间与成功的体验,开始制造和使用成为中国古文化之一的艺术……';
+        t.props.history.push('/CeramicsShow');
     }else if(type==='GX'){
       title='工序';
       content=
@@ -131,7 +134,7 @@ class App extends React.Component{
               <MenuButton text='花灯' handleClick={this.hanleClick.bind(this, 'HD')} disable={true} color="black"/>
             </div>
           </div>
-          <label for="audioOfBgm" style={{position: 'absolute', left: '94vw', top: '90vh'}}>
+          <label style={{position: 'absolute', left: '94vw', top: '90vh'}}>
             <Icon type="sound" style={{color: color, cursor: 'pointer', fontSize: '5vmin'}}
                   onClick={this.changeMusic}/>
             <audio autoPlay loop={false} id="audioOfBgm">
@@ -146,4 +149,4 @@ class App extends React.Component{
   }
 }
 
-export default App;
+export default withRouter(App);
