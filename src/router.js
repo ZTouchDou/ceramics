@@ -1,7 +1,7 @@
 import React from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom';
 import App from './App';
-import CeramicsShow from "./components/CeramicsShow";
+import CeramicsShow from "./routes/CeramicsShow";
 
 export default class RouterConfig extends React.Component{
   render(){

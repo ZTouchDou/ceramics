@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.less';
+import './index.css'
 
 class CeramicsShow extends React.Component{
   constructor(props){
@@ -12,7 +12,12 @@ class CeramicsShow extends React.Component{
   render(){
     return (
       <div className='box'>
-        less文件解决中
+        <div className='box-left'>
+
+        </div>
+        <div className='box-right'>
+
+        </div>
       </div>
     )
   }

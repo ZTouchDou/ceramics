@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button} from 'antd';
 import Texty from 'rc-texty';
-import './index.less';
 
 class MenuButton extends React.Component{
   constructor(props) {

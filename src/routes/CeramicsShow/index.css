@@ -1,0 +1,21 @@
+.box{
+    width:100vw;
+    height:100vh;
+    background-image:url("../../Image/CeramicsShowImg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+}
+.box .box-left{
+    background-color:yellow;
+    width:40vw;
+    height:40vh;
+}
+
+.box .box-right{
+    background-color:blue;
+    width:50vw;
+    height:90vh;
+    margin-left:10vw;
+}
