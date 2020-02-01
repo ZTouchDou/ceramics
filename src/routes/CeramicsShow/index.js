@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.css'
+import MenuButton from "../../components/MenuButton";
 
 class CeramicsShow extends React.Component{
   constructor(props){
@@ -12,6 +13,7 @@ class CeramicsShow extends React.Component{
   render(){
     return (
       <div className='box'>
+        <MenuButton/>
         <div className='box-left'>
 
         </div>

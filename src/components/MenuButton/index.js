@@ -1,27 +1,47 @@
 import React from 'react';
-import {Button} from 'antd';
+import {Icon, Drawer} from 'antd';
 import Texty from 'rc-texty';
+import MenuPage from "../../routes/MenuPage";
 
 class MenuButton extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-
+      visible:false
     }
   }
 
+  //显示菜单
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  //关闭菜单
+  onClose = ()=>{
+    this.setState({
+      visible: false,
+    });
+  }
+
   render(){
-    let {text,disable} = this.props;
+    let {visible} = this.state;
     return(
-      <Button style={{height:'100%',width:'100%',fontSize:'3vmin',color:this.props.color,fontFamily:'楷体',fontWeight:'bold',border:'0.5vmin solid'}}
-              shape="circle"
-              ghost
-              onClick={this.props.handleClick}
-              disabled={disable?disable:false}>
-        <Texty type='alpha' mode='sync' duration='3000'>
-          {text}
-        </Texty>
-      </Button>
+      <div>
+        <div style={{position:'absolute',left:'90vw',top:'3vh',width:'5vw',height:'8vw'}} onClick={this.showDrawer}>
+          <Icon type='unordered-list'></Icon>
+        </div>
+        <Drawer
+          placement="right"
+          closable={true}
+          onClose={this.onClose}
+          visible={visible}
+          width='100vw'
+        >
+          <MenuPage/>
+        </Drawer>
+      </div>
     )
   }
 }
