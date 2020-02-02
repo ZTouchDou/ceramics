@@ -8,7 +8,7 @@ import image3 from '../../Image/MenuTabGF.jpg';
 import image4 from '../../Image/MenuTabGY.jpg';
 
 const pStyle = {
-  fontSize: '8vw',
+  fontSize: '8vmin',
   fontFamily:'楷体',
   color: 'rgba(0,0,0,0.85)',
   lineHeight: '2vh',
@@ -33,7 +33,7 @@ class MenuPage extends React.Component{
     }else if(type==='GX'){
       console.log("GX");
     }else if(type==='GF'){
-      console.log("GF");
+      this.props.history.push('/Workshop');
     }
   };
 

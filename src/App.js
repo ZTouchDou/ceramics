@@ -6,7 +6,10 @@ import Texty from 'rc-texty';
 import 'rc-texty/assets/index.css';
 import './App.css';
 
-// 此App代码目前只做演示,各布局可能错乱
+//  Hi~ o(*￣▽￣*)ブ               Σ( ° △ °|||)︴
+//               釉见︿(￣︶￣)︿釉见
+//  o(*≧▽≦)ツ┏━┓           φ(≧ω≦*)♪
+
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -54,7 +57,7 @@ class App extends React.Component{
           <header className="App-In">
             <div style={{fontFamily:'楷体',fontSize:'9vmin',color:'white',position:'absolute',top:'22vh'}}>
               <Texty type='alpha' mode='sync' duration='3000'>
-                釉个陶瓷
+                釉见
               </Texty>
             </div>
             <div className="MenuTab">

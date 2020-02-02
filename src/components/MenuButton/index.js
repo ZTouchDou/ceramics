@@ -27,10 +27,11 @@ class MenuButton extends React.Component{
 
   render(){
     let {visible} = this.state;
+    let {color} = this.props;
     return(
       <div>
         <div style={{position:'absolute',left:'90vw',top:'3vh',width:'5vw',height:'8vw'}} onClick={this.showDrawer}>
-          <Icon type='unordered-list'></Icon>
+          <Icon type='unordered-list' style={{color:color?color:'black'}}></Icon>
         </div>
         <Drawer
           placement="right"

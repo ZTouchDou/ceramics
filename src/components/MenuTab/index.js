@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Row, Divider} from 'antd';
 
 const pStyle = {
-  fontSize: '6vw',
+  fontSize: '6vmin',
   fontFamily:'楷体',
   color: 'rgba(0,0,0,0.85)',
   lineHeight: '2vh',
@@ -13,7 +13,7 @@ const pStyle = {
 const DescriptionItem = ({ title, content }) => (
   <div
     style={{
-      fontSize: '5vw',
+      fontSize: '5vmin',
       fontFamily:'楷体',
       lineHeight: '4vh',
       marginBottom: '1vh',
@@ -48,7 +48,7 @@ class MenuTab extends React.Component{
                 <img src={imgUrl} style={{width:'100%',height:'100%'}}/>:''
               }
             </div>
-            <div style={{height:'5vh', fontSize:'3vw',lineHeight:'3vh',fontStyle:'italic',marginTop:'2vh'}}>
+            <div style={{height:'5vh', fontSize:'3vmin',lineHeight:'3vh',fontStyle:'italic',marginTop:'2vh'}}>
               {bottomContent}
             </div>
           </Col>

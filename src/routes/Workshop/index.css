@@ -1,0 +1,60 @@
+
+.WorkshopTabMenuTitle{
+    width:100vw;
+    height:15vh;
+    background-color:#555555;
+    position:fixed;
+    top:0;
+    z-index:1000;
+}
+
+.WorkshopTabTitle{
+    width:90vw;
+    height:3vh;
+    font-size:6vmin;
+    font-family:楷体;
+    margin-left:5vw;
+    padding-top:5vh;
+    line-height:3vh;
+    color: rgba(255,255,255,0.85);
+}
+
+.WorkshopTabContent{
+    width:90vw;
+    font-size:4vmin;
+    font-family:楷体;
+    margin-left:5vw;
+    line-height:4vh;
+    color: rgba(255,255,255,1);
+}
+
+.WorkshopTabContent-div{
+    font-size: 4vmin;
+    font-family:楷体;
+    line-height: 4vh;
+    margin-bottom: 1vh;
+    color: rgba(255,255,255,0.85);
+}
+
+.WorkshopTabContent-div-title{
+    font-weight: bold;
+    margin-right:1vw;
+    display:inline-block;
+    color: rgba(255,255,255,1);
+}
+
+.WorkshopTabImage{
+    width:100vw;
+    height:25vh;
+}
+
+.WorkshopTabImage img{
+    height:100%;
+    width:100%;
+}
+
+.ant-divider-horizontal-workshop{
+    height:0.4vh;
+    margin-left:4vw;
+    margin-top:-3vh;
+}
