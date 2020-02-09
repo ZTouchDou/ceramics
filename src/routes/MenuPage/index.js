@@ -7,6 +7,8 @@ import image2 from '../../Image/MenuTabTC.jpg';
 import image3 from '../../Image/MenuTabGF.jpg';
 import image4 from '../../Image/MenuTabGY.jpg';
 
+//菜单页
+
 const pStyle = {
   fontSize: '8vmin',
   fontFamily:'楷体',
@@ -27,11 +29,11 @@ class MenuPage extends React.Component{
   //跳转页面
   gotoTab = (type)=>{
     if(type==='QY'){
-      console.log("QY");
+      this.props.history.push('/Origin');
     }else if(type==='TC'){
       this.props.history.push('/CeramicsShow');
     }else if(type==='GX'){
-      console.log("GX");
+      this.props.history.push('/Technology');
     }else if(type==='GF'){
       this.props.history.push('/Workshop');
     }

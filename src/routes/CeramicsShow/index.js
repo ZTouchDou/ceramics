@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css'
 import MenuButton from "../../components/MenuButton";
 
+//陶瓷页
 class CeramicsShow extends React.Component{
   constructor(props){
     super(props);

@@ -1,0 +1,137 @@
+.Origin-box{
+    width:100vw;
+    height:100vh;
+    background-image: url("../../Image/Origin.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding-left:10vw;
+    padding-top:15vh;
+}
+
+.ant-carousel-origin{
+    width: 95%;
+}
+
+.Origin-body{
+    width:80vw !important;
+    height:75vh;
+}
+
+.Origin-body-content1{
+    width:100%;
+    height:40%;
+    display:flex;
+}
+
+.Origin-body-image1{
+    width:25%;
+    height:100%;
+    padding-top:10%;
+}
+
+.O_image1{
+    width:100%;
+    height:50%;
+    margin-left:15%;
+    transform:rotate(-10deg);
+    -ms-transform:rotate(-10deg); 	/* IE 9 */
+    -moz-transform:rotate(-10deg); 	/* Firefox */
+    -webkit-transform:rotate(-10deg); /* Safari 和 Chrome */
+    -o-transform:rotate(-10deg); 	/* Opera */
+    box-shadow: 1.5vmin 1.5vmin 1vmin #444555;
+    -moz-box-shadow: 1.5vmin 1.5vmin 1vmin #444555;/* Firefox */
+    -webkit-box-shadow: 1.5vmin 1.5vmin 1vmin #444555/* Safari 和 Chrome */
+}
+
+.Origin-body-image2{
+    width:45%;
+    height:100%;
+    padding-top:14%;
+    z-index:1000;
+}
+
+.O_image2{
+    width:100%;
+    height:60%;
+    transform:rotate(55deg);
+    -ms-transform:rotate(55deg); 	/* IE 9 */
+    -moz-transform:rotate(55deg); 	/* Firefox */
+    -webkit-transform:rotate(55deg); /* Safari 和 Chrome */
+    -o-transform:rotate(55deg); 	/* Opera */
+    box-shadow: 1.5vmin -1.5vmin 1vmin #555444;
+    -moz-box-shadow: 1.5vmin -1.5vmin 1vmin #555444;/* Firefox */
+    -webkit-box-shadow: 1.5vmin -1.5vmin 1vmin #555444;/* Safari 和 Chrome */
+}
+
+.Origin-body-image3{
+    width:30%;
+    height:100%;
+    padding-top:10%;
+}
+
+.O_image3{
+    width:85%;
+    height:80%;
+    margin-left:-30%;
+    transform:rotate(20deg);
+    -ms-transform:rotate(20deg); 	/* IE 9 */
+    -moz-transform:rotate(20deg); 	/* Firefox */
+    -webkit-transform:rotate(20deg); /* Safari 和 Chrome */
+    -o-transform:rotate(20deg); 	/* Opera */
+    box-shadow: 2vmin -1vmin 1vmin #333333;
+    -moz-box-shadow: 2vmin -1vmin 1vmin #333333;/* Firefox */
+    -webkit-box-shadow: 2vmin -1vmin 1vmin #333333;/* Safari 和 Chrome */
+}
+
+.Origin-body-content2{
+    width:100%;
+    height:60%;
+}
+
+.Origin-title{
+    width:100%;
+    height:15%;
+    font-size:7vmin;
+    font-style:italic;
+    font-family: 楷体;
+}
+
+.Origin-content{
+    width:94%;
+    height:70%;
+    font-size:4.5vmin;
+    font-family: 楷体;
+    margin-left:3%;
+    line-height: 4vh;
+    overflow:auto;
+}
+
+.Origin-button{
+    padding-top:5%;
+    width:100%;
+    height:15%;
+    display: flex;
+}
+
+.Origin-lastpage{
+    width:18%;
+    height:100%;
+    font-size:4vmin;
+    transform:rotate(20deg);
+    -ms-transform:rotate(20deg); 	/* IE 9 */
+    -moz-transform:rotate(20deg); 	/* Firefox */
+    -webkit-transform:rotate(20deg); /* Safari 和 Chrome */
+    -o-transform:rotate(20deg); 	/* Opera */
+}
+
+.Origin-nextpage{
+    width:18%;
+    height:100%;
+    font-size:4vmin;
+    margin-left:64%;
+    transform:rotate(-20deg);
+    -ms-transform:rotate(-20deg); 	/* IE 9 */
+    -moz-transform:rotate(-20deg); 	/* Firefox */
+    -webkit-transform:rotate(-20deg); /* Safari 和 Chrome */
+    -o-transform:rotate(-20deg); 	/* Opera */
+}

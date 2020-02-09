@@ -5,6 +5,8 @@ import Texty from 'rc-texty';
 import MenuButton from "../../components/MenuButton";
 import './index.css';
 
+//工坊页面
+
 const pStyle = {
   width:'100vw',
   height:'10vh',
@@ -39,11 +41,11 @@ class Workshop extends React.Component{
           {
             GF.map((item,index)=>(
               <div className='WorkshopTabBox' key = {index}>
-                <p className='WorkshopTabTitle'>
+                <div className='WorkshopTabTitle'>
                   <Texty type='alpha' mode='sync' duration='4000'>
                     {item.name}
                   </Texty>
-                </p>
+                </div>
                 <div style={{width:'100vw',height:'3vh'}}></div>
 
                 {/*下面的代码不写成组件的形式，是因为Texty在组件形式下会出错，因此牺牲了代码的优越性，此处代码重复度较高，现在未找到解决办法。 (～￣(OO)￣)ブ */}
