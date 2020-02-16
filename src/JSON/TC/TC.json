@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Slide1",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件",
+    "bgimg": "GF1.jpg"
+  },
+  {
+    "name": "Slide2",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF2.jpg"
+  },
+  {
+    "name": "Slide3",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF3.jpg"
+  },
+  {
+    "name": "Slide4",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF4.jpg"
+  },
+  {
+    "name": "Slide5",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF5.jpg"
+  },
+  {
+    "name": "Slide6",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF6.jpg"
+  },
+  {
+    "name": "Slide7",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF7.jpg"
+  },
+  {
+    "name": "Slide8",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF8.jpg"
+  },
+  {
+    "name": "Slide9",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF9.jpg"
+  },
+  {
+    "name": "Slide10",
+    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "bgimg": "GF10.jpg"
+  }
+]

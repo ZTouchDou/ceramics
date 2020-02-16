@@ -2,6 +2,7 @@ import React from 'react';
 import {Icon, Drawer} from 'antd';
 import Texty from 'rc-texty';
 import MenuPage from "../../routes/MenuPage";
+import './index.css';
 
 class MenuButton extends React.Component{
   constructor(props) {

@@ -1,21 +1,27 @@
 import React from 'react';
 import {Divider, Col, Row} from 'antd';
+import LazyLoad from 'react-lazyload';
 import GF from '../../JSON/GF/GF.json';
 import Texty from 'rc-texty';
 import MenuButton from "../../components/MenuButton";
+import iag from '../../Image/Workshop.jpg';
+import iags from '../../Image/WorkshopStart.jpg';
+import iage from '../../Image/WorkshopEnd.jpg';
 import './index.css';
 
 //工坊页面
 
+let number_of_animation = 10;
+
 const pStyle = {
   width:'100vw',
-  height:'10vh',
+  height:'5vh',
   fontSize:'9vmin',
   fontFamily:'楷体',
   paddingLeft:'5vw',
-  paddingTop:'2vh',
   lineHeight:'10vh',
-  color: 'rgba(255,255,255,0.85)',
+  color: 'rgba(150,106,58,1)',
+  textShadow:'1vmin 1vmin 1.5vmin rgba(150,106,58,1)'
 };
 
 
@@ -27,84 +33,132 @@ class Workshop extends React.Component{
     }
   }
 
+  componentWillUnmount() {
+    let {time} = this.state;
+    if(time){
+      clearTimeout(time);
+    }
+  }
+
+  showPicture = (evt)=>{
+    let t = this;
+    let theClass = evt.target.getAttribute('class');
+    if(theClass.slice(0,-1)==='transition'){
+      return;
+    }
+    let id=evt.target.getAttribute('id');
+    let number = id.split('-')[1];
+    evt.target.setAttribute('class','transition'+number%number_of_animation);
+    let time = setTimeout(this.isOk.bind(t,id,theClass),4000);
+    this.setState({
+      time
+    })
+  };
+
+  isOk = (id,theClass)=>{
+    document.getElementById(id).setAttribute('class',theClass);
+  };
+
   render() {
     return (
       <div style={{backgroundColor:'#555555',width:'100vw'}}>
         <div className='WorkshopTabMenuTitle'>
-        <MenuButton color='white'/>
+        <MenuButton color='#986C3D'/>
         <p style={{...pStyle}}>
           工坊
         </p>
-        <Divider className='ant-divider-horizontal-workshop'/>
+
         </div>
-        <div style={{marginTop:'15vh'}}>
+        <div style={{marginTop:'10vh', backgroundColor:'white'}}>
+          <div style={{width:'100vw',height:'4vh',backgroundImage:`url(${iags})`,backgroundSize:'100% 100%'}}></div>
           {
             GF.map((item,index)=>(
-              <div className='WorkshopTabBox' key = {index}>
-                <div className='WorkshopTabTitle'>
-                  <Texty type='alpha' mode='sync' duration='4000'>
-                    {item.name}
-                  </Texty>
+              <LazyLoad height='50vh' key = {index}>
+                <div className='WorkshopTabBox' key = {index}>
+                  <div className='WorkshopTabTitle'>
+                    <Texty type='alpha' mode='sync' duration='4000'>
+                      {item.name}
+                    </Texty>
+                  </div>
+                  <div style={{width:'100vw',height:'3vh'}}></div>
+
+                  {/*下面的代码不写成组件的形式，是因为Texty在组件形式下会出错，因此牺牲了代码的优越性，此处代码重复度较高，现在未找到解决办法。 (～￣(OO)￣)ブ */}
+
+                  <Row type="flex" >
+                    <Col span={12}>
+                      <div className='WorkshopTabContent'>
+                        <div className='WorkshopTabContent-div'>
+                          <div className='WorkshopTabContent-div-title'>
+                            <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                              成立时间：
+                            </Texty>
+                          </div>
+                          <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                            {item.time}
+                          </Texty>
+                        </div>
+
+                        <div style={{width:'100%',height:'1vh'}}></div>
+
+                        <div className='WorkshopTabContent-div'>
+                          <div className='WorkshopTabContent-div-title'>
+                            <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                              地点：
+                            </Texty>
+                          </div>
+                          <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                            {item.location}
+                          </Texty>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col span={12}>
+                      <div className='WorkshopTabImage'>
+                        {
+                          item.url?
+                            <img
+                              id={`img-${index}`}
+                              src={require('../../JSON/GF/Images/'+item.url)}
+                              alt="工坊配图"
+                              className={`WorkshopTabImage-img${index%number_of_animation}`}
+                              onClick={this.showPicture}
+                            /> : ''
+                        }
+                      </div>
+                    </Col>
+                  </Row>
+
+                  <div className='WorkshopTabDetails'>
+                    <div className='WorkshopTabContent-div'>
+                      <div className='WorkshopTabContent-div-title'>
+                        <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                          详情：
+                        </Texty>
+                      </div>
+                      <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                        {item.details}
+                      </Texty>
+                    </div>
+
+                    <div style={{width:'100%',height:'3vh'}}></div>
+
+                    <div className='WorkshopTabContent-div'>
+                      <div className='WorkshopTabContent-div-title'>
+                        <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                          成就：
+                        </Texty>
+                      </div>
+                      <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
+                        {item.achi}
+                      </Texty>
+                    </div>
+                  </div>
+                  <div style={{width:'100vw',height:'3vh'}}></div>
                 </div>
-                <div style={{width:'100vw',height:'3vh'}}></div>
-
-                {/*下面的代码不写成组件的形式，是因为Texty在组件形式下会出错，因此牺牲了代码的优越性，此处代码重复度较高，现在未找到解决办法。 (～￣(OO)￣)ブ */}
-
-                <div className='WorkshopTabContent'>
-                  <div className='WorkshopTabContent-div'>
-                    <div className='WorkshopTabContent-div-title'>
-                      <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                        成立时间：
-                      </Texty>
-                    </div>
-                    <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                      {item.time}
-                    </Texty>
-                  </div>
-
-                  <div className='WorkshopTabContent-div'>
-                    <div className='WorkshopTabContent-div-title'>
-                      <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                        地点：
-                      </Texty>
-                    </div>
-                    <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                      {item.location}
-                    </Texty>
-                  </div>
-
-                  <div className='WorkshopTabContent-div'>
-                    <div className='WorkshopTabContent-div-title'>
-                      <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                        详情：
-                      </Texty>
-                    </div>
-                    <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                      {item.details}
-                    </Texty>
-                  </div>
-
-                  <div className='WorkshopTabContent-div'>
-                    <div className='WorkshopTabContent-div-title'>
-                      <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                        成就：
-                      </Texty>
-                    </div>
-                    <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                      {item.achi}
-                    </Texty>
-                  </div>
-                </div>
-                <div style={{width:'100vw',height:'3vh'}}></div>
-                <div className='WorkshopTabImage'>
-                  {
-                    item.url?
-                      <img src={require('../../JSON/GF/Images/'+item.url)} alt="工坊配图"/> : ''
-                  }
-                </div>
-              </div>
+              </LazyLoad>
               ))
           }
+          <div style={{width:'100vw',height:'5vh',backgroundImage:`url(${iage})`,backgroundSize:'100% 100%',marginTop:'-0.3vh'}}></div>
         </div>
       </div>
     );

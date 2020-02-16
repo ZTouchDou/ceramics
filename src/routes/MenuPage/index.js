@@ -1,4 +1,5 @@
 import React from 'react';
+import {Divider} from 'antd';
 import {withRouter} from "react-router-dom";
 import './index.css'
 import MenuTab from "../../components/MenuTab";
@@ -16,6 +17,7 @@ const pStyle = {
   lineHeight: '2vh',
   display: 'block',
   marginBottom: '4vh',
+
 };
 
 class MenuPage extends React.Component{
@@ -43,6 +45,7 @@ class MenuPage extends React.Component{
     return (
       <div>
         <p style={{ ...pStyle, marginBottom: 24 }}>菜单</p>
+        <Divider/>
         <MenuTab
           title='起源'
           content='介绍了陶瓷的起源。'

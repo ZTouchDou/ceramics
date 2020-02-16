@@ -1,11 +1,22 @@
 
 .WorkshopTabMenuTitle{
     width:100vw;
-    height:15vh;
-    background-color:#555555;
+    height:10vh;
+    background-image:url("../../Image/WorkshopTitle.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 0 1vmin 4vmin rgba(0,0,0,0.9);
     position:fixed;
     top:0;
     z-index:1000;
+}
+
+.WorkshopTabBox{
+    width:100vw;
+    background-image:url("../../Image/Workshopbox.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top:-0.3vh;
 }
 
 .WorkshopTabTitle{
@@ -16,45 +27,364 @@
     margin-left:5vw;
     padding-top:5vh;
     line-height:3vh;
-    color: rgba(255,255,255,0.85);
+    color: rgb(255, 136, 3);
 }
 
 .WorkshopTabContent{
-    width:90vw;
+    width:80%;
     font-size:4vmin;
     font-family:楷体;
-    margin-left:5vw;
+    margin-left:15%;
     line-height:4vh;
-    color: rgba(255,255,255,1);
+    margin-top:50%;
+    transform: translateY(-50%);
 }
+
 
 .WorkshopTabContent-div{
     font-size: 4vmin;
-    font-family:楷体;
     line-height: 4vh;
-    margin-bottom: 1vh;
-    color: rgba(255,255,255,0.85);
+    color: rgba(116,101,73,1);
 }
 
 .WorkshopTabContent-div-title{
     font-weight: bold;
     margin-right:1vw;
     display:inline-block;
+    border-bottom:1px solid rgba(160,146,131,0.85);
+}
+
+.WorkshopTabDetails{
+    width:85vw;
+    font-size:4vmin;
+    font-family:楷体;
+    margin-left:7.5vw;
+    line-height:4vh;
     color: rgba(255,255,255,1);
 }
 
 .WorkshopTabImage{
-    width:100vw;
-    height:25vh;
+    width:80%;
+    height:80%;
+    margin-top:10%;
 }
 
-.WorkshopTabImage img{
+/*菱形*/
+.WorkshopTabImage-img0{
+    width:100%;
+    height:100%;
+    animation: animate0 3s ease-out forwards;
+}
+
+/*长方形-菱形*/
+@keyframes animate0 {
+    from{
+        clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+    }
+}
+
+/*菱形-长方形*/
+.transition0{
     height:100%;
     width:100%;
+    animation: animateback0 1s ease-out forwards;
 }
 
-.ant-divider-horizontal-workshop{
-    height:0.4vh;
-    margin-left:4vw;
-    margin-top:-3vh;
+@keyframes animateback0 {
+    from{
+        clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+    }
+    to{
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+
+/*圆形*/
+.WorkshopTabImage-img1{
+    height:100%;
+    width:100%;
+    animation: animate1 3s ease-out forwards;
+}
+
+@keyframes animate1 {
+    from{
+        border-radius:0;
+    }
+    to{
+        border-radius:50%;
+    }
+}
+
+.transition1{
+    height:100%;
+    width:100%;
+    animation: animateback1 1s ease-out forwards;
+}
+
+@keyframes animateback1 {
+    from{
+        border-radius:50%;
+    }
+    to{
+        border-radius:0;
+    }
+}
+
+
+/*五角星*/
+.WorkshopTabImage-img2{
+    height:100%;
+    width:100%;
+    animation: animate2 3s ease-out forwards;
+}
+
+@keyframes animate2 {
+    from{
+        clip-path: polygon(50% 0,100% 0,100% 40%,100% 90%,100% 100%,50% 100%,0 100%,0 90%,0 40%,0 0);
+    }
+    to{
+        clip-path: polygon(50% 0,63% 40%,100% 40%,65% 65%,75% 100%,50% 80%,25% 100%,35% 65%,0 40%, 37% 40%);
+    }
+}
+
+.transition2{
+    height:100%;
+    width:100%;
+    animation: animateback2 1s ease-out forwards;
+}
+
+@keyframes animateback2 {
+    from{
+        clip-path: polygon(50% 0,63% 40%,100% 40%,65% 65%,75% 100%,50% 80%,25% 100%,35% 65%,0 40%, 37% 40%);
+    }
+    to{
+        clip-path: polygon(50% 0,100% 0,100% 40%,100% 90%,100% 100%,50% 100%,0 100%,0 90%,0 40%,0 0);
+    }
+}
+
+
+/*四边形*/
+.WorkshopTabImage-img3{
+    height:100%;
+    width:100%;
+    animation: animate3 3s ease-out forwards;
+}
+
+@keyframes animate3 {
+    from{
+        clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(50% 0,100% 0,50% 100%,0 100%);
+    }
+}
+
+.transition3{
+    height:100%;
+    width:100%;
+    animation: animateback3 1s ease-out forwards;
+}
+
+@keyframes animateback3 {
+    from{
+        clip-path: polygon(50% 0,100% 0,50% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+}
+
+
+/*四边形*/
+.WorkshopTabImage-img4{
+    height:100%;
+    width:100%;
+    animation: animate4 3s ease-out forwards;
+}
+
+@keyframes animate4 {
+    from{
+        clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(0 0,50% 0,100% 100%,50% 100%);
+    }
+}
+
+.transition4{
+    height:100%;
+    width:100%;
+    animation: animateback4 1s ease-out forwards;
+}
+
+@keyframes animateback4 {
+    from{
+        clip-path: polygon(0 0,50% 0,100% 100%,50% 100%);
+    }
+    to{
+        clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    }
+}
+
+
+/*钻石*/
+.WorkshopTabImage-img5{
+    height:100%;
+    width:100%;
+    animation: animate5 3s ease-out forwards;
+}
+
+@keyframes animate5 {
+    from{
+        clip-path: polygon(0 0,100% 0,100% 0,100% 100%,0 100%,0 0);
+    }
+    to{
+        clip-path: polygon(33% 0,66% 0,100% 30%,50% 100%,50% 100%,0 30%);
+    }
+}
+
+.transition5{
+    height:100%;
+    width:100%;
+    animation: animateback5 1s ease-out forwards;
+}
+
+@keyframes animateback5 {
+    from{
+        clip-path: polygon(33% 0,66% 0,100% 30%,50% 100%,50% 100%,0 30%);
+    }
+    to{
+        clip-path: polygon(0 0,100% 0,100% 0,100% 100%,0 100%,0 0);
+    }
+}
+
+
+/*蝙蝠*/
+.WorkshopTabImage-img6{
+    height:100%;
+    width:100%;
+    animation: animate6 3s ease-out forwards;
+}
+
+@keyframes animate6 {
+    from{
+        clip-path: polygon(0 0,12% 0,25% 0,50% 0,75% 0,88% 0,100% 0,100% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(0 0,12% 20%,25% 20%,50% 0,75% 20%,88% 20%,100% 0,90% 100%,10% 100%);
+    }
+}
+
+.transition6{
+    height:100%;
+    width:100%;
+    animation: animateback6 1s ease-out forwards;
+}
+
+@keyframes animateback6 {
+    from{
+        clip-path: polygon(0 0,12% 20%,25% 20%,50% 0,75% 20%,88% 20%,100% 0,90% 100%,10% 100%);
+    }
+    to{
+        clip-path: polygon(0 0,12% 0,25% 0,50% 0,75% 0,88% 0,100% 0,100% 100%,0 100%);
+    }
+}
+
+
+/*Victory*/
+.WorkshopTabImage-img7{
+    height:100%;
+    width:100%;
+    animation: animate7 3s ease-out forwards;
+}
+
+@keyframes animate7 {
+    from{
+        clip-path: polygon(0 0,50% 0,50% 0,50% 0,100% 0,100% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(0 0,25% 0,50% 50%,75% 0,100% 0,50% 100%,50% 100%);
+    }
+}
+
+.transition7{
+    height:100%;
+    width:100%;
+    animation: animateback7 1s ease-out forwards;
+}
+
+@keyframes animateback7 {
+    from{
+        clip-path: polygon(0 0,25% 0,50% 50%,75% 0,100% 0,50% 100%,50% 100%);
+    }
+    to{
+        clip-path: polygon(0 0,50% 0,50% 0,50% 0,100% 0,100% 100%,0 100%);
+    }
+}
+
+/*🐟*/
+.WorkshopTabImage-img8{
+    height:100%;
+    width:100%;
+    animation: animate8 3s ease-out forwards;
+}
+
+@keyframes animate8 {
+    from{
+        clip-path: polygon(0 0,50% 0,100% 0,100% 0,100% 100%,100% 100%,50% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(0 50%,80% 0,80% 40%,100% 25%,100% 75%,80% 60%,80% 100%,0 50%);
+    }
+}
+
+.transition8{
+    height:100%;
+    width:100%;
+    animation: animateback8 1s ease-out forwards;
+}
+
+@keyframes animateback8 {
+    from{
+        clip-path: polygon(0 50%,80% 0,80% 40%,100% 25%,100% 75%,80% 60%,80% 100%,0 50%);
+    }
+    to{
+        clip-path: polygon(0 0,50% 0,100% 0,100% 0,100% 100%,100% 100%,50% 100%,0 100%);
+    }
+}
+
+
+/*山水*/
+.WorkshopTabImage-img9{
+    height:100%;
+    width:100%;
+    animation: animate9 3s ease-out forwards;
+}
+
+@keyframes animate9 {
+    from{
+        clip-path: polygon(0 0,50% 0,50% 0,100% 0,100% 100%,50% 100%,50% 100%,0 100%);
+    }
+    to{
+        clip-path: polygon(15% 0,35% 0,50% 25%,100% 25%,85% 100%,65% 100%,50% 75%,0 75%);
+    }
+}
+
+.transition9{
+    height:100%;
+    width:100%;
+    animation: animateback9 1s ease-out forwards;
+}
+
+@keyframes animateback9 {
+    from{
+        clip-path: polygon(15% 0,35% 0,50% 25%,100% 25%,85% 100%,65% 100%,50% 75%,0 75%);
+    }
+    to{
+        clip-path: polygon(0 0,50% 0,50% 0,100% 0,100% 100%,50% 100%,50% 100%,0 100%);
+    }
 }
