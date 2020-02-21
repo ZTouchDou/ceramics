@@ -58,22 +58,9 @@
   width:15vmin;
 }
 
-.testContent{
-  display:inline-block;
-  font-size:4vmin;
-  color:black;
-  width:90%;
-  height:100%;
-  font-family: '楷体';
-  writing-mode:vertical-rl
-}
-.testTitle{
-  display:inline-block;
-  color:black;
-  font-size:6vmin;
-  font-weight: bold;
-  width:10%;
-  height:100%;
-  font-family: '楷体';
-  writing-mode:vertical-rl
+/*字体*/
+
+@font-face {
+  font-family: 方正楷体;
+  src: url("fonts/FZKaiTi.ttf");
 }

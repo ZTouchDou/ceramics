@@ -7,12 +7,14 @@ import image1 from '../../Image/MenuTabQY.jpg';
 import image2 from '../../Image/MenuTabTC.jpg';
 import image3 from '../../Image/MenuTabGF.jpg';
 import image4 from '../../Image/MenuTabGY.jpg';
+import config from '../../config.js';
 
+let fontName = config.fontName;
 //菜单页
 
 const pStyle = {
   fontSize: '8vmin',
-  fontFamily:'楷体',
+  fontFamily:fontName,
   color: 'rgba(0,0,0,0.85)',
   lineHeight: '2vh',
   display: 'block',

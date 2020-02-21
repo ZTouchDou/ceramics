@@ -40,8 +40,8 @@
 
 .bgimg{
     position:absolute;
-    width:85vw;
-    height:80vh;
+    width:70vw;
+    height:60vh;
     margin-left:2vw;
     clip-path:polygon(0 0,100% 12%,100% 88%,0 100%);
     background-size:100% 100%;
@@ -53,7 +53,7 @@
         opacity: 0;
     }
     to{
-        opacity:0.3;
+        opacity:0.2;
     }
 }
 

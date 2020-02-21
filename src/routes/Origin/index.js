@@ -3,6 +3,13 @@ import { Carousel, Modal } from 'antd';
 import MenuButton from "../../components/MenuButton";
 import QY from '../../JSON/QY/QY.json';
 import './index.css';
+import config from '../../config.js';
+
+const fontName = config.fontName;
+
+const font = {
+  fontFamily:fontName
+}
 
 class Origin extends React.Component{
   constructor(props) {
@@ -83,10 +90,10 @@ class Origin extends React.Component{
                     </div>
                   </div>
                   <div className='Origin-body-content2'>
-                    <div className='Origin-title'>
+                    <div className='Origin-title'style={{...font}}>
                       {item.title}
                     </div>
-                    <div className='Origin-content'>
+                    <div className='Origin-content' style={{...font}}>
                       {item.content}
                     </div>
                     <div className='Origin-button'>

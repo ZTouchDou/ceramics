@@ -8,7 +8,9 @@ import iag from '../../Image/Workshop.jpg';
 import iags from '../../Image/WorkshopStart.jpg';
 import iage from '../../Image/WorkshopEnd.jpg';
 import './index.css';
+import config from '../../config.js';
 
+const fontName = config.fontName;
 //工坊页面
 
 let number_of_animation = 10;
@@ -17,13 +19,16 @@ const pStyle = {
   width:'100vw',
   height:'5vh',
   fontSize:'9vmin',
-  fontFamily:'楷体',
+  fontFamily:fontName,
   paddingLeft:'5vw',
   lineHeight:'10vh',
   color: 'rgba(150,106,58,1)',
   textShadow:'1vmin 1vmin 1.5vmin rgba(150,106,58,1)'
 };
 
+const font = {
+  fontFamily: fontName
+}
 
 class Workshop extends React.Component{
   constructor(props) {
@@ -75,7 +80,7 @@ class Workshop extends React.Component{
             GF.map((item,index)=>(
               <LazyLoad height='50vh' key = {index}>
                 <div className='WorkshopTabBox' key = {index}>
-                  <div className='WorkshopTabTitle'>
+                  <div className='WorkshopTabTitle' style={{...font}}>
                     <Texty type='alpha' mode='sync' duration='4000'>
                       {item.name}
                     </Texty>
@@ -86,7 +91,7 @@ class Workshop extends React.Component{
 
                   <Row type="flex" >
                     <Col span={12}>
-                      <div className='WorkshopTabContent'>
+                      <div className='WorkshopTabContent' style={{...font}}>
                         <div className='WorkshopTabContent-div'>
                           <div className='WorkshopTabContent-div-title'>
                             <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
@@ -128,7 +133,7 @@ class Workshop extends React.Component{
                     </Col>
                   </Row>
 
-                  <div className='WorkshopTabDetails'>
+                  <div className='WorkshopTabDetails' style={{...font}}>
                     <div className='WorkshopTabContent-div'>
                       <div className='WorkshopTabContent-div-title'>
                         <Texty type='alpha' mode='smooth' duration='1000' interval='15'>

@@ -93,17 +93,16 @@
     height:15%;
     font-size:7vmin;
     font-style:italic;
-    font-family: 楷体;
 }
 
 .Origin-content{
     width:94%;
     height:70%;
     font-size:4.5vmin;
-    font-family: 楷体;
     margin-left:3%;
     line-height: 4vh;
     overflow:auto;
+    color:black;
 }
 
 .Origin-button{

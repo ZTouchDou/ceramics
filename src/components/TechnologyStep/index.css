@@ -1,0 +1,18 @@
+.Step-box{
+    width:90%;
+    height:100%;
+    margin-left:10%;
+}
+
+.Step-box div{
+    border-radius:50%;
+    width:3.5vmin;
+    height:3.5vmin;
+}
+
+.Step-content{
+    border-radius: 50%;
+    width:50%;
+    height:50%;
+    background-color: red;
+}

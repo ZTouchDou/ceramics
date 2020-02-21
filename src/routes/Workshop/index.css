@@ -23,7 +23,6 @@
     width:90vw;
     height:10vh;
     font-size:6vmin;
-    font-family:楷体;
     margin-left:5vw;
     padding-top:5vh;
     line-height:3vh;
@@ -33,7 +32,6 @@
 .WorkshopTabContent{
     width:80%;
     font-size:4vmin;
-    font-family:楷体;
     margin-left:15%;
     line-height:4vh;
     margin-top:50%;
@@ -57,7 +55,6 @@
 .WorkshopTabDetails{
     width:85vw;
     font-size:4vmin;
-    font-family:楷体;
     margin-left:7.5vw;
     line-height:4vh;
     color: rgba(255,255,255,1);

@@ -1,9 +1,12 @@
 import React from 'react';
 import {Col, Row, Divider} from 'antd';
+import config from '../../config.js';
+
+let fontName = config.fontName;
 
 const pStyle = {
   fontSize: '6vmin',
-  fontFamily:'楷体',
+  fontFamily:fontName,
   color: 'rgba(0,0,0,0.85)',
   lineHeight: '2vh',
   display: 'block',
@@ -14,7 +17,7 @@ const DescriptionItem = ({ title, content }) => (
   <div
     style={{
       fontSize: '5vmin',
-      fontFamily:'楷体',
+      fontFamily:fontName,
       lineHeight: '4vh',
       marginBottom: '1vh',
       color: 'rgba(0,0,0,0.65)',

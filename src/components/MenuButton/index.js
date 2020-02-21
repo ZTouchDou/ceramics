@@ -28,18 +28,19 @@ class MenuButton extends React.Component{
 
   render(){
     let {visible} = this.state;
-    let {color} = this.props;
+    let {color, direction} = this.props;
     return(
       <div>
-        <div style={{position:'absolute',left:'90vw',top:'3vh',width:'5vw',height:'8vw'}} onClick={this.showDrawer}>
+        <div style={{zIndex:10,position:'absolute',left:'90vw',top:'3vh',width:'5vw',height:'8vw'}} onClick={this.showDrawer}>
           <Icon type='unordered-list' style={{color:color?color:'black'}}></Icon>
         </div>
         <Drawer
-          placement="right"
+          placement={direction?direction:"right"}
           closable={true}
           onClose={this.onClose}
           visible={visible}
           width='100vw'
+          height='100vh'
         >
           <MenuPage/>
         </Drawer>

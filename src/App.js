@@ -5,10 +5,13 @@ import Animate from 'rc-animate';
 import Texty from 'rc-texty';
 import 'rc-texty/assets/index.css';
 import './App.css';
+import config from './config';
 
 //  Hi~ o(*￣▽￣*)ブ               Σ( ° △ °|||)︴
 //               釉见︿(￣︶￣)︿釉见
 //  o(*≧▽≦)ツ┏━┓           φ(≧ω≦*)♪
+
+const fontName = config.fontName;
 
 class App extends React.Component{
   constructor(props){
@@ -55,13 +58,13 @@ class App extends React.Component{
           transitionAppear
         >
           <header className="App-In">
-            <div style={{fontFamily:'楷体',fontSize:'9vmin',color:'white',position:'absolute',top:'22vh'}}>
+            <div style={{fontFamily:fontName,fontSize:'9vmin',color:'white',position:'absolute',top:'22vh'}}>
               <Texty type='alpha' mode='sync' duration='3000'>
                 釉见
               </Texty>
             </div>
             <div className="MenuTab">
-              <Button style={{height:'100%',width:'100%',fontSize:'3vmin',color:this.props.color,fontFamily:'楷体',fontWeight:'bold',border:'0.5vmin solid'}}
+              <Button style={{height:'100%',width:'100%',fontSize:'3vmin',color:this.props.color,fontFamily:fontName,fontWeight:'bold',border:'0.5vmin solid'}}
                       shape="circle"
                       ghost
                       onClick={this.handleClick}
@@ -73,7 +76,7 @@ class App extends React.Component{
             </div>
             <Icon type="stock" style={{fontSize: '5vmin'}}/>
             <br/>
-            <div style={{fontFamily:'楷体',fontSize:'3vmin',color:'white'}}>
+            <div style={{fontFamily:fontName,fontSize:'3vmin',color:'white'}}>
               <Texty type='alpha' mode='sync' duration='3000'>
                 大邑烧瓷轻且坚，扣如哀玉锦城传。
               </Texty>
