@@ -1,7 +1,7 @@
 [
   {
     "name": "Slide1",
-    "details": "这里还有一个问题，就在于给swiper-slide添加点击事件",
+    "details": "这里还有一个问题，谷歌点击事件跟swiper有冲突，刷新一下就好了，实机运行这个问题不存在。",
     "bgimg": "GF1.jpg"
   },
   {
