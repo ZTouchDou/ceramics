@@ -1,4 +1,8 @@
 @import '~antd/dist/antd.css';
+body{
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
 
 .App {
   text-align: center;

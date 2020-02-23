@@ -5,6 +5,7 @@ import 'swiper/css/swiper.min.css';
 import './index.css';
 import MenuButton from "../../components/MenuButton";
 import TechnologyStep from "../../components/TechnologyStep";
+import CloudModal from "../../components/CloudModal";
 import GY from '../../JSON/GY/GY.json';
 import config from '../../config.js';
 
@@ -19,7 +20,10 @@ class Technology extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      showTextLength:60//显示的字数，建议不大于72
+      showTextLength:60,//显示的字数，建议不大于72
+      modalshow:false,
+      dataItem:'',
+      menuShow:true
     }
   }
 
@@ -30,25 +34,24 @@ class Technology extends React.Component{
       speed: 600,
       autoplay:false,
       loop:false,
-
-      on:{
-        transitionEnd:t.onChange,
-      }
+      noSwiping : true,
     });
 
     //获取屏幕宽度和高度
     let windowWidth = document.querySelector('body').offsetWidth;
     let showTextLength = (windowWidth>992)?40:(windowWidth<=992&&windowWidth>=768)?45:60;
-    console.log("windowWidth:", windowWidth);
     this.setState({
       swiper,
       showTextLength
     })
   }
 
-  onChange = ()=>{
-
-  };
+  componentWillUnmount() {
+    let {timer} = this.state;
+    if(timer){
+      clearTimeout(timer);
+    }
+  }
 
   //跳转到制定页
   slideTo = (index)=>{
@@ -56,16 +59,49 @@ class Technology extends React.Component{
     swiper.slideTo(index-1);
   };
 
-  showDetails = ()=>{
-    alert('很抱歉，这个功能还没写哦٩(๑´0`๑)۶')
+  //详情
+  showDetails = (item)=>{
+    document.getElementById('swiper').setAttribute('class','swiper-container fullscreen swiper-no-swiping');
+    this.setState({
+      modalShow:true,
+      menuShow:false,
+      dataItem:item
+    })
   };
 
+  //关闭详情
+  closeDetails = ()=>{
+    let timer = setTimeout(this.closed,2000);
+    this.setState({
+      timer
+    })
+  };
+
+  closed = ()=>{
+    this.setState({
+      modalShow:false,
+      menuShow:true
+    },()=>{
+      document.getElementById('swiper').setAttribute('class','swiper-container fullscreen');
+    })
+  }
+
   render() {
-    let {showTextLength} = this.state;
+    let {showTextLength,modalShow,dataItem,menuShow} = this.state;
     return (
       <div className='Technology-box'>
-        <MenuButton direction='top'/>
-        <div className='swiper-container fullscreen'>
+        {
+          menuShow &&
+          <MenuButton direction='top'/>
+        }
+        <div className='swiper-container fullscreen' id='swiper'>
+          {
+            modalShow &&
+            <CloudModal
+              dataItem = {dataItem}
+              closeDetails = {this.closeDetails}
+            />
+          }
           <div className='bg' data-swiper-parallax="-23%" data-swiper-parallax-duration="3000"></div>
           <div className='swiper-wrapper fullscreen'>
             {
@@ -92,7 +128,7 @@ class Technology extends React.Component{
                             <div className="text" data-swiper-parallax="-300" data-swiper-parallax-duration="600" style={{...font}}>
                               <div>
                                 {item.text?item.text.slice(0,showTextLength):''}
-                                <div style={{color:'blue',display:'inline'}} onClick={this.showDetails}>
+                                <div style={{color:'blue',display:'inline'}} onClick={this.showDetails.bind(this,item)}>
                                   {(item.text&&item.text.length>showTextLength)?'...详情>>':''}
                                 </div>
                               </div>
