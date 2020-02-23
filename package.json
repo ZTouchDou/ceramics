@@ -5,11 +5,6 @@
   "homepage": ".",
   "dependencies": {
     "antd": "^3.19.0",
-    "babel-plugin-import": "^1.13.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-runtime": "^6.26.0",
-    "dva": "^1.2.1",
-    "dva-loading": "^0.2.1",
     "rc-animate": "^2.10.2",
     "rc-queue-anim": "^1.8.3",
     "rc-texty": "^0.2.0",
@@ -18,7 +13,7 @@
     "react-lazyload": "^2.6.5",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "3.3.0",
+    "react-scripts": "^3.3.0",
     "swiper": "^5.3.1"
   },
   "scripts": {
