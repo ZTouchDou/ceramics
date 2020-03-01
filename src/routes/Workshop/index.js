@@ -150,7 +150,6 @@ class Workshop extends React.Component{
                     <div className='WorkshopTabContent-div'>
                       <div className='WorkshopTabContent-div-title'>
                         <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                          成就：
                         </Texty>
                       </div>
                       <Texty type='alpha' mode='smooth' duration='1000' interval='15'>

@@ -40,15 +40,15 @@ class MenuTab extends React.Component{
     return (
       <div onClick={this.props.gotoTab}>
         <Row>
-          <Col span={12}>
+          <Col span={4}>
             <p style={pStyle}>{title}</p>
             <DescriptionItem content={content} />
           </Col>
-          <Col span={12}>
-            <div style={{height:'15vh'}}>
+          <Col span={23}>
+            <div style={{height:'20vh'}}>
               {
                 imgUrl ?
-                <img src={imgUrl} style={{width:'100%',height:'100%'}}/>:''
+                <img src={imgUrl} style={{width:'100%',height:'150%',borderRadius:'100'}} />:''
               }
             </div>
             <div style={{height:'5vh', fontSize:'3vmin',lineHeight:'3vh',fontStyle:'italic',marginTop:'2vh'}}>

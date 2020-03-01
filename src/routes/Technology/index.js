@@ -109,7 +109,7 @@ class Technology extends React.Component{
                 return(
                   <div className='swiper-slide' key={index}>
                     <div className='Technology-top' data-swiper-parallax="0" data-swiper-parallax-opacity="0.3">
-                      <img src={require('../../JSON/GF/Images/'+item.imgUrl)} alt="工序插图" className='Technology-img' data-swiper-parallax-scale="0.15"/>
+                      <img src={require('../../JSON/GY/Images/'+item.imgUrl)} alt="工序插图" className='Technology-img' data-swiper-parallax-scale="0.15"/>
                     </div>
                     <div className='Technology-bottom'>
                       <Row style={{height:'100%'}}>
