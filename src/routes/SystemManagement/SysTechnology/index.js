@@ -17,10 +17,8 @@ class SysTechnology extends React.Component{
           GY.map((item,index)=>{
             return (
               <InfoTab
-                title={item.title}
-                subtitle={item.subtitle}
-                content={item.text}
-                key={index}/>
+               item={item}
+               key={index}/>
             )
           })
         }

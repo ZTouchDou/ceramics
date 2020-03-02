@@ -42,7 +42,7 @@ class CloudModal extends React.Component{
             —— {dataItem?dataItem.subtitle:''}
           </div>
           <div className='cloudcontent-text' style={{...font}}>
-            {dataItem?dataItem.text:''}
+            {dataItem?dataItem.content:''}
           </div>
         </div>
         <div className='cloud' id='cloud'>

@@ -1,7 +1,7 @@
 import React from 'react';
 import InfoTab from "../../../components/InfoTab";
 import QY from '../../../JSON/QY/QY.json';
-import { Menu} from 'antd';
+import config from "../../../config";
 
 class SysOrigin extends React.Component{
   constructor(props) {
@@ -12,15 +12,31 @@ class SysOrigin extends React.Component{
   }
 
   render() {
+    const resource =[
+      {
+        title:'标题',
+        label:'title',
+        type:'input',
+        rules: config.reg.required
+      },
+      {
+        title:'内容',
+        label:'content',
+        type:'textarea',
+        rules: config.reg.required
+      }
+    ];
+
     return (
       <div>
         {
           QY.map((item,index)=>{
             return (
               <InfoTab
-                title={item.title}
-                content={item.content}
-                key={index}/>
+                item={item}
+                key={index}
+                resource={resource}
+              />
             )
           })
         }

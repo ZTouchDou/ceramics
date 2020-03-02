@@ -17,8 +17,7 @@ class SysCeramicsShow extends React.Component{
           TC.map((item,index)=>{
             return (
               <InfoTab
-                title={item.name}
-                content={item.details}
+                item={item}
                 key={index}/>
             )
           })
