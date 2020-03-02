@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Input} from 'antd';
+import {Modal, Form, Input, DatePicker} from 'antd';
 
 const {TextArea} = Input;
 
@@ -29,10 +29,12 @@ class MyModal extends React.Component{
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    let {visible, resource} = this.props;
+    let {visible, resource, modalTitle} = this.props;
     return (
       <Modal
+        title={modalTitle}
         visible={visible}
+        destroyOnClose={true}
         okText='确定'
         cancelText='取消'
         onOk={this.handleOk}
@@ -42,19 +44,42 @@ class MyModal extends React.Component{
           {
             resource &&
               resource.map((item,index)=>(
+                item.type==='input' ?
                 <Form.Item label={item.title} key={index}>
                   {getFieldDecorator(item.label, {
-                    rules: [item.rules?item.rules:'']
+                    rules: [item.rules?item.rules:''],
+                    initialValue:item.initialValue?item.initialValue:''
                   })
                     (
-                      item.type==='input' ?
-                      <Input className='input'/>:
-                      item.type==='textarea'?
-                      <TextArea style={{height:'20vh'}}/>:
-                        ''
+                      <Input className='input'/>
                     )
                   }
-                </Form.Item>
+                </Form.Item>:
+
+                item.type==='textarea'?
+                  <Form.Item label={item.title} key={index}>
+                    {getFieldDecorator(item.label, {
+                      rules: [item.rules?item.rules:''],
+                      initialValue:item.initialValue?item.initialValue:''
+                    })
+                    (
+                      <TextArea style={{height:'20vh'}}/>
+                    )
+                    }
+                  </Form.Item>:
+
+                item.type==='datePicker'?
+                  <Form.Item label={item.title} key={index}>
+                    {getFieldDecorator(item.label, {
+                      rules: [item.rules?item.rules:''],
+                      initialValue:item.initialValue?item.initialValue:''
+                    })
+                    (
+                      <DatePicker/>
+                    )
+                    }
+                  </Form.Item>:
+                  ''
               ))
           }
         </Form>

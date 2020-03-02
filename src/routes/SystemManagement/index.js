@@ -15,7 +15,7 @@ class SystemManagement extends React.Component{
     super(props);
     this.state={
       visible: false,
-      menuKey:1
+      menuKey:1,
     }
   }
 
@@ -75,8 +75,9 @@ class SystemManagement extends React.Component{
               </Content>
             </Layout>
           </Content>
-          {/*<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>*/}
         </Layout>
+
+
       </div>
     );
   }
