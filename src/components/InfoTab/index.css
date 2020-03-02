@@ -1,0 +1,35 @@
+.InfoTab-box{
+    width:90vw;
+    height:25vh;
+    margin-left:5vw;
+    background-color: white;
+    border-radius: 5%;
+    margin-bottom:3vh;
+}
+
+.InfoTab-title{
+    width:80%;
+    height:30%;
+    font-size:6vmin;
+    padding:1vh 3vw;
+    border-radius: 5%;
+}
+
+.InfoTab-subtitle{
+    width:80%;
+    height:15%;
+    font-style: italic;
+    font-size:4vmin;
+    padding-left:3vw;
+    padding-right:3vw;
+    border-radius: 5%;
+}
+
+.InfoTab-content{
+    width:100%;
+    font-size:4vmin;
+    padding-left:3vw;
+    padding-right:3vw;
+    border-radius: 5%;
+    overflow:hidden;
+}

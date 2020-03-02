@@ -7,6 +7,7 @@ import image1 from '../../Image/7.jpg';
 import image2 from '../../Image/6.jpg';
 import image3 from '../../Image/8.jpg';
 import image4 from '../../Image/10.jpg';
+import image5 from '../../Image/1.jpg';
 import config from '../../config.js';
 
 let fontName = config.fontName;
@@ -40,6 +41,8 @@ class MenuPage extends React.Component{
       this.props.history.push('/Technology');
     }else if(type==='GF'){
       this.props.history.push('/Workshop');
+    }else if(type==='XT'){
+      this.props.history.push('/SystemManagement');
     }
   };
 
@@ -72,6 +75,13 @@ class MenuPage extends React.Component{
           title='工坊'
           gotoTab={this.gotoTab.bind(this,'GF')}
           imgUrl={image4}
+
+          divider={true}
+        />
+        <MenuTab
+          title='管理'
+          gotoTab={this.gotoTab.bind(this,'XT')}
+          imgUrl={image5}
 
           divider={false}
         />

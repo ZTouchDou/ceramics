@@ -1,0 +1,19 @@
+.header{
+    width:100vw;
+    height:10vh;
+    padding:0;
+}
+
+.ant-s-menu{
+    width:100vw;
+    height:10vh;
+    display: flex;
+}
+
+.ant-s-submenu{
+    width:18vw;
+}
+
+.ant-layout-content{
+    padding:0 !important;
+}
