@@ -8,20 +8,20 @@ import image2 from '../../Image/6.jpg';
 import image3 from '../../Image/8.jpg';
 import image4 from '../../Image/10.jpg';
 import image5 from '../../Image/1.jpg';
-import config from '../../config.js';
+// import config from '../../config.js';
 
-let fontName = config.fontName;
+// let fontName = config.fontName;
 //菜单页
 
-const pStyle = {
-  fontSize: '8vmin',
-  fontFamily:fontName,
-  color: 'rgba(0,0,0,0.85)',
-  lineHeight: '1vh',
-  display: 'block',
-  marginBottom: '0vh',
-
-};
+// const pStyle = {
+//   fontSize: '8vmin',
+//   fontFamily:fontName,
+//   color: 'rgba(0,0,0,0.85)',
+//   lineHeight: '1vh',
+//   display: 'block',
+//   marginBottom: '0vh',
+//
+// };
 
 class MenuPage extends React.Component{
   constructor(props){

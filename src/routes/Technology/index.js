@@ -28,7 +28,6 @@ class Technology extends React.Component{
   }
 
   componentDidMount() {
-    let t = this;
     let swiper = new Swiper('.swiper-container',{
       parallax: true,
       speed: 600,

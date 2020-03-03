@@ -1,14 +1,14 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb,Drawer } from 'antd';
+import { Layout, Menu } from 'antd';
 import './index.css';
 import MenuButton from "../../components/MenuButton";
 import SysOrigin from "./SysOrigin";
 import SysCeramicsShow from "./SysCeramicsShow";
 import SysTechnology from "./SysTechnology";
 import SysWorkshop from "./SysWorkshop";
+import SysPageManagement from "./SysPageManagement";
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Header, Content } = Layout;
 
 class SystemManagement extends React.Component{
   constructor(props) {
@@ -49,11 +49,6 @@ class SystemManagement extends React.Component{
             </Menu>
           </Header>
           <Content style={{ padding: '0 50px' }}>
-            {/*<Breadcrumb style={{ margin: '16px 0' }}>*/}
-            {/*  <Breadcrumb.Item>Home</Breadcrumb.Item>*/}
-            {/*  <Breadcrumb.Item>List</Breadcrumb.Item>*/}
-            {/*  <Breadcrumb.Item>App</Breadcrumb.Item>*/}
-            {/*</Breadcrumb>*/}
             <Layout className="site-layout-background" style={{ padding: '4vh 0' }}>
               <Content style={{height:'82vh',overflow:'auto'}}>
                 {
@@ -72,12 +67,14 @@ class SystemManagement extends React.Component{
                   menuKey===4&&
                   <SysWorkshop/>
                 }
+                {
+                  menuKey===5&&
+                  <SysPageManagement/>
+                }
               </Content>
             </Layout>
           </Content>
         </Layout>
-
-
       </div>
     );
   }

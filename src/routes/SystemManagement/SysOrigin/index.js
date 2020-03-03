@@ -18,20 +18,31 @@ class SysOrigin extends React.Component{
 
   //显示弹框
   showModal = (item,type)=>{
+    let {title, content}=this.state;
     if(type==='修改'){
-      this.setState({
-        modalTitle:type,
-        title:item.title,
-        content:item.content,
-        modalShow: true,
-      });
+      title=item.title;
+      content=item.content;
     }else if(type==='新增'){
-
+      title='';
+      content='';
     }
+    this.setState({
+      modalTitle:type,
+      title,
+      content,
+      modalShow: true,
+    })
   };
 
   //点击确定
   handleOk = e => {
+    let {modalTitle} = this.state;
+    //如果是修改，调用修改的接口，否则调用新增接口
+    if(modalTitle==='修改'){
+      console.log("这是修改");
+    }else{
+      console.log("这是新增");
+    }
     this.setState({
       modalShow: false,
     });
@@ -82,7 +93,7 @@ class SysOrigin extends React.Component{
           onCancel={this.handleCancel}
           resource={resource}
         />
-        <SysAddButton/>
+        <SysAddButton color='#1890FF' showModal={this.showModal.bind(this,'','新增')}/>
       </div>
     );
   }

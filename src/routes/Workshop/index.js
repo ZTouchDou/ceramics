@@ -1,10 +1,9 @@
 import React from 'react';
-import {Divider, Col, Row} from 'antd';
+import {Col, Row} from 'antd';
 import LazyLoad from 'react-lazyload';
 import GF from '../../JSON/GF/GF.json';
 import Texty from 'rc-texty';
 import MenuButton from "../../components/MenuButton";
-import iag from '../../Image/Workshop.jpg';
 import iags from '../../Image/WorkshopStart.jpg';
 import iage from '../../Image/WorkshopEnd.jpg';
 import './index.css';

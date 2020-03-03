@@ -1,6 +1,5 @@
 import React from 'react';
 import {Icon} from 'antd';
-import cloudimg from '../../Image/cloud.png'
 import './index.css'
 import config from '../../config.js';
 

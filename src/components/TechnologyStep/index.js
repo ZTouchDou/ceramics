@@ -1,5 +1,4 @@
 import React from 'react';
-import {Row, Col} from 'antd';
 import './index.css';
 
 const color1='#ff0000';
@@ -9,32 +8,13 @@ class TechnologyStep extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      modal:['','','']
     }
   }
 
   render() {
-    let {modal} = this.state;
     let {keyNumber,slideTo} = this.props;
     return (
       <div className='Step-box'>
-        {/*{*/}
-        {/*  modal.map((index)=>{*/}
-        {/*    return(*/}
-        {/*      <Row>*/}
-        {/*        {*/}
-        {/*          modal.map((item,i)=>(*/}
-        {/*            <Col span={24/modal.length} key={i+index*modal.length+1}>*/}
-        {/*              <div className='Step-content'>*/}
-        {/*                {i+index*modal.length+1}*/}
-        {/*              </div>*/}
-        {/*            </Col>*/}
-        {/*          ))*/}
-        {/*        }*/}
-        {/*      </Row>*/}
-        {/*    )*/}
-        {/*  })*/}
-        {/*}*/}
         <div
           style={{marginTop:'-3vh',marginLeft:'10vw',
           backgroundColor:`${(keyNumber&&keyNumber>=1)?color1:color2}`}}
@@ -96,7 +76,6 @@ class TechnologyStep extends React.Component{
           backgroundColor:`${(keyNumber&&keyNumber>=9)?color1:color2}`}}
           onClick={slideTo.bind(this,9)}
         >
-
         </div>
       </div>
     );

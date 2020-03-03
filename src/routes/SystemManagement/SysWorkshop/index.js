@@ -21,19 +21,27 @@ class SysWorkshop extends React.Component{
 
   //显示弹框
   showModal = (item,type)=>{
-    let time = moment(item.time);
+    let {title, time, location, content} = this.state;
+    let newtime = moment(item.time);
     if(type==='修改'){
-      this.setState({
-        modalTitle:type,
-        title:item.title,
-        time:time,
-        location:item.location,
-        content:item.content,
-        modalShow: true,
-      });
+      title=item.title;
+      time=newtime;
+      location=item.location;
+      content=item.content;
     }else if(type==='新增'){
-
+      title='';
+      time=moment();
+      location='';
+      content='';
     }
+    this.setState({
+      modalTitle:type,
+      title,
+      time,
+      location,
+      content,
+      modalShow: true,
+    });
   };
 
   //点击确定
@@ -102,7 +110,7 @@ class SysWorkshop extends React.Component{
           onCancel={this.handleCancel}
           resource={resource}
         />
-        <SysAddButton color='red'/>
+        <SysAddButton color='red' showModal={this.showModal.bind(this,'','新增')}/>
       </div>
     );
   }

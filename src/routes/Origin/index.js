@@ -73,19 +73,19 @@ class Origin extends React.Component{
                     <div className='Origin-body-image1'>
                       {
                         item.pic2?
-                          <img src={require('../../JSON/QY/Images/'+item.pic2)} className='O_image1' onClick={this.modalShow.bind(this,item.pic2)}/>:''
+                          <img alt='起源配图' src={require('../../JSON/QY/Images/'+item.pic2)} className='O_image1' onClick={this.modalShow.bind(this,item.pic2)}/>:''
                       }
                     </div>
                     <div className='Origin-body-image2'>
                       {
                         item.pic1?
-                          <img src={require('../../JSON/QY/Images/'+item.pic1)} className='O_image2' onClick={this.modalShow.bind(this,item.pic1)}/>:''
+                          <img alt='起源配图' src={require('../../JSON/QY/Images/'+item.pic1)} className='O_image2' onClick={this.modalShow.bind(this,item.pic1)}/>:''
                       }
                     </div>
                     <div className='Origin-body-image3'>
                       {
                         item.pic3?
-                          <img src={require('../../JSON/QY/Images/'+item.pic3)} className='O_image3' onClick={this.modalShow.bind(this,item.pic3)}/>:''
+                          <img alt='起源配图' src={require('../../JSON/QY/Images/'+item.pic3)} className='O_image3' onClick={this.modalShow.bind(this,item.pic3)}/>:''
                       }
                     </div>
                   </div>
