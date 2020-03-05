@@ -4,7 +4,6 @@ import './index.css';
 import userimg from '../../Image/5.jpg'
 import TC from '.././../JSON/TC/TC.json';
 import MenuButton from "../../components/MenuButton";
-import InfoTab from "../../components/InfoTab";
 
 const { Header, Content } = Layout;
 
