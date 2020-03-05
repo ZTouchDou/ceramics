@@ -41,6 +41,8 @@ class MenuPage extends React.Component{
       this.props.history.push('/Technology');
     }else if(type==='GF'){
       this.props.history.push('/Workshop');
+    }else if(type==='SQ'){
+      this.props.history.push('/Community');
     }else if(type==='XT'){
       this.props.history.push('/SystemManagement');
     }
@@ -75,6 +77,13 @@ class MenuPage extends React.Component{
           title='工坊'
           gotoTab={this.gotoTab.bind(this,'GF')}
           imgUrl={image4}
+
+          divider={true}
+        />
+        <MenuTab
+          title='社区'
+          gotoTab={this.gotoTab.bind(this,'SQ')}
+          imgUrl={image5}
 
           divider={true}
         />

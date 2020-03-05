@@ -1,0 +1,48 @@
+.ComSC-box {
+    width:100vw;
+    height:100vh;
+    background-color:#292D35;
+}
+
+.ComSC-tab{
+    width:100vw;
+    display:flex;
+}
+
+.ComSC-nameplate{
+    width:35vw;
+    height:40vh;
+    margin-left:-40vw;
+    background-color: #000c17;
+    opacity: 0.5;
+    color:white;
+    font-weight:bold;
+    text-align: center;
+    font-size:3vmin;
+    overflow: hidden;
+    clip-path: polygon(0% 0%,100% 0%,100% 80%,50% 100%,0% 80%);
+}
+
+.ComSC-head{
+    width:17vw;
+    margin-left:9vw;
+    height:10vh;
+}
+
+.ComSC-name{
+    width:90%;
+    margin-left:5%;
+    height:3vh;
+    margin-top:1vh;
+}
+
+.ComSC-description{
+    width:90%;
+    margin-top:1vh;
+    height:14vh;
+    margin-left:5%;
+    text-align: center;
+    writing-mode: vertical-rl;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
+    writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+    word-wrap: break-word;/*英文的时候需要加上这句，自动换行*/
+}

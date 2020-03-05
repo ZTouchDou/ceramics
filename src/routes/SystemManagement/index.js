@@ -10,6 +10,8 @@ import SysPageManagement from "./SysPageManagement";
 
 const { Header, Content } = Layout;
 
+const { SubMenu } = Menu;
+
 class SystemManagement extends React.Component{
   constructor(props) {
     super(props);
@@ -45,7 +47,16 @@ class SystemManagement extends React.Component{
               <Menu.Item className='ant-s-submenu' key="2" onClick={this.changeMenu.bind(this,2)}>陶瓷</Menu.Item>
               <Menu.Item className='ant-s-submenu' key="3" onClick={this.changeMenu.bind(this,3)}>工艺</Menu.Item>
               <Menu.Item className='ant-s-submenu' key="4" onClick={this.changeMenu.bind(this,4)}>工坊</Menu.Item>
-              <Menu.Item className='ant-s-submenu' key="5" onClick={this.changeMenu.bind(this,5)}>页面</Menu.Item>
+              <Menu.Item className='ant-s-submenu' key="5" onClick={this.changeMenu.bind(this,5)}>页面管理</Menu.Item>
+              <SubMenu
+                key="sub1"
+                title='社区管理'
+              >
+                <Menu.Item key="1">option1</Menu.Item>
+                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="3">option3</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item>
+              </SubMenu>
             </Menu>
           </Header>
           <Content style={{ padding: '0 50px' }}>
