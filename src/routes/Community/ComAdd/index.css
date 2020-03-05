@@ -1,0 +1,68 @@
+.ComAdd-box{
+    width:100vw;
+    height:100vh;
+    background-color: #eeeeee;
+}
+
+.ComAdd-header{
+    width:100vw;
+    height:10vh;
+    display: flex;
+    font-size:4vmin;
+    background-color: white;
+    border-bottom:1px solid #ccc;
+}
+
+.ComAdd-headerL{
+    width:20%;
+    height:10vh;
+    text-align:center;
+    line-height:10vh;
+}
+
+.ComAdd-headerC{
+    width:60%;
+    height:10vh;
+    text-align:center;
+    line-height:10vh;
+}
+
+.ComAdd-submit{
+    width:20%;
+    height:10vh;
+    text-align:center;
+    line-height:10vh;
+    color:#478CFF;
+}
+
+.ComAdd-body{
+    width:100vw;
+    height:90vh;
+    background-color: white;
+}
+
+.ComAdd-title{
+    width:100vw;
+    height:5vh;
+}
+
+.ComAdd-content{
+    width:100vw;
+    height:20vh;
+    padding:2vh 2vw;
+    overflow: auto;
+}
+
+.ComAdd-content:empty:before{
+    content: attr(placeholder);
+    color:#bbb;
+}
+.ComAdd-content:focus:before{
+    content:none;
+}
+
+.ComAdd-image{
+    width:100vw;
+    height:20vh;
+    padding:2vh 2vw;
+}

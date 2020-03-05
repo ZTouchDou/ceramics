@@ -1,13 +1,15 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb,Drawer } from 'antd';
+import { Layout, Menu } from 'antd';
 import './index.css';
 import MenuButton from "../../components/MenuButton";
 import SysOrigin from "./SysOrigin";
 import SysCeramicsShow from "./SysCeramicsShow";
 import SysTechnology from "./SysTechnology";
 import SysWorkshop from "./SysWorkshop";
+import SysPageManagement from "./SysPageManagement";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
+
 const { SubMenu } = Menu;
 
 class SystemManagement extends React.Component{
@@ -15,7 +17,7 @@ class SystemManagement extends React.Component{
     super(props);
     this.state={
       visible: false,
-      menuKey:1
+      menuKey:1,
     }
   }
 
@@ -45,15 +47,19 @@ class SystemManagement extends React.Component{
               <Menu.Item className='ant-s-submenu' key="2" onClick={this.changeMenu.bind(this,2)}>陶瓷</Menu.Item>
               <Menu.Item className='ant-s-submenu' key="3" onClick={this.changeMenu.bind(this,3)}>工艺</Menu.Item>
               <Menu.Item className='ant-s-submenu' key="4" onClick={this.changeMenu.bind(this,4)}>工坊</Menu.Item>
-              <Menu.Item className='ant-s-submenu' key="5" onClick={this.changeMenu.bind(this,5)}>页面</Menu.Item>
+              <Menu.Item className='ant-s-submenu' key="5" onClick={this.changeMenu.bind(this,5)}>页面管理</Menu.Item>
+              <SubMenu
+                key="sub1"
+                title='社区管理'
+              >
+                <Menu.Item key="1">option1</Menu.Item>
+                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="3">option3</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item>
+              </SubMenu>
             </Menu>
           </Header>
           <Content style={{ padding: '0 50px' }}>
-            {/*<Breadcrumb style={{ margin: '16px 0' }}>*/}
-            {/*  <Breadcrumb.Item>Home</Breadcrumb.Item>*/}
-            {/*  <Breadcrumb.Item>List</Breadcrumb.Item>*/}
-            {/*  <Breadcrumb.Item>App</Breadcrumb.Item>*/}
-            {/*</Breadcrumb>*/}
             <Layout className="site-layout-background" style={{ padding: '4vh 0' }}>
               <Content style={{height:'82vh',overflow:'auto'}}>
                 {
@@ -72,10 +78,13 @@ class SystemManagement extends React.Component{
                   menuKey===4&&
                   <SysWorkshop/>
                 }
+                {
+                  menuKey===5&&
+                  <SysPageManagement/>
+                }
               </Content>
             </Layout>
           </Content>
-          {/*<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>*/}
         </Layout>
       </div>
     );

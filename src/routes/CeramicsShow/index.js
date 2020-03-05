@@ -81,9 +81,9 @@ class CeramicsShow extends React.Component{
               {
                 TC.map((item,index)=>{
                   return(
-                    <div className='swiper-slide' key={index} data-bgimg={item.bgimg} data-name={item.name}>
-                      <div  className='swiperTitle'>{item.name}</div>
-                      <div className='swiperContent'>{item.details}</div>
+                    <div className='swiper-slide' key={index} data-bgimg={item.imgUrl} data-name={item.title}>
+                      <div className='swiperTitle'>{item.title}</div>
+                      <div className='swiperContent'>{item.content}</div>
                     </div>
                   )
                 })

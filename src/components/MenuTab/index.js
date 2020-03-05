@@ -47,7 +47,7 @@ class MenuTab extends React.Component{
             <div style={{height:'20vh'}}>
               {
                 imgUrl ?
-                <img src={imgUrl} style={{width:'100%',height:'150%',borderRadius:'100'}} />:''
+                <img src={imgUrl} style={{width:'100%',height:'150%',borderRadius:'100'}} alt='菜单配图'/>:''
               }
             </div>
             <div style={{height:'5vh', fontSize:'3vmin',lineHeight:'3vh',fontStyle:'italic',marginTop:'2vh'}}>

@@ -1,10 +1,9 @@
 import React from 'react';
-import {Divider, Col, Row} from 'antd';
+import {Col, Row} from 'antd';
 import LazyLoad from 'react-lazyload';
 import GF from '../../JSON/GF/GF.json';
 import Texty from 'rc-texty';
 import MenuButton from "../../components/MenuButton";
-import iag from '../../Image/Workshop.jpg';
 import iags from '../../Image/WorkshopStart.jpg';
 import iage from '../../Image/WorkshopEnd.jpg';
 import './index.css';
@@ -82,7 +81,7 @@ class Workshop extends React.Component{
                 <div className='WorkshopTabBox' key = {index}>
                   <div className='WorkshopTabTitle' style={{...font}}>
                     <Texty type='alpha' mode='sync' duration='4000'>
-                      {item.name}
+                      {item.title}
                     </Texty>
                   </div>
                   <div style={{width:'100vw',height:'3vh'}}></div>
@@ -120,10 +119,10 @@ class Workshop extends React.Component{
                     <Col span={12}>
                       <div className='WorkshopTabImage'>
                         {
-                          item.url?
+                          item.imgUrl?
                             <img
                               id={`img-${index}`}
-                              src={require('../../JSON/GF/Images/'+item.url)}
+                              src={require('../../JSON/GF/Images/'+item.imgUrl)}
                               alt="工坊配图"
                               className={`WorkshopTabImage-img${index%number_of_animation}`}
                               onClick={this.showPicture}
@@ -141,7 +140,7 @@ class Workshop extends React.Component{
                         </Texty>
                       </div>
                       <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                        {item.details}
+                        {item.content}
                       </Texty>
                     </div>
 

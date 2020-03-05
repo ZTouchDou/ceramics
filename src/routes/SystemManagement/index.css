@@ -5,13 +5,13 @@
 }
 
 .ant-s-menu{
-    width:100vw;
+    width:95vw;
     height:10vh;
     display: flex;
 }
 
 .ant-s-submenu{
-    width:18vw;
+
 }
 
 .ant-layout-content{

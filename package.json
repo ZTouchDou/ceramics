@@ -5,6 +5,7 @@
   "homepage": ".",
   "dependencies": {
     "antd": "^3.19.0",
+    "moment": "^2.24.0",
     "rc-animate": "^2.10.2",
     "rc-queue-anim": "^1.8.3",
     "rc-texty": "^0.2.0",

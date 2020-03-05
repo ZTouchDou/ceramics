@@ -1,0 +1,164 @@
+.Community-box{
+    width:100vw;
+    height:100vh;
+
+}
+
+.bgColor{
+    background-color: white;
+}
+
+.Community-header{
+    width:100%;
+    height:9vh;
+    font-size:5vmin;
+    line-height:9vh;
+    padding-left:7vw;
+    position: fixed;
+    background-color: white;
+    top:0;
+    z-index:9;
+    border-bottom:1px solid #ccc;
+    box-shadow:0vmin 0vmin 3vmin 0.5vmin #eee;
+}
+
+.Community-body{
+    width:100vw;
+    height:100vh;
+    overflow: auto;
+    padding-top:9vh;
+    background-image: url("../../Image/CB.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.Community-content{
+    width:100vw;
+    height:60vh;
+    padding-top:3vh;
+}
+
+.Community-title{
+    width:100vw;
+    height:4vh;
+    padding-left:4vh;
+    margin-bottom:3vh;
+    font-size:5vmin;
+    font-weight:bold;
+}
+
+.Community-body-tab{
+    width:90%;
+    height:90%;
+    margin-left:5%;
+    margin-top:5%;
+    /*font-size:8vmin;*/
+    color:white;
+}
+
+.gradient1{
+    background-image: linear-gradient(#007CFF, #00DAFF);
+}
+
+.gradient2{
+    background-image: linear-gradient(#ff0000, #e6b2c6);
+}
+
+.tab-img{
+    width:100%;
+    height:45%;
+}
+
+.tab-body{
+    width:100%;
+    height:40%;
+    padding:2% 8%;
+}
+
+.tab-action{
+    width:100%;
+    height:15%;
+    font-size:3.7vmin;
+    background-color: #FAFAFA;
+    color:#A9A9A9;
+}
+
+.Community-book{
+    width:92vw;
+    height:25vh;
+    margin-left:4vw;
+    margin-bottom:10vh;
+}
+
+.ant-carousel-Community{
+    width:100%;
+    height:25vh;
+}
+
+.Community-MyHome{
+    width:100vw;
+    height:89vh;
+}
+
+.Community-MyHome-baseInfo{
+    width:100%;
+    height:15vh;
+    margin-bottom:2vh;
+}
+
+.Community-user{
+    width:25vmin;
+    height:25vmin;
+    margin-left:5vw;
+}
+
+.Community-user-image{
+    width:100%;
+    height:100%;
+    border-radius: 50%;
+}
+
+.Community-user-Info{
+    height:25vmin;
+    padding-left:2vw;
+}
+
+.Community-user-name{
+    font-size:4.5vmin;
+}
+
+.Community-user-id{
+    font-size:2vmin;
+    font-style:italic;
+}
+
+.Community-MyHome-invInfo{
+    width:100%;
+    height:65vh;
+}
+
+.header{
+    width:100vw;
+    height:10vh;
+    padding:0;
+}
+
+.ant-c-layout{
+    width:100%;
+    height:100%;
+}
+
+.ant-c-menu{
+    width:100vw;
+    height:10vh;
+    display: flex;
+}
+.ant-c-submenu{
+    width:25%;
+    padding-left:8.5%;
+}
+
+.ant-layout-content{
+    height:57vh;
+    padding:0 !important;
+}
