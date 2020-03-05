@@ -2,7 +2,9 @@ import React from 'react';
 import {Divider,Layout, Menu,Col,Row,Carousel} from 'antd';
 import './index.css';
 import userimg from '../../Image/5.jpg'
+import TC from '.././../JSON/TC/TC.json';
 import MenuButton from "../../components/MenuButton";
+import InfoTab from "../../components/InfoTab";
 
 const { Header, Content } = Layout;
 
@@ -14,11 +16,18 @@ class Community extends React.Component{
     }
   }
 
+  //游览
   gotoVisit=(type)=>{
     if(type==='SC'){
       this.props.history.push('/Community/ComSC');
     }
   };
+
+  //发布
+  gotoAdd=(type)=>{
+    sessionStorage.setItem('AddType',type);
+    this.props.history.push('/Community/ComAdd');
+  }
 
   render() {
     return (
@@ -38,7 +47,7 @@ class Community extends React.Component{
                   <div className='tab-img'>
                     <img
                       style={{width:'100%',height:'100%'}}
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                      src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
                       alt="example"
                     />
                   </div>
@@ -53,7 +62,10 @@ class Community extends React.Component{
                   <div className='tab-action'>
                     <Row style={{height:'100%'}}>
                       <Col span={11} style={{height:'100%'}}>
-                        <div style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
+                        <div
+                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
+                          onClick={this.gotoAdd.bind(this,'JC')}
+                        >
                           发布
                         </div>
                       </Col>
@@ -87,7 +99,10 @@ class Community extends React.Component{
                   <div className='tab-action'>
                     <Row style={{height:'100%'}}>
                       <Col span={11} style={{height:'100%'}}>
-                        <div style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
+                        <div
+                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
+                          onClick={this.gotoAdd.bind(this,'SC')}
+                        >
                           发布
                         </div>
                       </Col>
@@ -175,17 +190,25 @@ class Community extends React.Component{
                     defaultSelectedKeys={['1']}
                     style={{ lineHeight: '10vh' }}
                   >
-                    <Menu.Item className='ant-c-submenu' key="1" >我的帖子</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="2" >我的收藏</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="3" >我的瓷片</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="1" >帖子</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="2" >晒瓷</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="3" >评论</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="4" >瓷片</Menu.Item>
                   </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
                   <Layout className="site-layout-background " style={{height:'54.5vh', padding: '4vh 0' }}>
                     <Content style={{overflow:'auto'}}>
-                      <div style={{width:'24vw',fontSize:'6vmin',opacity:'0.7',marginTop:'50%',marginLeft:'50%',transform:'translate(-50%,-50%)'}}>
-                        空空如也
-                      </div>
+                      {
+                        TC.length>0?TC.map((item,index)=>{
+
+                        }):
+                        (
+                          <div style={{width:'24vw',fontSize:'6vmin',opacity:'0.7',marginTop:'50%',marginLeft:'50%',transform:'translate(-50%,-50%)'}}>
+                            空空如也
+                          </div>
+                        )
+                      }
                     </Content>
                   </Layout>
                 </Content>

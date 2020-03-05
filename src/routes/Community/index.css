@@ -61,7 +61,7 @@
 }
 
 .gradient2{
-    background-image: linear-gradient(#e66465, #9198e5);
+    background-image: linear-gradient(#ff0000, #e6b2c6);
 }
 
 .tab-img{
@@ -153,9 +153,8 @@
     height:10vh;
     display: flex;
 }
-
 .ant-c-submenu{
-    width:33.3%;
+    width:25%;
     padding-left:8.5%;
 }
 

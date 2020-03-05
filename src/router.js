@@ -8,6 +8,7 @@ import Origin from "./routes/Origin";
 import SystemManagement from "./routes/SystemManagement";
 import Community from "./routes/Community";
 import ComSC from "./routes/Community/ComSC";
+import ComAdd from "./routes/Community/ComAdd";
 
 export default class RouterConfig extends React.Component{
   render(){
@@ -22,6 +23,7 @@ export default class RouterConfig extends React.Component{
             <Route path='/SystemManagement' exact component={SystemManagement}/>
             <Route path='/Community' exact component={Community}/>
             <Route path='/Community/ComSC' exact component={ComSC}/>
+            <Route path='/Community/ComAdd' exact component={ComAdd}/>
         </Switch>
       </HashRouter>
     )
