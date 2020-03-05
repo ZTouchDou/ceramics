@@ -1,0 +1,46 @@
+.details-bg{
+    width: 100vw;
+    height:100vh;
+    /*height: 500px;px肯定不对的，这是电脑的单位，事实上每个手机的px不一样！*/
+    background-image:url("../../../Image/technology2.jpg");
+    background-size:100% 100%;/*这个就是说背景宽度高度100%填充*/
+    background-repeat:no-repeat;/*如果宽高之后还有空白剩余，那么不重复no-repeat*/
+}
+.details-top{
+    width:100vw;
+    height:45vh;
+}
+
+.details-content{
+    width:100%;
+    height:100%;
+    font-size:6vmin;
+    padding-top:4vh;
+    line-height: 6vh;
+    writing-mode: vertical-rl;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
+    writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+    word-wrap: break-word;/*英文的时候需要加上这句，自动换行*/
+}
+
+.ant-carousel-details{
+    width: 90%;
+    margin-left:5%;
+    height: 100%;
+}
+
+.details-bottom{
+    width:100vw;
+    height:55vh;
+}
+
+.details-modul{
+    width:70%;
+    height:70%;
+    margin-left:15%;
+    padding-top:15%;
+}
+
+.ant-carousel .slick-slide h3 {
+    color: #bae7ff;
+}
+

@@ -13,13 +13,16 @@ class CeramicsShow extends React.Component{
     this.state = {
       name:'',
       bgimg:'',
-      timer:''
+      timer:'',
+      dataItem:{}
     }
   }
 
  //跳转页面
-  gotoTab2 = (name)=>{
-      this.props.history.push('CeramicsShow/details', { name: name });
+  gotoTab2 = (name,dataItem)=>{
+    console.log("dataItem:", dataItem);
+    sessionStorage.setItem('dataItem',JSON.stringify(dataItem));
+      this.props.history.push('/CeramicsShow/details',{name:name});
   };
 
 
@@ -52,6 +55,7 @@ class CeramicsShow extends React.Component{
   onChange = ()=>{
     let bgimg = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-bgimg');
     let name = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-name');
+    let dataItem = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-item');
     document.getElementById('bgimage').setAttribute('class','bgimgchange');
     let timer = setTimeout(function(){
       document.getElementById('bgimage').setAttribute('class','bgimg');
@@ -59,15 +63,16 @@ class CeramicsShow extends React.Component{
     this.setState({
       bgimg,
       timer,
-      name
+      name,
+      dataItem:JSON.parse(dataItem)
     });
   };
 
   render(){
-    let {name,details,bgimg} = this.state;
+    let {name,details,bgimg,dataItem} = this.state;
     return (
       <div className='box'>
-        <div  onClick={this.gotoTab2.bind(this,name)}  id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
+        <div  onClick={this.gotoTab2.bind(this,name,dataItem)}  id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
         </div>
         <MenuButton/>
         <div  className='box-left'>
@@ -81,9 +86,9 @@ class CeramicsShow extends React.Component{
               {
                 TC.map((item,index)=>{
                   return(
-                    <div className='swiper-slide' key={index} data-bgimg={item.imgUrl} data-name={item.title}>
+                    <div className='swiper-slide' key={index} data-bgimg={item.imgUrl} data-name={item.title} data-item={JSON.stringify(item)}>
                       <div className='swiperTitle'>{item.title}</div>
-                      <div className='swiperContent'>{item.content}</div>
+                      <div className='swiperContent'>{item.content.slice(0,40)}</div>
                     </div>
                   )
                 })

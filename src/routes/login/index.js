@@ -18,7 +18,7 @@ class login extends React.Component {
 
   handleClick = ()=>{
     this.props.history.push('/register');
-      };
+  };
 
   render() {
     const {getFieldDecorator} = this.props.form;
@@ -56,10 +56,10 @@ class login extends React.Component {
             type="primary" htmlType="submit" className="login-form-button" >
             登录
           </Button>
-           <a href="" style={{color: 'rgba(255,255,255,1)'}}
+           <div style={{color: 'rgba(255,255,255,1)'}}
               onClick={this.handleClick}  >
             还没账号？现在去注册！
-          </a>
+          </div>
         </Form.Item>
       </Form>
         </div>

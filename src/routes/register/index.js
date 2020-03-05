@@ -89,73 +89,75 @@ class register extends React.Component {
 
     return (
       <div className='register-background'>
-      <Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form'>
-        <Form.Item label="邮箱" >
-          {getFieldDecorator('email', {
-            rules: [
-              {
-                type: 'email',
-                message: '邮箱号无效！',
-              },
-              {
-                required: true,
-                message: '请输入邮箱号!',
-              },
-            ],
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item label="密码" hasFeedback>
-          {getFieldDecorator('password', {
-            rules: [
-              {
-                required: true,
-                message: '请输入密码!',
-              },
-              {
-                validator: this.validateToNextPassword,
-              },
-            ],
-          })(<Input.Password />)}
-        </Form.Item>
-        <Form.Item label="确认密码" hasFeedback>
-          {getFieldDecorator('confirm', {
-            rules: [
-              {
-                required: true,
-                message: '请确认你的密码!',
-              },
-              {
-                validator: this.compareToFirstPassword,
-              },
-            ],
-          })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-        </Form.Item>
-        <Form.Item
-          label={
-            <span>
+        <div className='register-body'>
+          <Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form'>
+            <Form.Item label="邮箱" >
+              {getFieldDecorator('email', {
+                rules: [
+                  {
+                    type: 'email',
+                    message: '邮箱号无效！',
+                  },
+                  {
+                    required: true,
+                    message: '请输入邮箱号!',
+                  },
+                ],
+              })(<Input />)}
+            </Form.Item>
+            <Form.Item label="密码" hasFeedback>
+              {getFieldDecorator('password', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入密码!',
+                  },
+                  {
+                    validator: this.validateToNextPassword,
+                  },
+                ],
+              })(<Input.Password />)}
+            </Form.Item>
+            <Form.Item label="确认密码" hasFeedback>
+              {getFieldDecorator('confirm', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请确认你的密码!',
+                  },
+                  {
+                    validator: this.compareToFirstPassword,
+                  },
+                ],
+              })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+            </Form.Item>
+            <Form.Item
+              label={
+                <span>
               昵称
             </span>
-          }
-        >
-          {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: '请输入你的昵称!', whitespace: true }],
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox>
-              我已经同意 <a href="">许可协议</a>
-            </Checkbox>,
-          )}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" className='register-button' onClick={() => this.props.history.push("/CeramicsShow")}>
-            注册
-          </Button>
-        </Form.Item>
-      </Form>
+              }
+            >
+              {getFieldDecorator('nickname', {
+                rules: [{ required: true, message: '请输入你的昵称!', whitespace: true }],
+              })(<Input />)}
+            </Form.Item>
+            <Form.Item {...tailFormItemLayout}>
+              {getFieldDecorator('agreement', {
+                valuePropName: 'checked',
+              })(
+                <Checkbox>
+                  我已经同意 <div style={{color:'#68C0FF',display:'inline'}}>许可协议</div>
+                </Checkbox>,
+              )}
+            </Form.Item>
+            <Form.Item {...tailFormItemLayout}>
+              <Button type="primary" htmlType="submit" className='register-button' onClick={() => this.props.history.push("/CeramicsShow")}>
+                注册
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     );
   }
