@@ -4,6 +4,7 @@ import 'swiper/css/swiper.min.css';
 import './index.css';
 import MenuButton from "../../components/MenuButton";
 import TC from '../../JSON/TC/TC.json';
+import MenuTab from "../../components/MenuTab";
 
 //陶瓷页
 class CeramicsShow extends React.Component{
@@ -15,6 +16,12 @@ class CeramicsShow extends React.Component{
       timer:''
     }
   }
+
+ //跳转页面
+  gotoTab2 = (name)=>{
+      this.props.history.push('CeramicsShow/details', { name: name });
+  };
+
 
   componentDidMount() {
     let t = this;
@@ -48,7 +55,7 @@ class CeramicsShow extends React.Component{
     document.getElementById('bgimage').setAttribute('class','bgimgchange');
     let timer = setTimeout(function(){
       document.getElementById('bgimage').setAttribute('class','bgimg');
-    },10)
+    },10);
     this.setState({
       bgimg,
       timer,
@@ -57,15 +64,14 @@ class CeramicsShow extends React.Component{
   };
 
   render(){
-    let {name,bgimg} = this.state;
+    let {name,details,bgimg} = this.state;
     return (
       <div className='box'>
-        <div id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
-
+        <div  onClick={this.gotoTab2.bind(this,name)}  id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
         </div>
         <MenuButton/>
-        <div className='box-left'>
-          <div style={{width:'90%',fontSize:'12vmin',paddingLeft:'15%',marginTop:'50%',color:'#FAB735',fontWeight:'bold'}}>
+        <div  className='box-left'>
+          <div   style={{width:'90%',fontSize:'12vmin',paddingLeft:'15%',marginTop:'50%',color:'#FAB735',fontWeight:'bold'}} >>
             {name}
           </div>
         </div>
@@ -76,7 +82,7 @@ class CeramicsShow extends React.Component{
                 TC.map((item,index)=>{
                   return(
                     <div className='swiper-slide' key={index} data-bgimg={item.bgimg} data-name={item.name}>
-                      <div className='swiperTitle'>{item.name}</div>
+                      <div  className='swiperTitle'>{item.name}</div>
                       <div className='swiperContent'>{item.details}</div>
                     </div>
                   )

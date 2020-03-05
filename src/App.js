@@ -26,7 +26,7 @@ class App extends React.Component{
   }
 
   handleClick = ()=>{
-    this.props.history.push('/CeramicsShow');
+    this.props.history.push('/login');
     this.changeMusic();
   };
 

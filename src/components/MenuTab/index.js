@@ -1,7 +1,6 @@
 import React from 'react';
 import {Col, Row, Divider} from 'antd';
 import config from '../../config.js';
-
 let fontName = config.fontName;
 
 const pStyle = {

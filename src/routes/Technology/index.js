@@ -128,7 +128,7 @@ class Technology extends React.Component{
                             <div className="text" data-swiper-parallax="-300" data-swiper-parallax-duration="600" style={{...font}}>
                               <div>
                                 {item.text?item.text.slice(0,showTextLength):''}
-                                <div style={{color:'blue',display:'inline'}} onClick={this.showDetails.bind(this,item)}>
+                                <div style={{color:'black',display:'inline'}} onClick={this.showDetails.bind(this,item)}>
                                   {(item.text&&item.text.length>showTextLength)?'...详情>>':''}
                                 </div>
                               </div>
