@@ -1,0 +1,19 @@
+.login-form {
+    max-width: 300px;
+    padding-left:10vw;
+    padding-top:25vh;
+}
+.login-form-forgot {
+    float:bottom;
+}
+.login-form-button {
+    width: 100%;
+    background-color: #69c0ff;
+    border-color: #69c0ff;
+}
+
+.login-background {
+    width: 100%;
+    height: 500px;
+    background-image:url("../../Image/16.jpg");
+}

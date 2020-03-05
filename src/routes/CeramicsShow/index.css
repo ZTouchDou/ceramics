@@ -36,6 +36,7 @@
     color:#746549;
     font-size:4vmin;
     line-height:3.5vh;
+    overflow: hidden;
 }
 
 .bgimg{
