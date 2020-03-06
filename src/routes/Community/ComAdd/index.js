@@ -118,7 +118,7 @@ class ComAdd extends React.Component{
         <div className='ComAdd-body'>
           <div className='ComAdd-title'>
             <Input
-              style={{width:'100%',height:'100%'}}
+              style={{width:'100%',height:'100%',border:'none'}}
               placeholder="标题"
               maxLength={20}
             />

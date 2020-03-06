@@ -7,6 +7,10 @@ import SysCeramicsShow from "./SysCeramicsShow";
 import SysTechnology from "./SysTechnology";
 import SysWorkshop from "./SysWorkshop";
 import SysPageManagement from "./SysPageManagement";
+import Invitation from "../Community/Invitation";
+import CeramicsPicture from "../Community/CeramicesPicture";
+import Comment from "../Community/Comment";
+import Chip from "../Community/Chip";
 
 const { Header, Content } = Layout;
 
@@ -52,10 +56,10 @@ class SystemManagement extends React.Component{
                 key="sub1"
                 title='社区管理'
               >
-                <Menu.Item key="1">option1</Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
+                <Menu.Item key="1" onClick={this.changeMenu.bind(this,6)}>鉴瓷</Menu.Item>
+                <Menu.Item key="2" onClick={this.changeMenu.bind(this,7)}>赏瓷</Menu.Item>
+                <Menu.Item key="3" onClick={this.changeMenu.bind(this,8)}>评论</Menu.Item>
+                <Menu.Item key="4" onClick={this.changeMenu.bind(this,9)}>瓷片</Menu.Item>
               </SubMenu>
             </Menu>
           </Header>
@@ -81,6 +85,22 @@ class SystemManagement extends React.Component{
                 {
                   menuKey===5&&
                   <SysPageManagement/>
+                }
+                {
+                  menuKey===6&&
+                  <Invitation/>
+                }
+                {
+                  menuKey===7&&
+                  <CeramicsPicture/>
+                }
+                {
+                  menuKey===8&&
+                  <Comment/>
+                }
+                {
+                  menuKey===9&&
+                  <Chip/>
                 }
               </Content>
             </Layout>

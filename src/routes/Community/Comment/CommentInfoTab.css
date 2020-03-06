@@ -1,0 +1,55 @@
+.ComInfoTab-box{
+    width:90vw;
+    height:25vh;
+    margin-left:5vw;
+    background-color: white;
+    border-radius: 5%;
+    margin-bottom:3vh;
+}
+
+.ComInfoTab-header{
+    width:100%;
+    height:30%;
+    border-radius: 5%;
+    display: flex;
+}
+
+.ComInfoTab-time{
+    width:88%;
+    height:100%;
+    font-size:4vmin;
+    padding:1vh 3vw;
+    border-radius: 5%;
+}
+
+.ComInfoTab-delete{
+    width:12%;
+    height:100%;
+    font-size:6vmin;
+    padding-left:2vw;
+    padding-top:1vh;
+}
+
+.ComInfoTab-body{
+    width:100%;
+    height:30%;
+    font-size:4vmin;
+    padding-left:3vw;
+    padding-right:3vw;
+    border-radius: 5%;
+    overflow:hidden;
+}
+
+.ComInfoTab-invitation{
+    width:96%;
+    height:30%;
+    font-size:4vmin;
+    margin-left:2%;
+    padding-left:3vw;
+    padding-right:3vw;
+    border-radius: 50%;
+    color:#aaa;
+    font-weight:bold;
+    background-color: #cccccc;
+    overflow:hidden;
+}

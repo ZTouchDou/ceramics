@@ -1,0 +1,30 @@
+.ChipDetails-box{
+    height:100vh;
+    text-align: center;
+    background-color: white;
+    background-image: url("../../../Image/ChipDetailsBg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    overflow: auto;
+}
+
+.ChipDetails-header{
+    height:7vh;
+}
+
+.ChipDetails-body{
+}
+
+.ChipDetails-name{
+    font-size:6vmin;
+    font-weight:bold;
+}
+
+.ChipDetails-content{
+
+}
+
+.ChipDetails-text{
+    font-size:3.6vmin;
+    padding:2vh 4vw;
+}

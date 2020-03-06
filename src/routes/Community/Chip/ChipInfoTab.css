@@ -1,0 +1,33 @@
+.ChipInfoTab-box{
+    width:90vw;
+    height:25vh;
+    margin-left:5vw;
+    border-radius: 5%;
+    margin-bottom:3vh;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+.ChipInfoTab-name{
+    width:50%;
+    height:100%;
+    text-align: center;
+    overflow: auto;
+    padding:8vh 2vw 1vh 2vw;
+    color:#1890FF;
+    font-size:7vmin;
+    font-weight:bold;
+    background-color: white;
+    border-top-left-radius: 10%;
+    border-bottom-left-radius: 10%;
+}
+
+.ChipInfoTab-pic{
+    width:50%;
+    height:100%;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+    background-image:url("../../../Image/CPBG.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}

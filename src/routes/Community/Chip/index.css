@@ -1,0 +1,9 @@
+.Chip-box{
+    width:100%;
+    height:100%;
+    overflow: auto;
+}
+
+.ant-drawer-body-Chip .ant-drawer-body{
+    padding:0 !important;
+}

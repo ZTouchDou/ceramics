@@ -4,6 +4,10 @@ import './index.css';
 import userimg from '../../Image/5.jpg'
 import TC from '.././../JSON/TC/TC.json';
 import MenuButton from "../../components/MenuButton";
+import Invitation from "./Invitation";
+import CeramicsPicture from "./CeramicesPicture";
+import Comment from "./Comment";
+import Chip from "./Chip";
 
 const { Header, Content } = Layout;
 
@@ -11,7 +15,7 @@ class Community extends React.Component{
   constructor(props) {
     super(props);
     this.state={
-
+      MyTab:1
     }
   }
 
@@ -22,6 +26,13 @@ class Community extends React.Component{
     }
   };
 
+  //切换
+  changeTab=(type)=>{
+    this.setState({
+      MyTab:type
+    })
+  };
+
   //发布
   gotoAdd=(type)=>{
     sessionStorage.setItem('AddType',type);
@@ -29,6 +40,7 @@ class Community extends React.Component{
   }
 
   render() {
+    let {MyTab} = this.state;
     return (
       <div className='Community-box'>
         <MenuButton/>
@@ -189,24 +201,36 @@ class Community extends React.Component{
                     defaultSelectedKeys={['1']}
                     style={{ lineHeight: '10vh' }}
                   >
-                    <Menu.Item className='ant-c-submenu' key="1" >帖子</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="2" >晒瓷</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="3" >评论</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="4" >瓷片</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="1" onClick={this.changeTab.bind(this,1)}>帖子</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="2" onClick={this.changeTab.bind(this,2)}>晒瓷</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="3" onClick={this.changeTab.bind(this,3)}>评论</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="4" onClick={this.changeTab.bind(this,4)}>瓷片</Menu.Item>
                   </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
                   <Layout className="site-layout-background " style={{height:'54.5vh', padding: '4vh 0' }}>
                     <Content style={{overflow:'auto'}}>
-                      {
-                        TC.length>0?TC.map((item,index)=>{
+                      {/*{*/}
+                      {/*  TC.length>0?TC.map((item,index)=>{*/}
 
-                        }):
-                        (
-                          <div style={{width:'24vw',fontSize:'6vmin',opacity:'0.7',marginTop:'50%',marginLeft:'50%',transform:'translate(-50%,-50%)'}}>
-                            空空如也
-                          </div>
-                        )
+                      {/*  }):*/}
+                      {/*  (*/}
+                      {/*    <div style={{width:'24vw',fontSize:'6vmin',opacity:'0.7',marginTop:'50%',marginLeft:'50%',transform:'translate(-50%,-50%)'}}>*/}
+                      {/*      空空如也*/}
+                      {/*    </div>*/}
+                      {/*  )*/}
+                      {/*}*/}
+                      {
+                        MyTab ===1 && <Invitation/>
+                      }
+                      {
+                        MyTab ===2 && <CeramicsPicture/>
+                      }
+                      {
+                        MyTab ===3 && <Comment/>
+                      }
+                      {
+                        MyTab ===4 && <Chip/>
                       }
                     </Content>
                   </Layout>
