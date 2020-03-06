@@ -13,9 +13,7 @@ import Comment from "../Community/Comment";
 import Chip from "../Community/Chip";
 
 const { Header, Content } = Layout;
-
 const { SubMenu } = Menu;
-
 class SystemManagement extends React.Component{
   constructor(props) {
     super(props);
