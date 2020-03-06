@@ -3,6 +3,10 @@ import React from 'react';
 import './index.css'
 
 class login extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
