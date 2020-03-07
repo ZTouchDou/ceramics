@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import {Popconfirm, Icon,notification }from 'antd';
 import './CommentInfoTab.css';
 
@@ -25,6 +26,11 @@ class CommentInfoTab extends React.Component{
     });
   };
 
+  //展示这个评论的帖子页面
+  gotoInvitation=()=>{
+    this.props.history.push('/Community/ComJC');
+  };
+
   render() {
     return (
       <div className='ComInfoTab-box'>
@@ -49,7 +55,7 @@ class CommentInfoTab extends React.Component{
         <div className='ComInfoTab-body'>
           Support for let and class redeclarations When experimenting with new code in the Console
         </div>
-        <div className='ComInfoTab-invitation'>
+        <div className='ComInfoTab-invitation' onClick={this.gotoInvitation}>
           Improved WebAssembly debugging The Sources pannel has increased support for stepping over code.
         </div>
       </div>
@@ -57,4 +63,4 @@ class CommentInfoTab extends React.Component{
   }
 }
 
-export default CommentInfoTab;
+export default withRouter(CommentInfoTab);

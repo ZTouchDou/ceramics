@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import {Popconfirm, Icon, notification, Row, Col} from 'antd';
 import in1 from '../../../Image/Invitation1.jpg';
 import './InvitationInfoTab.css';
@@ -26,9 +27,14 @@ class InvitationInfoTab extends React.Component{
     });
   };
 
+  //跳转详情页
+  gotoDetails=()=>{
+    this.props.history.push('/Community/ComJC');
+  };
+
   render() {
     return (
-      <div className='InvIn-box'>
+      <div className='InvIn-box' onClick={this.gotoDetails}>
         <img className='InvIn-le' src={in1} alt='配图'/>
         <div className='InvIn-ri'>
           <div className='InvIn-header'>
@@ -74,4 +80,4 @@ class InvitationInfoTab extends React.Component{
   }
 }
 
-export default InvitationInfoTab;
+export default withRouter(InvitationInfoTab);

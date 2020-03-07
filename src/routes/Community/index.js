@@ -2,7 +2,6 @@ import React from 'react';
 import {Divider,Layout, Menu,Col,Row,Carousel} from 'antd';
 import './index.css';
 import userimg from '../../Image/5.jpg'
-import TC from '.././../JSON/TC/TC.json';
 import MenuButton from "../../components/MenuButton";
 import Invitation from "./Invitation";
 import CeramicsPicture from "./CeramicesPicture";
@@ -23,6 +22,8 @@ class Community extends React.Component{
   gotoVisit=(type)=>{
     if(type==='SC'){
       this.props.history.push('/Community/ComSC');
+    }else if(type==='JC'){
+      this.props.history.push('/Community/ComJC');
     }
   };
 
@@ -37,7 +38,7 @@ class Community extends React.Component{
   gotoAdd=(type)=>{
     sessionStorage.setItem('AddType',type);
     this.props.history.push('/Community/ComAdd');
-  }
+  };
 
   render() {
     let {MyTab} = this.state;
@@ -84,7 +85,12 @@ class Community extends React.Component{
                         |
                       </Col>
                       <Col span={11} style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
-                        游览
+                        <div
+                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
+                          onClick={this.gotoVisit.bind(this,'JC')}
+                        >
+                          游览
+                        </div>
                       </Col>
                     </Row>
                   </div>
@@ -221,7 +227,7 @@ class Community extends React.Component{
                       {/*  )*/}
                       {/*}*/}
                       {
-                        MyTab ===1 && <Invitation/>
+                        MyTab ===1 && <Invitation history={this.props.history}/>
                       }
                       {
                         MyTab ===2 && <CeramicsPicture/>

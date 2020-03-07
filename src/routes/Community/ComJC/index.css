@@ -1,0 +1,111 @@
+.ComJC-box{
+    width:100vw;
+    height:100vh;
+}
+
+.ComJC-Affix{
+    width:18vw;
+    height:18vh;
+    font-size:10vmin;
+    text-align: center;
+    position:fixed;
+    top:42vh;
+    left:80vw;
+    z-index:19;
+}
+
+.ComJC-Affix-next{
+    width:100%;
+    height:50%;
+}
+
+.ComJC-Affix-comment{
+    width:100%;
+    height:50%;
+}
+
+.ComJC-header{
+    width:100vw;
+    height:9vh;
+    background-color: white;
+    text-align: center;
+    line-height:9vh;
+    font-weight:bold;
+    font-size:4vmin;
+    border-bottom: 1px solid #eeeeee;
+    position:fixed;
+    z-index:10;
+    top:0;
+    left:0;
+}
+
+.ant-carousel-ComJC{
+    width:100%;
+    min-height:30vh;
+}
+
+.ComJC-body{
+    width:100vw;
+    padding-top:9vh;
+    overflow: auto;
+}
+
+.ComJC-image{
+    width:100%;
+    min-height:30vh;
+}
+
+.ComJC-content{
+    width:100vw;
+    padding:1vh 5vw;
+    background-color: white;
+}
+
+.ComJC-user{
+    width:100%;
+    height:9vh;
+}
+
+.ComJC-user-name{
+    font-size:3.4vmin;
+    width:100%;
+    height:4.5vh;
+    padding-top:1vh;
+    padding-left:2vw;
+}
+
+.ComJC-user-time{
+    font-size:3vmin;
+    width:100%;
+    height:4.5vh;
+    color:#ccc;
+    padding-left:2vw;
+}
+
+.ComJC-title{
+    width:100%;
+    font-size:6vmin;
+    font-weight:bold;
+    color:#292D35;
+    padding:2vh 2vw;
+    border-bottom: 1px solid #ccc;
+}
+
+.ComJC-text{
+    width:100%;
+    font-size:3.5vmin;
+    padding:2vh 2vw;
+}
+
+.ComJC-com-box{
+    width:100%;
+    overflow: auto;
+}
+
+.ComJC-com-input{
+    margin-bottom:5vh;
+}
+
+.ComJC-com-body{
+    margin-top:2vh;
+}

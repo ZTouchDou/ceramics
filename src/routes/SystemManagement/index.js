@@ -54,10 +54,10 @@ class SystemManagement extends React.Component{
                 key="sub1"
                 title='社区管理'
               >
-                <Menu.Item key="1" onClick={this.changeMenu.bind(this,6)}>鉴瓷</Menu.Item>
-                <Menu.Item key="2" onClick={this.changeMenu.bind(this,7)}>赏瓷</Menu.Item>
-                <Menu.Item key="3" onClick={this.changeMenu.bind(this,8)}>评论</Menu.Item>
-                <Menu.Item key="4" onClick={this.changeMenu.bind(this,9)}>瓷片</Menu.Item>
+                <Menu.Item key="6" onClick={this.changeMenu.bind(this,6)}>鉴瓷</Menu.Item>
+                <Menu.Item key="7" onClick={this.changeMenu.bind(this,7)}>赏瓷</Menu.Item>
+                <Menu.Item key="8" onClick={this.changeMenu.bind(this,8)}>评论</Menu.Item>
+                <Menu.Item key="9" onClick={this.changeMenu.bind(this,9)}>瓷片</Menu.Item>
               </SubMenu>
             </Menu>
           </Header>

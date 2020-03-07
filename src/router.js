@@ -12,6 +12,7 @@ import details from "./routes/CeramicsShow/details"
 import Community from "./routes/Community";
 import ComSC from "./routes/Community/ComSC";
 import ComAdd from "./routes/Community/ComAdd";
+import ComJC from "./routes/Community/ComJC";
 
 export default class RouterConfig extends React.Component{
   render(){
@@ -30,6 +31,7 @@ export default class RouterConfig extends React.Component{
             <Route path='/SystemManagement' exact component={SystemManagement}/>
             <Route path='/Community' exact component={Community}/>
             <Route path='/Community/ComSC' exact component={ComSC}/>
+          <Route path='/Community/ComJC' exact component={ComJC}/>
             <Route path='/Community/ComAdd' exact component={ComAdd}/>
         </Switch>
       </HashRouter>
