@@ -16,16 +16,30 @@ class Chip extends React.Component{
   }
 
   componentDidMount() {
-    let wrapList = document.getElementsByClassName('wrap-minor');
-    console.log("wrapList:", wrapList);
+    let wrapList = document.getElementsByClassName('wrapli');
     for(let i=0;i<4;i++){
-      wrapList[i].addEventListener("mouseover",this.beMajor);
+      wrapList[i].addEventListener("mouseover",this.beMajor.bind(this,wrapList[i],i));
     }
   }
 
-  //变长
-  beMajor=()=>{
-    console.log("1:", 1);
+  //变化
+  beMajor=(wrapli,i)=>{
+    let cssstyle = wrapli.getAttribute('class');
+    if(cssstyle !== 'wrapli curr'){
+      //li 长度变化
+      let currLi = document.getElementsByClassName('curr')[0];
+      currLi.setAttribute('class','wrapli minor');
+      wrapli.setAttribute('class','wrapli curr');
+      //背景图片变化
+      let img = document.getElementById('ChipImg');
+      img.setAttribute('class','ChipBgimg fadeout');
+      let timer = setTimeout(()=>{
+        img.setAttribute('src',`${require('../../../Image/Chip'+(i+1)+'.jpg')}`);
+        img.setAttribute('class','ChipBgimg fadein');
+        clearTimeout(timer);
+        timer = null;
+      },300);
+    }
   };
 
   //显示详情框
@@ -50,38 +64,45 @@ class Chip extends React.Component{
   render() {
     let {visible} = this.state;
     return (
-      <div style={{display:'flex',flexWrap:'wrap'}}>
-        <div className="wrap" >
-          <ul>
-            <li className='wrap-minor'>
-              <div className="text" onClick={this.showModal}>
-                <p>尼尔机械纪元</p>
-              </div>
-            </li>
-            <li className='wrap-minor'>
-              <div className="text">
-                <p>尼尔机械纪元2</p>
-              </div>
-            </li>
-            <li className='wrap-minor'>
-              <div className="text">
-                <p>尼尔机械纪元3</p>
-              </div>
-            </li>
-            <li className="wrap-minor curr">
-              <div className="text">
-                <p>尼尔机械纪元4</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div style={{height:'50px',marginLeft:'50%',transform:'translateX(-50%)'}}>
-          <Pagination
-            onChange={this.changePage}
-            defaultCurrent={1}
-            pageSize={pageSize}
-            total={100}
-          />
+      <div className='Chip-box'>
+        <img
+          id='ChipImg'
+          className='ChipBgimg'
+          src={require('../../../Image/Chip4.jpg')}
+        />
+        <div className='Chip-bg'>
+          <div className="wrap" >
+            <ul>
+              <li className='wrapli minor'>
+                <div className="text" onClick={this.showModal}>
+                  <p>乡俗</p>
+                </div>
+              </li>
+              <li className='wrapli minor'>
+                <div className="text">
+                  <p>诗词</p>
+                </div>
+              </li>
+              <li className='wrapli minor'>
+                <div className="text">
+                  <p>茶道</p>
+                </div>
+              </li>
+              <li className="wrapli curr">
+                <div className="text">
+                  <p>杂论</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div style={{height:'50px',marginLeft:'50%',transform:'translateX(-50%)'}}>
+            <Pagination
+              onChange={this.changePage}
+              defaultCurrent={1}
+              pageSize={pageSize}
+              total={100}
+            />
+          </div>
         </div>
         {
           visible &&

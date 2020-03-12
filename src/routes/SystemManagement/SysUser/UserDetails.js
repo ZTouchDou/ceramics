@@ -1,21 +1,27 @@
 import React from 'react';
-import {Row, Col, Menu,Divider, Modal, Drawer, Pagination} from 'antd';
+import {Row, Col, Menu,Divider, Drawer, Pagination,Popconfirm,Tooltip,Icon,message} from 'antd';
 import './UserDetails.css';
 import MenuTitle from "../../../components/MenuTitle";
 import SysComJCDetails from "../SysComJC/SysComJCDetails";
 import config from "../../../config";
+import ChipDetails from "../Chip/ChipDetails";
 
 const pageSize = config.pageSize;
 
 //鉴瓷
-const InvitationTab = ({t,title,time,content})=>{
+const InvitationTab = ({t,id,title,time,content})=>{
   return(
     <div onClick={t.showInvitation} style={{cursor:'pointer'}}>
       <div className='inv-header'>
         <Row>
           <Col span={20}>
             <div className='inv-title'>
-              {title}
+              <div>
+                ID：102258
+              </div>
+              <div>
+                {title}
+              </div>
             </div>
           </Col>
           <Col span={4}>
@@ -28,15 +34,28 @@ const InvitationTab = ({t,title,time,content})=>{
       <div className='inv-content'>
         {content}
       </div>
+      <div style={{textAlign:'right',fontSize:'20px'}} onClick={t.topPropagationClick}>
+        <Popconfirm
+          title='确定删除吗？'
+          okText="确定"
+          cancelText="取消"
+          placement="left"
+          onConfirm={t.deleteInvitation}
+        >
+          <Tooltip placement="bottom" title="删除">
+            <Icon type="delete" theme="filled" />
+          </Tooltip>
+        </Popconfirm>
+      </div>
     </div>
   )
 };
 
 //赏瓷
-const CeramicsTab = ({imgUrl,content})=>{
+const CeramicsTab = ({t,id,imgUrl,content})=>{
   return(
     <div>
-      <Row>
+      <Row style={{height:'100%'}}>
         <Col span={12}>
           <div>
             <img
@@ -45,9 +64,33 @@ const CeramicsTab = ({imgUrl,content})=>{
               src={imgUrl}/>
           </div>
         </Col>
-        <Col span={12}>
+        <Col span={12} style={{height:'100%'}}>
           <div className='Cer-content'>
-            {content}
+            <Row>
+              <Col span={21}>
+                <div style={{fontSize:'20px',fontWeight:'bold'}}>
+                  ID：102258
+                </div>
+              </Col>
+              <Col span={3}>
+                <div style={{textAlign:'right',fontSize:'20px'}} onClick={t.topPropagationClick}>
+                  <Popconfirm
+                    title='确定删除吗？'
+                    okText="确定"
+                    cancelText="取消"
+                    placement="left"
+                    onConfirm={t.deleteInvitation}
+                  >
+                    <Tooltip placement="bottom" title="删除">
+                      <Icon type="close-circle" theme="filled" />
+                    </Tooltip>
+                  </Popconfirm>
+                </div>
+              </Col>
+            </Row>
+            <div>
+              {content}
+            </div>
           </div>
         </Col>
       </Row>
@@ -56,17 +99,41 @@ const CeramicsTab = ({imgUrl,content})=>{
 };
 
 //评论
-const MyComment = ({t,time,comment,invContent})=>{
+const MyComment = ({t,id,time,comment,invContent})=>{
   return(
     <div>
-      <div>
-        {time}
-      </div>
+      <Row>
+        <Col span={21}>
+          <div style={{fontWeight:'bold'}}>
+            ID：12586
+          </div>
+        </Col>
+        <Col span={3}>
+          <div style={{textAlign:'right',fontSize:'20px'}} onClick={t.topPropagationClick}>
+            <Popconfirm
+              title='确定删除吗？'
+              okText="确定"
+              cancelText="取消"
+              placement="left"
+              onConfirm={t.deleteInvitation}
+            >
+              <Tooltip placement="bottom" title="删除">
+                <Icon type="close-circle" theme="filled" />
+              </Tooltip>
+            </Popconfirm>
+          </div>
+        </Col>
+      </Row>
       <div>
         <Row>
           <Col span={15}>
             <div className='MyComment-comment'>
-              {comment}
+              <div>
+                {time}
+              </div>
+              <div>
+                {comment}
+              </div>
             </div>
           </Col>
           <Col span={9}>
@@ -80,12 +147,31 @@ const MyComment = ({t,time,comment,invContent})=>{
   )
 };
 
+//陶片
+const ChipInfoTab = ({t,id,name,imgUrl})=>{
+  const mask={
+    "WebkitMask":`url(${require('../../../Image/'+imgUrl)})`,
+    "WebkitMaskSize":"100% 100%"
+  };
+  return(
+    <Tooltip title='ID：1024' placement='left'>
+      <div className='ChipInfoTab-box' onClick={t.gotoChipDetails}>
+        <div className='ChipInfoTab-name'>
+          {name}
+        </div>
+        <div className='ChipInfoTab-pic' style={{...mask}}/>
+      </div>
+    </Tooltip>
+  )
+};
+
 class UserDetails extends React.Component{
   constructor(props) {
     super(props);
     this.state={
       menuKey:1,
-      visible:false
+      visible:false,
+      chipShow:false
     }
   }
 
@@ -108,6 +194,20 @@ class UserDetails extends React.Component{
     this.props.closeDetails();
   };
 
+  //陶片详情
+  gotoChipDetails=()=>{
+    this.setState({
+      chipShow:true
+    })
+  };
+
+  //关闭陶片详情
+  closeChipDetails=()=>{
+    this.setState({
+      chipShow:false
+    })
+  };
+
   //改变导航
   changeMenu = (key)=>{
     this.setState({
@@ -120,9 +220,20 @@ class UserDetails extends React.Component{
     console.log("page,pageSize:", page,pageSize);
   };
 
+  //添加这个点击事件是为了阻止事件冒泡
+  topPropagationClick=(e)=>{
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  };
+
+  //删除评论
+  deleteInvitation=()=>{
+    message.success('删除成功');
+  };
+
   render() {
     let t = this;
-    let {menuKey, visible} = this.state;
+    let {menuKey, visible, chipShow} = this.state;
     return (
       <div className='UserDetails-box'>
         <Row>
@@ -265,7 +376,57 @@ class UserDetails extends React.Component{
                       </div>
                   }
                   {
-
+                    menuKey===4 &&
+                      <div>
+                        <ChipInfoTab
+                          t={t}
+                          name='乡俗'
+                          imgUrl='CP3.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='关于李白的那些事'
+                          imgUrl='SysBg.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='渔夫'
+                          imgUrl='CP2.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='小九寨'
+                          imgUrl='CP4.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='罗生'
+                          imgUrl='CP5.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='1935'
+                          imgUrl='CP6.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='清明传统'
+                          imgUrl='CP7.png'
+                        />
+                        <ChipInfoTab
+                          t={t}
+                          name='花旦'
+                          imgUrl='CP8.png'
+                        />
+                        <div style={{height:'50px',marginTop:'20px'}}>
+                          <Pagination
+                            onChange={this.changePage}
+                            defaultCurrent={1}
+                            pageSize={pageSize}
+                            total={100}
+                          />
+                        </div>
+                      </div>
                   }
                 </div>
             </div>
@@ -281,6 +442,18 @@ class UserDetails extends React.Component{
           <SysComJCDetails
             width='96%'
             closeDetails={this.closeInvitation}
+          />
+        </Drawer>
+        <Drawer
+          width='85%'
+          title="帖子详情"
+          placement="right"
+          closable={false}
+          visible={chipShow}
+        >
+          <ChipDetails
+            width='96%'
+            closeDetails={this.closeChipDetails}
           />
         </Drawer>
       </div>

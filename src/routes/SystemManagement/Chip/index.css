@@ -1,49 +1,57 @@
-.Chip-bg{
+.Chip-box{
     display:flex;
-    flex-wrap:wrap;
-    background: url('../../../JSON/GF/Images/GF1.jpg') no-repeat center/cover;
 }
 
-.bg-box-1{
-    background: url('../../../JSON/GF/Images/GF1.jpg') no-repeat center/cover;
+.ChipBgimg{
+    width:100%;
+    flex-shrink: 0;
 }
-.bg-box-2{
-    background: url('../../../JSON/GF/Images/GF2.jpg') no-repeat center/cover;
+
+.fadeout{
+    opacity: 0;
+    transition: opacity 0.3s;
 }
-.bg-box-3{
-    background: url('../../../JSON/GF/Images/GF3.jpg') no-repeat center/cover;
+
+.fadein{
+    opacity: 1;
+    transition: opacity 0.3s;
 }
-.bg-box-4{
-    background: url('../../../JSON/GF/Images/GF4.jpg') no-repeat center/cover;
+
+.Chip-bg{
+    display:flex;
+    flex-wrap: wrap;
+    margin-left:-100%;
+    z-index: 1;
 }
+
 .wrap{
     overflow: hidden;
     margin:100px auto;
-    width: 1000px;
+    width: 1100px;
     height: 400px;
 }
+
 .wrap > ul{
-    width: 120%;
+    width: 1100px;
     list-style: none;
 }
 .wrap > ul > li{
     float: left;
-    width: 100px;
+    width:100px;
     height: 400px;
     cursor: pointer;
 }
 .wrap > ul > li:nth-child(1){
-    background: url('../../../JSON/GF/Images/GF1.jpg') no-repeat center/cover;
+    background: url('../../../Image/Chip1.jpg') no-repeat center/cover;
 }
 .wrap > ul > li:nth-child(2){
-    background: url('../../../JSON/GF/Images/GF2.jpg') no-repeat center/cover;
+    background: url('../../../Image/Chip2.jpg') no-repeat center/cover;
 }
 .wrap > ul > li:nth-child(3){
-    background: url('../../../JSON/GF/Images/GF3.jpg') no-repeat center/cover;
+    background: url('../../../Image/Chip3.jpg') no-repeat center/cover;
 }
 .wrap > ul > li:nth-child(4){
-    background: url('../../../JSON/GF/Images/GF4.jpg') no-repeat center/cover;
-    width: 700px;
+    background: url('../../../Image/Chip4.jpg') no-repeat center/cover;
 }
 .wrap > ul > li > .text{
     width: 100px;
@@ -54,4 +62,14 @@
 .wrap > ul > li > .text p{
     padding: 20px 40px;
     color: #fff;
+}
+
+.minor{
+    width:100px !important;
+    transition: width 1s;
+}
+
+.curr{
+    width:700px !important;
+    transition: width 1s;
 }

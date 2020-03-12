@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Icon, Modal, Divider, Pagination} from 'antd';
+import {Row, Col, Icon, Modal, Divider, Pagination,Tooltip,Popconfirm,message} from 'antd';
 import MenuTitle from "../../../components/MenuTitle";
 import './SysComJCDetails.css';
 import config from "../../../config";
@@ -7,7 +7,7 @@ import config from "../../../config";
 const pageSize = config.pageSize;
 
 //评论tab
-const UserInfoTab = ({imgUrl, name, time, content})=>{
+const UserInfoTab = ({t,imgUrl, name, time, content})=>{
   return(
     <div className='SysJCDe-comTab'>
       <div className='SysJCDe-user'>
@@ -31,6 +31,19 @@ const UserInfoTab = ({imgUrl, name, time, content})=>{
       </div>
       <div className='ComJC-commentText'>
         {content?content:''}
+      </div>
+      <div style={{textAlign:'right',fontSize:'20px'}}>
+        <Popconfirm
+          title='确定删除吗？'
+          okText="确定"
+          cancelText="取消"
+          placement="left"
+          onConfirm={t.deleteInvitation}
+        >
+          <Tooltip placement="bottom" title="删除">
+            <Icon type="delete" theme="filled" />
+          </Tooltip>
+        </Popconfirm>
       </div>
     </div>
   )
@@ -96,12 +109,18 @@ class SysComJCDetails extends React.Component{
     })
   };
 
+  //删除评论
+  deleteInvitation=()=>{
+    message.success('删除成功');
+  };
+
   //换页
   changePage=(page,pageSize)=>{
     console.log("page,pageSize:", page,pageSize);
   };
 
   render() {
+    let t = this;
     let {visible, ImageUrl, major} = this.state;
     return (
       <div className='SysJCDe-box' style={{width:`${this.props.width?this.props.width:'85%'}`}}>
@@ -226,6 +245,7 @@ class SysComJCDetails extends React.Component{
                     return(
                       <div key={index}>
                         <UserInfoTab
+                          t={t}
                           imgUrl='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1564199267,720190006&fm=26&gp=0.jpg'
                           name='无衣'
                           time='2020/3/3 15:34'

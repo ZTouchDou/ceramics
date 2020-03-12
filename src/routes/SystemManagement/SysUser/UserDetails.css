@@ -83,3 +83,36 @@
     overflow: auto;
     cursor: pointer;
 }
+
+.ChipInfoTab-box{
+    height:250px;
+    padding:8px 10px;
+    background-size: 100% 100%;
+    display: flex;
+    cursor:pointer;
+    transition: background-color 2s;
+}
+
+.ChipInfoTab-box:hover{
+    background-color: rgba(255,208,153,0.2);
+    transition: background-color 0.5s;
+}
+
+.ChipInfoTab-name{
+    width:50%;
+    height:100%;
+    text-align: center;
+    overflow: auto;
+    padding-top:80px;
+    color:#C9794C;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.ChipInfoTab-pic{
+    width:50%;
+    height:100%;
+    background-image:url("../../../Image/CPBG.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}

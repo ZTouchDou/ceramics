@@ -4,6 +4,7 @@
     background-color:white;
     overflow:auto;
     color:#001529;
+    z-index:2;
 }
 
 .ChipDetails-title{

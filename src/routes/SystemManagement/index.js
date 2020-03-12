@@ -12,6 +12,7 @@ import CeramicsPicture from "./CeramicesPicture";
 import SysUser from "./SysUser";
 import Comment from "./Comment";
 import Chip from "./Chip";
+import DataScreen from "./DataScreen";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -46,26 +47,30 @@ class SystemManagement extends React.Component{
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{backgroundColor:''}}>
             <div className="logo" >
-              釉色后台管理系统
+              釉色后台管理系统 v1.0
             </div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1" onClick={this.changeMenu.bind(this,1)}>
                 <Icon type="pie-chart" />
-                <span>起源管理</span>
+                <span>数据统计</span>
               </Menu.Item>
               <Menu.Item key="2" onClick={this.changeMenu.bind(this,2)}>
+                <Icon type="pie-chart" />
+                <span>起源管理</span>
+              </Menu.Item>
+              <Menu.Item key="3" onClick={this.changeMenu.bind(this,3)}>
                 <Icon type="desktop" />
                 <span>陶瓷管理</span>
               </Menu.Item>
-              <Menu.Item key="3" onClick={this.changeMenu.bind(this,3)}>
+              <Menu.Item key="4" onClick={this.changeMenu.bind(this,4)}>
                 <Icon type="pie-chart" />
                 <span>工序管理</span>
               </Menu.Item>
-              <Menu.Item key="4" onClick={this.changeMenu.bind(this,4)}>
+              <Menu.Item key="5" onClick={this.changeMenu.bind(this,5)}>
                 <Icon type="pie-chart" />
                 <span>工坊管理</span>
               </Menu.Item>
-              <Menu.Item key="5" onClick={this.changeMenu.bind(this,5)}>
+              <Menu.Item key="6" onClick={this.changeMenu.bind(this,6)}>
                 <Icon type="user" />
                 <span>用户管理</span>
               </Menu.Item>
@@ -78,13 +83,13 @@ class SystemManagement extends React.Component{
                 </span>
                 }
               >
-                <Menu.Item key="6" onClick={this.changeMenu.bind(this,6)}>鉴瓷</Menu.Item>
-                <Menu.Item key="7" onClick={this.changeMenu.bind(this,7)}>赏瓷</Menu.Item>
-                <Menu.Item key="8" onClick={this.changeMenu.bind(this,8)}>陶片</Menu.Item>
-                <Menu.Item key="9">书籍</Menu.Item>
-                <Menu.Item key="10" onClick={this.changeMenu.bind(this,10)}>评论</Menu.Item>
+                <Menu.Item key="7" onClick={this.changeMenu.bind(this,7)}>鉴瓷</Menu.Item>
+                <Menu.Item key="8" onClick={this.changeMenu.bind(this,8)}>赏瓷</Menu.Item>
+                <Menu.Item key="9" onClick={this.changeMenu.bind(this,9)}>陶片</Menu.Item>
+                <Menu.Item key="10">书籍</Menu.Item>
+                <Menu.Item key="11" onClick={this.changeMenu.bind(this,11)}>评论</Menu.Item>
               </SubMenu>
-              <Menu.Item key="11" onClick={this.changeMenu.bind(this,11)}>
+              <Menu.Item key="12" onClick={this.changeMenu.bind(this,12)}>
                 <Icon type="file" />
                 <span>页面管理</span>
               </Menu.Item>
@@ -95,42 +100,46 @@ class SystemManagement extends React.Component{
             <Content style={{ margin: '10px 16px',overflow:'auto' }}>
               {
                 menuKey===1&&
-                <SysOrigin/>
+                <DataScreen/>
               }
               {
                 menuKey===2&&
-                  <SysCeramicsShow/>
+                <SysOrigin/>
               }
               {
                 menuKey===3&&
-                <SysTechnology/>
+                  <SysCeramicsShow/>
               }
               {
                 menuKey===4&&
-                <SysWorkshop/>
+                <SysTechnology/>
               }
               {
                 menuKey===5&&
-                <SysUser/>
+                <SysWorkshop/>
               }
               {
                 menuKey===6&&
-                <SysComJC/>
+                <SysUser/>
               }
               {
                 menuKey===7&&
-                  <CeramicsPicture/>
+                <SysComJC/>
               }
               {
                 menuKey===8&&
+                  <CeramicsPicture/>
+              }
+              {
+                menuKey===9&&
                 <Chip/>
               }
               {
-                menuKey===10&&
+                menuKey===11&&
                 <Comment/>
               }
               {
-                menuKey===11&&
+                menuKey===12&&
                 <SysPageManagement/>
               }
             </Content>
