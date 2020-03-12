@@ -1,0 +1,57 @@
+.Chip-bg{
+    display:flex;
+    flex-wrap:wrap;
+    background: url('../../../JSON/GF/Images/GF1.jpg') no-repeat center/cover;
+}
+
+.bg-box-1{
+    background: url('../../../JSON/GF/Images/GF1.jpg') no-repeat center/cover;
+}
+.bg-box-2{
+    background: url('../../../JSON/GF/Images/GF2.jpg') no-repeat center/cover;
+}
+.bg-box-3{
+    background: url('../../../JSON/GF/Images/GF3.jpg') no-repeat center/cover;
+}
+.bg-box-4{
+    background: url('../../../JSON/GF/Images/GF4.jpg') no-repeat center/cover;
+}
+.wrap{
+    overflow: hidden;
+    margin:100px auto;
+    width: 1000px;
+    height: 400px;
+}
+.wrap > ul{
+    width: 120%;
+    list-style: none;
+}
+.wrap > ul > li{
+    float: left;
+    width: 100px;
+    height: 400px;
+    cursor: pointer;
+}
+.wrap > ul > li:nth-child(1){
+    background: url('../../../JSON/GF/Images/GF1.jpg') no-repeat center/cover;
+}
+.wrap > ul > li:nth-child(2){
+    background: url('../../../JSON/GF/Images/GF2.jpg') no-repeat center/cover;
+}
+.wrap > ul > li:nth-child(3){
+    background: url('../../../JSON/GF/Images/GF3.jpg') no-repeat center/cover;
+}
+.wrap > ul > li:nth-child(4){
+    background: url('../../../JSON/GF/Images/GF4.jpg') no-repeat center/cover;
+    width: 700px;
+}
+.wrap > ul > li > .text{
+    width: 100px;
+    height: 100%;
+    background: #000;
+    opacity: .5;
+}
+.wrap > ul > li > .text p{
+    padding: 20px 40px;
+    color: #fff;
+}

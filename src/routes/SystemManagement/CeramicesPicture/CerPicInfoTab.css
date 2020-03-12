@@ -1,0 +1,15 @@
+.CerInfoTab-box{
+    width:24%;
+    margin:0.5% 0.5%;
+    background-color: white;
+}
+
+.CerInfoTab-header{
+    width:100%;
+}
+
+.CerInfoTab-body{
+    width:100%;
+    font-size:3.5vmin;
+    padding:1vh 2vw;
+}

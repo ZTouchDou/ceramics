@@ -4,6 +4,16 @@
     padding:0;
 }
 
+.logo {
+    text-align: center;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    color:white;
+    line-height:32px;
+    font-weight:bold;
+    margin: 16px;
+}
+
 .ant-s-menu{
     width:95vw;
     height:10vh;

@@ -1,5 +1,6 @@
 export default {
   fontName:'方正楷体',
+  pageSize:10,
   reg: {
     required: {
       required: true,

@@ -1,0 +1,51 @@
+.ChipDetails-box{
+    position:absolute;
+    height:620px;
+    background-color:white;
+    overflow:auto;
+    color:#001529;
+}
+
+.ChipDetails-title{
+    font-size:25px;
+    font-weight:bold;
+    text-align: center;
+}
+
+.ChipDetails-text{
+    padding:20px 30px 0 30px;
+    font-size:18px;
+}
+
+.ChipDetails-pageInfo{
+    color:#ccc;
+    text-align: right;
+    padding:0 30px 10px 30px;
+}
+
+.ChipDetails-index{
+    padding:10px 25px 10px 25px;
+    font-weight: bold;
+}
+
+.ChipDetails-time{
+    padding:0 25px 0 25px;
+    color:#ccc;
+}
+
+.ChipDetails-content{
+    padding:10px 30px;
+}
+
+.ChipDetails-changeButton{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ChipDetails-changeButton div{
+    font-size:3vmin;
+    text-align: center;
+    width:50%;
+    height:30px;
+    cursor: pointer;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Tree, Icon, Button, notification} from 'antd';
-import SysBg from '../../../Image/SysBg.png';
+import { Tree, Icon, Button, notification,Row,Col} from 'antd';
+import SysPageBgl from '../../../Image/SysPageBgl.jpg';
+import SysPageBgr from '../../../Image/SysPageBgr.jpg';
 
 const { TreeNode } = Tree;
 
@@ -241,46 +242,47 @@ class SysPageManagement extends React.Component{
     let {treeData} = this.state;
     // this.createTree(treeData);
     return (
-      <div style={{color:'#001529'}}>
-        <div style={{paddingLeft:'5vw',width:'100%',height:'8vh',fontSize:'7vmin',fontWeight:'bold'}}>
-          页面权限管理
-        </div>
-        <div style={{paddingLeft:'5vw',width:'100%',height:'50vh',overflow:'auto'}}>
-          <Tree
-            onCheck={this.onCheck}
-            showIcon
-            checkable
-            checkedKeys={this.state.checkedApplication}
-            switcherIcon={<Icon type="down" />}
-          >
-            {
-              this.createTree(treeData)
-            }
-          </Tree>
-        </div>
-        <div style={{width:'100%',height:'28vh',position:'absolute',top:'72vh',display:'flex'}}>
-          <div
-            style={{transform:'rotateY(180deg)',
-              width:'50%',height:'100%',
-              backgroundImage:`url("${SysBg}")`,backgroundSize:'100% 100%',backgroundRepeat:'no-repeat'
-            }}
-          />
-          <div style={{width:'50%',height:'100%'}}>
-            <div style={{height:'50%',width:'50%',marginLeft:'40%'}}>
-              <Button shape="circle" style={{width:'18vmin',height:'18vmin',backgroundColor:'#FEFDF9',color:'#8F8044'}}
-                onClick={this.submitTree}
+      <div style={{color:'#001529',height:'100%'}}>
+        <Row>
+          <Col span={12}>
+            <div style={{paddingLeft:'30px',backgroundImage:`url(${SysPageBgl})`,height:'600px',overflow:'auto',backgroundRepeat:'no-repeat',backgroundSize:'100% 100%'}}>
+              <Tree
+                style={{fontWeight:'bold'}}
+                onCheck={this.onCheck}
+                showIcon
+                checkable
+                defaultExpandAll
+                checkedKeys={this.state.checkedApplication}
+                switcherIcon={<Icon type="down" />}
               >
-                确定
-              </Button>
+                {
+                  this.createTree(treeData)
+                }
+              </Tree>
             </div>
-            <div style={{height:'50%',width:'50%',marginLeft:'15%'}}>
-              <Button shape="circle" style={{width:'14vmin',height:'14vmin',backgroundColor:'#FEFDF9',color:'#8F8044'}}
-              >
-                取消
-              </Button>
+          </Col>
+          <Col span={12}>
+            <div style={{height:'600px',backgroundImage:`url(${SysPageBgr})`,backgroundRepeat:'no-repeat',backgroundSize:'100% 100%'}}>
+              <div style={{height:'40vh',paddingTop:'5vh',display:'flex'}}>
+                <div style={{width:'50%',height:'100%'}}>
+                  <div style={{marginLeft:'40%'}}>
+                    <Button shape="circle" style={{width:'15vmin',height:'15vmin',backgroundColor:'#FEFDF9',color:'#8F8044'}}
+                            onClick={this.submitTree}
+                    >
+                      确定
+                    </Button>
+                  </div>
+                  <div style={{height:'50%',width:'50%',marginLeft:'15%'}}>
+                    <Button shape="circle" style={{width:'12vmin',height:'12vmin',backgroundColor:'#FEFDF9',color:'#8F8044'}}
+                    >
+                      取消
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     );
   }

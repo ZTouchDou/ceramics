@@ -1,0 +1,111 @@
+.loginBox{
+    width:1536px;
+    background-image: url("../../Image/LoginBg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.loginTop{
+    height:144px;
+    background-color: white;
+    opacity:0.5;
+    animation: animateheight 1s ease-out forwards;
+}
+
+.login-info{
+    width:320px;
+    height:144px;
+    padding:15px 24px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.loginBottom{
+    width:100%;
+    background-color: white;
+    opacity:0.5;
+    animation: animateheight 1s ease-out forwards;
+}
+
+.loginBottom-time{
+    width:560px;
+    height:144px;
+    margin-top:-144px;
+    padding:8px 24px;
+}
+
+.loginBottom-time-hour{
+    height:96px;
+    font-size:64px;
+    color:white;
+    font-weight: bold;
+}
+
+.loginBottom-time-year{
+    height:48px;
+    margin-top:48px;
+    margin-left:16px;
+    font-size:20px;
+    color:white;
+    font-weight: bold;
+}
+
+.loginBottom-sign{
+    height:32px;
+    font-size:20px;
+    color:white;
+    margin-left:8px;
+    font-weight: bold;
+}
+
+@keyframes animateheight {
+    from{
+        height:0;
+    }
+    to{
+        height:144px;
+    }
+}
+
+.loginCenter{
+    width:100%;
+    height:464px;
+    animation: animateheightC 1s ease-out forwards;
+}
+
+@keyframes animateheightC {
+    from{
+        height:752px;
+    }
+    to
+    {
+        height:464px;
+    }
+}
+
+.login-right{
+    display:flex;
+    width:100%;
+    height:100%;
+}
+
+.login-login{
+    width:100%;
+    height:100%;
+    margin-left:-100%;
+    z-index:1000;
+    padding:80px 80px;
+}
+
+.loginRight-mask{
+    width:100%;
+    height:752px;
+    margin-top:-144px;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.login-form-button{
+    width:100%;
+    height:100%;
+}

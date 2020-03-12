@@ -1,0 +1,85 @@
+.UserDetails-box{
+    position:absolute;
+    width:85%;
+    height:620px;
+    background-image: url("http://img5.imgtn.bdimg.com/it/u=3043137452,2943999397&fm=26&gp=0.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow:auto;
+    color:#001529;
+}
+
+.UserDetails-userInfo{
+    padding:10px 30px;
+}
+
+.UserDetails-userImg{
+    height:240px;
+    width:60%;
+    margin-left:18%;
+    clip-path: polygon(0% 2%,100% 5%,100% 95%,0% 98%);
+    transform: rotateY(10deg);
+    transition:clip-path 1s;
+}
+.UserDetails-userImg:hover{
+    clip-path: polygon(0% 0%,100% 8%,100% 92%,0% 100%);
+    transition:clip-path 1s;
+}
+
+.UserDetails-baseInfo{
+    height:300px;
+    color:white;
+    padding:20px 10px 20px 80px;
+    transform: rotateY(30deg) rotateZ(-1deg);
+}
+
+.UserDetails-userContent{
+    padding-top:10px;
+    height:40px;
+    font-size:20px;
+}
+
+.UserDetails-userContent .title{
+    font-size:22px;
+}
+
+.UserDetails-right{
+    height:480px;
+    overflow: auto;
+    padding:20px 10px;
+}
+
+.inv-title{
+    font-weight:bold;
+}
+
+.inv-time{
+    text-align: right;
+    color:#666;
+}
+
+.inv-content{
+    padding:10px 0 10px 0;
+}
+
+.Cer-content{
+    padding:10px 20px;
+}
+
+.MyComment-comment{
+    height:100px;
+    padding:10px 10px;
+    overflow: auto;
+}
+
+.MyComment-invContent{
+    margin-top:10px;
+    height:100px;
+    border-radius: 50%;
+    color:#F3D9C0;
+    font-size:18px;
+    font-weight:bold;
+    background-color: #DEB78C;
+    overflow: auto;
+    cursor: pointer;
+}

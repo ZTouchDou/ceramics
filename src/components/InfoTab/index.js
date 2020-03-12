@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, notification, Popconfirm} from 'antd';
+import {Icon, notification, Popconfirm, Tooltip} from 'antd';
 
 import './index.css';
 
@@ -34,9 +34,11 @@ class InfoTab extends React.Component{
         <div  className='InfoTab-box' onClick={this.props.showModal}>
           <div className='InfoTab-header'>
             <div className='InfoTab-title'>
-              <Icon type="fire" theme="filled" style={{fontSize:'4vmin',color:'red'}}/>
+              <Tooltip title={`id:${item.id?item.id:1001}`}>
+                <Icon type="fire" theme="filled" style={{fontSize:'20px',color:'red'}}/>
+              </Tooltip>
               &nbsp;
-              {item.title.length>9?(item.title.slice(0,9)+'...'):item.title}
+              {item.title.length>7?(item.title.slice(0,7)+'...'):item.title}
             </div>
             <div onClick={this.topPropagationClick}>
               <Popconfirm

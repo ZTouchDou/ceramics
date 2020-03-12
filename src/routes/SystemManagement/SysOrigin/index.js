@@ -1,9 +1,12 @@
 import React from 'react';
+import { Pagination } from 'antd';
 import InfoTab from "../../../components/InfoTab";
 import QY from '../../../JSON/QY/QY.json';
 import config from "../../../config";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
+
+const pageSize = config.pageSize;
 
 class SysOrigin extends React.Component{
   constructor(props) {
@@ -13,23 +16,46 @@ class SysOrigin extends React.Component{
       content:'',
       modalTitle:'',
       modalShow: false,
+      fileList: []
     }
   }
 
   //显示弹框
   showModal = (item,type)=>{
-    let {title, content}=this.state;
+    let {title, content,fileList}=this.state;
     if(type==='修改'){
       title=item.title;
       content=item.content;
+      fileList=[
+        {
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+          uid: '-2',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+          uid: '-3',
+          name: 'image.png',
+          status: 'done',
+          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        }
+      ]
     }else if(type==='新增'){
       title='';
       content='';
+      fileList=[];
     }
     this.setState({
       modalTitle:type,
       title,
       content,
+      fileList,
       modalShow: true,
     })
   };
@@ -55,6 +81,18 @@ class SysOrigin extends React.Component{
     });
   };
 
+  //换页
+  changePage=(page,pageSize)=>{
+    console.log("page,pageSize:", page,pageSize);
+  };
+
+  //更新图片列表
+  setFileList=(fileList)=>{
+    this.setState({
+      fileList
+    })
+  };
+
   render() {
     const resource =[
       {
@@ -63,6 +101,15 @@ class SysOrigin extends React.Component{
         type:'input',
         rules: config.reg.required,
         initialValue:this.state.title
+      },
+      {
+        title:'配图',
+        label:'image',
+        type:'Upload',
+        rules: '',
+        initialValue:'',
+        fileList:this.state.fileList,
+        picNumber:3
       },
       {
         title:'内容',
@@ -74,7 +121,7 @@ class SysOrigin extends React.Component{
     ];
 
     return (
-      <div>
+      <div style={{display:'flex',flexWrap:'wrap'}}>
         {
           QY.map((item,index)=>{
             return (
@@ -89,11 +136,20 @@ class SysOrigin extends React.Component{
         <MyModal
           modalTitle={this.state.modalTitle}
           visible={this.state.modalShow}
+          setFileList={this.setFileList}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           resource={resource}
         />
         <SysAddButton color='#1890FF' showModal={this.showModal.bind(this,'','新增')}/>
+        <div style={{height:'50px',marginLeft:'50%',transform:'translateX(-50%)'}}>
+          <Pagination
+            onChange={this.changePage}
+            defaultCurrent={1}
+            pageSize={pageSize}
+            total={500}
+          />
+        </div>
       </div>
     );
   }

@@ -1,9 +1,12 @@
 import React from 'react';
+import { Pagination } from 'antd';
 import InfoTab from "../../../components/InfoTab";
 import TC from '../../../JSON/TC/TC.json';
 import config from "../../../config";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
+
+const pageSize = config.pageSize;
 
 class SysCeramicsShow extends React.Component {
   constructor(props) {
@@ -48,6 +51,11 @@ class SysCeramicsShow extends React.Component {
     });
   };
 
+  //换页
+  changePage=(page,pageSize)=>{
+    console.log("page,pageSize:", page,pageSize);
+  };
+
   render() {
     const resource = [
       {
@@ -67,7 +75,7 @@ class SysCeramicsShow extends React.Component {
     ];
 
     return (
-      <div>
+      <div style={{display:'flex',flexWrap:'wrap'}}>
         {
           TC.map((item, index) => {
             return (
@@ -87,6 +95,14 @@ class SysCeramicsShow extends React.Component {
           resource={resource}
         />
         <SysAddButton color='#FA7F00' showModal={this.showModal.bind(this, '', '新增')}/>
+        <div style={{height:'50px',marginLeft:'50%',transform:'translateX(-50%)'}}>
+          <Pagination
+            onChange={this.changePage}
+            defaultCurrent={1}
+            pageSize={pageSize}
+            total={500}
+          />
+        </div>
       </div>
     );
   }

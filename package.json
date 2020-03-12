@@ -15,7 +15,10 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.3.0",
-    "swiper": "^5.3.1"
+    "swiper": "^5.3.1",
+    "es6-promise": "^4.1.0",
+    "md5": "^2.2.1",
+    "react-vcode": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
