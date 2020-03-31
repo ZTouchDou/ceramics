@@ -1,5 +1,6 @@
 import React from 'react';
 import { message,Table, Divider, Tag, Avatar, Modal, Tree,Icon } from 'antd';
+import request from "../../../utils/request";
 import UserDetails from "./UserDetails";
 
 const { TreeNode } = Tree;
@@ -106,8 +107,26 @@ class SysUser extends React.Component{
             }
           ]
         }
-      ]
+      ],
+      userData:[],
+      userInfo:{},
+      userId:''
     }
+  }
+
+  //取得用户列表
+  getUser=()=>{
+    request({url:'/getUser',method:'GET'}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          userData:res.data
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getUser();
   }
 
   //关闭确认删除弹框
@@ -118,30 +137,45 @@ class SysUser extends React.Component{
   };
 
   //打开确认删除弹框
-  showDeleteWarn=(permit)=>{
-    if(permit){
+  showDeleteWarn=(record)=>{
+    if(record.status){
       this.setState({
         modalTitle:'删除操作',
-        modalContent:'确定删除该用户吗？删除之后可点击恢复找回用户账号。注意：若三十天内未恢复，该账号将彻底删除。',
+        modalContent:'确定删除该用户吗？删除之后可点击恢复找回用户账号。',
+        userId:record.id,
         deleteWarn:true
       })
     }else{
       this.setState({
         modalTitle:'恢复操作',
         modalContent:'确定恢复该用户吗？',
+        userId:record.id,
         deleteWarn:true
       })
     }
   };
 
-  //删除用户
+  //改变用户状态
   onOk=()=>{
-    let {modalTitle} = this.state;
+    let {modalTitle,userId} = this.state;
+    let status='';
+    let mes = '';
     if(modalTitle === '删除操作'){
-      message.success('删除成功');
+      status=0;
+      mes="删除成功";
     }else{
-      message.success('恢复成功');
+      status=1;
+      mes="恢复成功";
     }
+    let data={};
+    data.id=userId;
+    data.status=status;
+    request({url:'/updateUserStatus',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        message.success(mes);
+        this.getUser();
+      }
+    });
     this.setState({
       deleteWarn:false
     })
@@ -217,8 +251,10 @@ class SysUser extends React.Component{
   };
 
   //显示用户详情
-  showUserDetails=()=>{
+  showUserDetails=(record)=>{
+    console.log("record:", record);
     this.setState({
+      userInfo:record,
       userDetails:true
     })
   };
@@ -242,7 +278,7 @@ class SysUser extends React.Component{
         title: '昵称',
         dataIndex: 'name',
         key: 'name',
-        render: text => <a onClick={this.showUserDetails}>{text}</a>,
+        render: (text,record) => <a className='userHome' onClick={this.showUserDetails.bind(this,record)}>{text}</a>,
       },
       {
         title: '头像',
@@ -266,22 +302,10 @@ class SysUser extends React.Component{
         dataIndex: 'tags',
         render: tags => (
           <span>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === '超级管理员') {
-            color = 'magenta';
-          }else if(tag === '普通用户'){
-            color = 'green';
-          }else{
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
+            <Tag color={tags==='超级管理员'?'magenta':tags==='普通用户'?'green':'volcano'} key={tags}>
+              {tags.toUpperCase()}
             </Tag>
-          );
-        })}
-      </span>
+          </span>
         ),
       },
       {
@@ -292,52 +316,19 @@ class SysUser extends React.Component{
             <a onClick={this.showPowerTree}>权限管理</a>
             <Divider type="vertical" />
             {
-              record.permit?
-                <a onClick={this.showDeleteWarn.bind(this,record.permit)}>删除用户</a>
+              record.status?
+                <a className='deleteUser' onClick={this.showDeleteWarn.bind(this,record)}>删除用户</a>
                 :
-                <a onClick={this.showDeleteWarn.bind(this,record.permit)}>恢复用户</a>
+                <a className='resaveUser' onClick={this.showDeleteWarn.bind(this,record)}>恢复用户</a>
             }
           </span>
         ),
       },
     ];
 
-    const data = [
-      {
-        key: '1',
-        id:'1000',
-        name: 'admin',
-        imgUrl: 'http://img1.imgtn.bdimg.com/it/u=2492488577,388673270&fm=26&gp=0.jpg',
-        account: 'admin',
-        password:'123456',
-        tags: ['超级管理员'],
-        permit:true
-      },
-      {
-        key: '2',
-        id:'1001',
-        name: '小果果',
-        imgUrl: 'http://img1.imgtn.bdimg.com/it/u=3495633323,551723840&fm=26&gp=0.jpg',
-        account: '1258234434@qq.com',
-        password:'12589476',
-        tags: ['无权限'],
-        permit:false
-      },
-      {
-        key: '3',
-        id:'1002',
-        name: '洛洛大方',
-        imgUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1564199267,720190006&fm=26&gp=0.jpg',
-        account: '332198434@qq.com',
-        password:'10258.xialq14',
-        tags: ['普通用户'],
-        permit:true
-      },
-    ];
-
     return (
       <div style={{display:'flex'}}>
-        <Table style={{width:'100%'}} columns={columns} dataSource={data} />
+        <Table style={{width:'100%'}} columns={columns} dataSource={this.state.userData} />
         <Modal
           okText='确定'
           cancelText='取消'
@@ -374,6 +365,7 @@ class SysUser extends React.Component{
           userDetails &&
             <UserDetails
               closeDetails={this.closeUserDetails}
+              userInfo={this.state.userInfo}
             />
         }
       </div>

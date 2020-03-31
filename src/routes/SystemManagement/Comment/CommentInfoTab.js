@@ -1,9 +1,9 @@
 import React from 'react';
 import {Tooltip} from 'antd';
+import moment from "moment";
 import { withRouter } from 'react-router-dom'
 import {Popconfirm, Icon,notification,Avatar }from 'antd';
 import './CommentInfoTab.css';
-import SysComJCDetails from "../SysComJC/SysComJCDetails";
 
 class CommentInfoTab extends React.Component{
   constructor(props) {
@@ -31,20 +31,21 @@ class CommentInfoTab extends React.Component{
   };
 
   render() {
+    let {item} = this.props;
     return (
-      <Tooltip title='ID：10125'>
+      <Tooltip title={`ID：${item.id}`}>
         <div className='ComInfoTab-box'>
           <div className='ComInfoTab-header'>
             <div className='ComInfoTab-time'>
               <Avatar
-                src="http://img1.imgtn.bdimg.com/it/u=1266666099,348969094&fm=26&gp=0.jpg"
+                src={item.userImg}
               />
               <div>
                 <div style={{padding:'2px 10px'}}>
-                  小果果
+                  {item.userName}
                 </div>
                 <div style={{padding:'2px 10px',color:'#ccc'}}>
-                  2020/3/3
+                  {moment(Number(item.time)).format("YYYY/MM/DD")}
                 </div>
               </div>
             </div>
@@ -63,10 +64,10 @@ class CommentInfoTab extends React.Component{
             </div>
           </div>
           <div className='ComInfoTab-body'>
-            Support for let and class redeclarations When experimenting with new code in the Console
+            {item.content}
           </div>
-          <div className='ComInfoTab-invitation' onClick={this.props.showModal.bind(this,'1')}>
-            Improved WebAssembly debugging The Sources pannel has increased support for stepping over code.
+          <div className='ComInfoTab-invitation' onClick={this.props.showModal.bind(this,item)}>
+            {item.invContent}
           </div>
         </div>
       </Tooltip>

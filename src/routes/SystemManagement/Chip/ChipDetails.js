@@ -1,21 +1,74 @@
 import React from 'react';
-import {Row, Col,Icon,Tooltip,Divider} from 'antd';
+import {Row, Col,Icon,Tooltip,Divider,message} from 'antd';
 import './ChipDetails.css';
+import moment from "moment";
+import request from "../../../utils/request";
 import MenuTitle from "../../../components/MenuTitle";
 
 class ChipDetails extends React.Component{
   constructor(props) {
     super(props);
-
+    this.state={
+      chipContent:[]
+    }
   }
+
+  //取得陶片的详情
+  getChipComment=()=>{
+    let data={
+      id:this.props.chipDetails.id
+    };
+    request({url:"/getChipContent",method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          chipContent:res.data
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getChipComment();
+  };
 
   //关闭详情页
   closeDetails=()=>{
     this.props.closeDetails();
   };
 
+  //改变显隐性
+  changeChipCommentVisible=(id,visible)=>{
+    let data={
+      id:id,
+      chipId:this.props.chipDetails.id,
+      visible:visible
+    };
+    request({url:'/changeChipCommentVisible',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        message.success("操作成功");
+        this.getChipComment();
+      }
+    })
+  };
+
+  //改变顺序
+  changeChipCommentOrder=(id,order)=>{
+    let data={
+      id:id,
+      chipId:this.props.chipDetails.id,
+      theOrder:order
+    };
+    request({url:'/changeChipCommentOrder',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        message.success("操作成功");
+        this.getChipComment();
+      }
+    })
+  };
 
   render() {
+    let {chipContent} = this.state;
+    let {chipDetails} = this.props;
     return (
       <div className='ChipDetails-box' style={{width:`${this.props.width?this.props.width:'85%'}`}}>
         <Row style={{width:'100%',height:'100%'}}>
@@ -27,38 +80,29 @@ class ChipDetails extends React.Component{
               />
               <div style={{overflow:'auto',height:'90%'}}>
                 <div className='ChipDetails-title'>
-                  乡俗
+                  {chipDetails.title}
                 </div>
-                <div className='ChipDetails-text'>
-                  陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
-                </div>
-                <div className='ChipDetails-pageInfo'>
-                  1
-                </div>
-                <div className='ChipDetails-text'>
-                  陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
-                </div>
-                <div className='ChipDetails-pageInfo'>
-                  3
-                </div>
-                <div className='ChipDetails-text'>
-                  陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
-                </div>
-                <div className='ChipDetails-pageInfo'>
-                  4
-                </div>
-                <div className='ChipDetails-text'>
-                  陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
-                </div>
-                <div className='ChipDetails-pageInfo'>
-                  5
-                </div>
-                <div className='ChipDetails-text'>
-                  陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
-                </div>
-                <div className='ChipDetails-pageInfo'>
-                  7
-                </div>
+                {
+                  chipContent.map((item,index)=>{
+                    return(
+                      <div>
+                        {
+                          item.visible?
+                            <div key={index}>
+                              <div className='ChipDetails-text'>
+                                {item.content}
+                              </div>
+                              <div className='ChipDetails-pageInfo'>
+                                {item.theOrder}
+                              </div>
+                            </div>
+                            :
+                            ""
+                        }
+                      </div>
+                    )
+                  })
+                }
               </div>
             </div>
           </Col>
@@ -71,113 +115,104 @@ class ChipDetails extends React.Component{
                 closeable={true}
               />
               <div style={{overflow:'auto',height:'90%',padding:'0 20px'}}>
-                <div>
-                  <div>
-                    <Row>
-                      <Col span={6}>
-                        <div className='ChipDetails-index'>
-                          索引：<span style={{color:'#FF9E00'}}>第1条</span>
-                        </div>
-                      </Col>
-                      <Col span={6}>
-                        <div className='ChipDetails-index'>
-                          状态：<span style={{color:'#008bff'}}>可见</span>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                  <div className='ChipDetails-time'>
-                    2020/3/3
-                  </div>
-                  <div className='ChipDetails-content'>
-                    <Row>
-                      <Col span={21}>
+                {
+                  chipContent.map((item,index)=>{
+                    return(
+                      <div>
                         <div>
-                          陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
+                          <div>
+                            <Row>
+                              <Col span={6}>
+                                <div className='ChipDetails-index'>
+                                  索引：<span style={{color:'#FF9E00'}}>第{item.theOrder}条</span>
+                                </div>
+                              </Col>
+                              <Col span={6}>
+                                <div className='ChipDetails-index'>
+                                  状态：<span style={{color:`${item.visible?'#008bff':"red"}`}}>{item.visible?"可见":"不可见"}</span>
+                                </div>
+                              </Col>
+                            </Row>
+                          </div>
+                          <div className='ChipDetails-time'>
+                            {moment(Number(item.time)).format("YYYY/MM/DD HH:mm")}
+                          </div>
+                          <div className='ChipDetails-content'>
+                            <Row>
+                              <Col span={21}>
+                                <div>
+                                  {item.content}
+                                </div>
+                              </Col>
+                              <Col span={3}>
+                                <div className='ChipDetails-changeButton'>
+                                  <div>
+                                    {
+                                      index===0?
+                                        <Tooltip placement="top" title="上升">
+                                          <Icon
+                                            type="up-circle"
+                                            theme="filled"
+                                            onClick={()=>{message.warn("已经是第一条了，无法上升")}}
+                                          />
+                                        </Tooltip>
+                                        :
+                                        <Tooltip placement="top" title="上升">
+                                          <Icon
+                                            type="up-circle"
+                                            theme="filled"
+                                            onClick={this.changeChipCommentOrder.bind(this,item.id,1)}
+                                          />
+                                        </Tooltip>
+                                    }
+                                  </div>
+                                  <div>
+                                    {
+                                      item.visible?
+                                        <Tooltip placement="top" title="隐藏">
+                                          <Icon type="eye-invisible" theme="filled" onClick={this.changeChipCommentVisible.bind(this,item.id,0)}/>
+                                        </Tooltip>
+                                        :
+                                        <Tooltip placement="top" title="显示">
+                                          <Icon type="eye" theme="filled" onClick={this.changeChipCommentVisible.bind(this,item.id,1)}/>
+                                        </Tooltip>
+                                    }
+                                  </div>
+                                  <div>
+                                    {
+                                      (index+1)===chipContent.length?
+                                        <Tooltip placement="bottom" title="下降">
+                                          <Icon
+                                            type="down-circle"
+                                            theme="filled"
+                                            onClick={()=>{message.warn("已经是第最后一条了，无法下降")}}
+                                          />
+                                        </Tooltip>
+                                        :
+                                        <Tooltip placement="bottom" title="下降">
+                                          <Icon
+                                            type="down-circle"
+                                            theme="filled"
+                                            onClick={this.changeChipCommentOrder.bind(this,item.id,0)}
+                                          />
+                                        </Tooltip>
+                                    }
+                                  </div>
+                                  <div>
+                                    <Tooltip placement="bottom" title="删除">
+                                      <Icon type="delete" theme="filled" />
+                                    </Tooltip>
+                                  </div>
+                                </div>
+                              </Col>
+                            </Row>
+                          </div>
                         </div>
-                      </Col>
-                      <Col span={3}>
-                        <div className='ChipDetails-changeButton'>
-                          <div>
-                            <Tooltip placement="top" title="上升">
-                              <Icon type="up-circle" theme="filled" />
-                            </Tooltip>
-                          </div>
-                          <div>
-                            <Tooltip placement="top" title="隐藏">
-                              <Icon type="eye-invisible" theme="filled" />
-                            </Tooltip>
-                          </div>
-                          <div>
-                            <Tooltip placement="bottom" title="下降">
-                              <Icon type="down-circle" theme="filled" />
-                            </Tooltip>
-                          </div>
-                          <div>
-                            <Tooltip placement="bottom" title="删除">
-                              <Icon type="delete" theme="filled" />
-                            </Tooltip>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-                <Divider/>
-
-                <div>
-                  <div>
-                    <Row>
-                      <Col span={6}>
-                        <div className='ChipDetails-index'>
-                          索引：<span style={{color:'#FF9E00'}}>第2条</span>
-                        </div>
-                      </Col>
-                      <Col span={6}>
-                        <div className='ChipDetails-index'>
-                          状态：<span style={{color:'red'}}>不可见</span>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                  <div className='ChipDetails-time'>
-                    2020/3/3
-                  </div>
-                  <div className='ChipDetails-content'>
-                    <Row>
-                      <Col span={21}>
-                        <div>
-                          陶瓷是陶器和瓷器的总称。早在约8000年前的新石器时代，人们就发明了陶器。九千多年前的中国先民在从事渔猎、农业生产活动的同时，开始进行最原始的建筑活动，随着火的发明和使用，在改造大自然的长期劳动实践中，伴随着无数次实践，开始制造和使用成为中国古文化之一的艺术创造物——陶器
-                        </div>
-                      </Col>
-                      <Col span={3}>
-                        <div className='ChipDetails-changeButton'>
-                          <div>
-                            <Tooltip placement="top" title="上升">
-                              <Icon type="up-circle" theme="filled" />
-                            </Tooltip>
-                          </div>
-                          <div>
-                            <Tooltip placement="top" title="显示">
-                              <Icon type="eye" theme="filled" />
-                            </Tooltip>
-                          </div>
-                          <div>
-                            <Tooltip placement="bottom" title="下降">
-                              <Icon type="down-circle" theme="filled" />
-                            </Tooltip>
-                          </div>
-                          <div>
-                            <Tooltip placement="bottom" title="删除">
-                              <Icon type="delete" theme="filled" />
-                            </Tooltip>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-                <Divider/>
+                        <Divider/>
+                      </div>
+                    )
+                  })
+                }
               </div>
             </div>
           </Col>

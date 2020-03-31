@@ -59,10 +59,6 @@
     background: #000;
     opacity: .5;
 }
-.wrap > ul > li > .text p{
-    padding: 20px 40px;
-    color: #fff;
-}
 
 .minor{
     width:100px !important;
@@ -72,4 +68,24 @@
 .curr{
     width:700px !important;
     transition: width 1s;
+}
+
+.chipTitle{
+    padding: 20px 40px;
+    color: #fff;
+    height:355px;
+    width:100%;
+}
+
+.deleteChipData{
+    text-align: center;
+    color: #fff;
+    background-color: #222;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.deleteChipData:hover{
+    opacity: 1;
+    transition: opacity 0.5s;
 }

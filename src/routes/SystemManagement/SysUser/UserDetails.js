@@ -3,21 +3,23 @@ import {Row, Col, Menu,Divider, Drawer, Pagination,Popconfirm,Tooltip,Icon,messa
 import './UserDetails.css';
 import MenuTitle from "../../../components/MenuTitle";
 import SysComJCDetails from "../SysComJC/SysComJCDetails";
+import request from "../../../utils/request";
+import moment from 'moment';
 import config from "../../../config";
 import ChipDetails from "../Chip/ChipDetails";
 
 const pageSize = config.pageSize;
 
 //鉴瓷
-const InvitationTab = ({t,id,title,time,content})=>{
+const InvitationTab = ({t,invId,title,time,content})=>{
   return(
-    <div onClick={t.showInvitation} style={{cursor:'pointer'}}>
+    <div onClick={t.showInvitation.bind(t,invId,'major','')} style={{cursor:'pointer'}}>
       <div className='inv-header'>
         <Row>
           <Col span={20}>
             <div className='inv-title'>
               <div>
-                ID：102258
+                ID：{invId}
               </div>
               <div>
                 {title}
@@ -40,7 +42,7 @@ const InvitationTab = ({t,id,title,time,content})=>{
           okText="确定"
           cancelText="取消"
           placement="left"
-          onConfirm={t.deleteInvitation}
+          onConfirm={t.deleteInvitation.bind(t,invId)}
         >
           <Tooltip placement="bottom" title="删除">
             <Icon type="delete" theme="filled" />
@@ -52,7 +54,7 @@ const InvitationTab = ({t,id,title,time,content})=>{
 };
 
 //赏瓷
-const CeramicsTab = ({t,id,imgUrl,content})=>{
+const CeramicsTab = ({t,invId,imgUrl,content})=>{
   return(
     <div>
       <Row style={{height:'100%'}}>
@@ -69,7 +71,7 @@ const CeramicsTab = ({t,id,imgUrl,content})=>{
             <Row>
               <Col span={21}>
                 <div style={{fontSize:'20px',fontWeight:'bold'}}>
-                  ID：102258
+                  ID：{invId}
                 </div>
               </Col>
               <Col span={3}>
@@ -79,7 +81,7 @@ const CeramicsTab = ({t,id,imgUrl,content})=>{
                     okText="确定"
                     cancelText="取消"
                     placement="left"
-                    onConfirm={t.deleteInvitation}
+                    onConfirm={t.deleteSC.bind(t,invId)}
                   >
                     <Tooltip placement="bottom" title="删除">
                       <Icon type="close-circle" theme="filled" />
@@ -99,13 +101,13 @@ const CeramicsTab = ({t,id,imgUrl,content})=>{
 };
 
 //评论
-const MyComment = ({t,id,time,comment,invContent})=>{
+const MyComment = ({t,invId,comId,time,comment,invContent})=>{
   return(
     <div>
       <Row>
         <Col span={21}>
           <div style={{fontWeight:'bold'}}>
-            ID：12586
+            ID：{comId}
           </div>
         </Col>
         <Col span={3}>
@@ -115,7 +117,7 @@ const MyComment = ({t,id,time,comment,invContent})=>{
               okText="确定"
               cancelText="取消"
               placement="left"
-              onConfirm={t.deleteInvitation}
+              onConfirm={t.deleteComment.bind(t,comId)}
             >
               <Tooltip placement="bottom" title="删除">
                 <Icon type="close-circle" theme="filled" />
@@ -137,7 +139,7 @@ const MyComment = ({t,id,time,comment,invContent})=>{
             </div>
           </Col>
           <Col span={9}>
-            <div className='MyComment-invContent' onClick={t.showInvitation}>
+            <div className='MyComment-invContent' onClick={t.showInvitation.bind(t,invId,'minor',comId)}>
               {invContent}
             </div>
           </Col>
@@ -148,14 +150,14 @@ const MyComment = ({t,id,time,comment,invContent})=>{
 };
 
 //陶片
-const ChipInfoTab = ({t,id,name,imgUrl})=>{
+const ChipInfoTab = ({t,item,chipId,name,imgUrl})=>{
   const mask={
     "WebkitMask":`url(${require('../../../Image/'+imgUrl)})`,
     "WebkitMaskSize":"100% 100%"
   };
   return(
-    <Tooltip title='ID：1024' placement='left'>
-      <div className='ChipInfoTab-box' onClick={t.gotoChipDetails}>
+    <Tooltip title={`ID：${chipId}`} placement='left'>
+      <div className='ChipInfoTab-box' onClick={t.gotoChipDetails.bind(t,item)}>
         <div className='ChipInfoTab-name'>
           {name}
         </div>
@@ -171,15 +173,125 @@ class UserDetails extends React.Component{
     this.state={
       menuKey:1,
       visible:false,
-      chipShow:false
+      chipShow:false,
+      invJCData:[],
+      invSCData:[],
+      comData:[],
+      chipData:[],
+      onePage:1,
+      twoPage:1,
+      threePage:1,
+      fourPage:1,
+      oneTotal:10,
+      twoTotal:10,
+      threeTotal:10,
+      fourTotal:10,
+      chipDetails:[],
+      invJCId:'',//跳转到详细页的id
+      commentId:'',//跳转到详细页的id
     }
   }
 
-  //显示详情框
-  showInvitation=()=>{
-    this.setState({
-      visible:true
+  //取得鉴瓷信息
+  getInvJCData=(page)=>{
+    let id = this.props.userInfo.id;
+    let data={
+      id:id,
+      page:page,
+      pageSize:pageSize
+    };
+    request({url:'/getInvitationJCInUser',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          invJCData:res.data,
+          oneTotal:res.total
+        })
+      }
     })
+  };
+  //取得赏瓷信息
+  getInvSCData=(page)=>{
+    let id = this.props.userInfo.id;
+    let data={
+      id:id,
+      page:page,
+      pageSize:pageSize
+    };
+    request({url:'/getInvitationSCInUser',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          invSCData:res.data,
+          twoTotal:res.total
+        })
+      }
+    })
+  };
+  //取得评论信息
+  getUserComment=(page)=>{
+    let id = this.props.userInfo.id;
+    let data={
+      id:id,
+      page:page,
+      pageSize:pageSize
+    };
+    request({url:'/getCommentFromUser',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        res.data.map((item,index)=>{
+          request({url:'/getInvitationJC',method:'GET',params:{id:item.invitationId}}).then((res)=>{
+            if(res && res.code){
+              if(item.type===0){
+                item.invContent = res.data[0].content
+              }else{
+                item.invContent = "来自书评";
+              }
+              let {comData} = this.state;
+              comData[index] = item;
+              this.setState({
+                comData
+              });
+              console.log("item.invContent:", item.invContent);
+            }
+          })
+        });
+        this.setState({
+          threeTotal:res.total
+        })
+      }
+    })
+  };
+  //取得陶片信息
+  getUserChip=(page)=>{
+    let id = this.props.userInfo.id;
+    let data={
+      id:id,
+      page:page,
+      pageSize:pageSize
+    };
+    request({url:'/getChipFromUser',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          chipData:res.data,
+          fourTotal:res.total
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getInvJCData(this.state.onePage);
+    this.getInvSCData(this.state.twoPage);
+    this.getUserComment(this.state.threePage);
+    this.getUserChip(this.state.fourPage);
+  }
+
+  //显示详情框
+  showInvitation=(id,type,comId)=>{
+    sessionStorage.setItem('invitationType',type);
+    this.setState({
+      visible:true,
+      invJCId:id,
+      commentId:comId
+    });
   };
 
   //关闭详情框
@@ -195,9 +307,10 @@ class UserDetails extends React.Component{
   };
 
   //陶片详情
-  gotoChipDetails=()=>{
+  gotoChipDetails=(item)=>{
     this.setState({
-      chipShow:true
+      chipShow:true,
+      chipDetails:item
     })
   };
 
@@ -216,8 +329,35 @@ class UserDetails extends React.Component{
   };
 
   //换页
-  changePage=(page,pageSize)=>{
-    console.log("page,pageSize:", page,pageSize);
+  changePage=(page)=>{
+    let {menuKey} = this.state;
+    switch(menuKey){
+      case 1:
+        this.setState({
+          onePage:page
+        });
+        this.getInvJCData(page);
+        break;
+      case 2:
+        this.setState({
+          twoPage:page
+        });
+        this.getInvSCData(page);
+        break;
+      case 3:
+        this.setState({
+          comData:[],
+          threePage:page
+        });
+        this.getUserComment(page);
+        break;
+      case 4:
+        this.setState({
+          fourPage:page
+        });
+        this.getUserChip(page);
+        break;
+    }
   };
 
   //添加这个点击事件是为了阻止事件冒泡
@@ -226,14 +366,45 @@ class UserDetails extends React.Component{
     e.nativeEvent.stopImmediatePropagation();
   };
 
+  //删除帖子
+  deleteInvitation =(id)=>{
+    console.log("id:", id);
+    request({url:'/deleteInvitationJCById/'+id,method:'GET'}).then((res)=>{
+      if(res && res.code){
+        message.success("删除成功");
+        this.getInvJCData(this.state.onePage);
+      }else{
+        message.error("删除失败");
+      }
+    })
+  };
+
+  //删除赏瓷帖子
+  deleteSC=(id)=>{
+    request({url:'/deleteInvitationSCById/'+id,method:'GET'}).then((res)=>{
+      if(res && res.code){
+        message.success("删除成功");
+        this.getInvSCData(this.state.twoPage);
+      }
+    })
+  };
+
   //删除评论
-  deleteInvitation=()=>{
-    message.success('删除成功');
+  deleteComment=(id)=>{
+    request({url:'/deleteCommentById/'+id,method:'GET'}).then((res)=>{
+      if(res && res.code){
+        message.success('删除成功');
+        this.getUserComment(this.state.threePage);
+      }else{
+        message.error("删除失败")
+      }
+    })
   };
 
   render() {
     let t = this;
-    let {menuKey, visible, chipShow} = this.state;
+    let {menuKey, visible, chipShow,invJCData, invSCData, comData, chipData} = this.state;
+    let {userInfo} = this.props;
     return (
       <div className='UserDetails-box'>
         <Row>
@@ -247,25 +418,25 @@ class UserDetails extends React.Component{
                 <img
                   style={{width:'100%',height:'100%'}}
                   alt='用户头像'
-                  src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1370247782,2489777805&fm=26&gp=0.jpg'
+                  src={userInfo.imgUrl}
                 />
               </div>
               <div className='UserDetails-baseInfo'>
                 <div className='UserDetails-userContent'>
                   <span className='title'>ID：</span>
-                  <span>1001</span>
+                  <span>{userInfo.id}</span>
                 </div>
                 <div className='UserDetails-userContent'>
                   <span className='title'>昵称：</span>
-                  <span>小果果</span>
+                  <span>{userInfo.name}</span>
                 </div>
                 <div className='UserDetails-userContent'>
                   <span className='title'>账号：</span>
-                  <span>1258234434@qq.com</span>
+                  <span>{userInfo.account}</span>
                 </div>
                 <div className='UserDetails-userContent'>
                   <span className='title'>密码：</span>
-                  <span>1258234434@qq.com</span>
+                  <span>{userInfo.password}</span>
                 </div>
               </div>
             </div>
@@ -293,19 +464,28 @@ class UserDetails extends React.Component{
                   {
                     menuKey === 1&&
                       <div>
-                        <InvitationTab
-                          t = {t}
-                          title='观形'
-                          time='2020/3/3'
-                          content='瓷之型代表和展现着历史、人文、政治、经济乃至形制和生产力发展的传承脉络。 是一个时段政治经济发展演绎过程最直接的体现。 因而，我们研究认识瓷之型的演绎过程也便于了解社会的进程与发展。 如果我们对某一类的器物，从起源到发展的全过程有一番系统的了解， 如瓷壶类，那么我们从器型，全然可以粗略地以型断代， 然后依据同时代的取材、用料、配方工艺、人文历史等进行全方位的核实论证，就完全有可能准确的断其年代。 假如说年代确立不了，那就容易张冠李戴，形成老虎吃天，无法下爪。 由此可说，鉴定瓷器，观型断代是坚定的第一要素。'
-                        />
-                        <Divider/>
+                        {
+                          invJCData.map((item,index)=>{
+                            return(
+                              <div>
+                                <InvitationTab
+                                  invId={item.id}
+                                  t = {t}
+                                  title={item.title}
+                                  time={moment(Number(item.time)).format("YYYY/MM/DD")}
+                                  content={item.content}
+                                />
+                                <Divider/>
+                              </div>
+                            )
+                          })
+                        }
                         <div style={{height:'50px',marginTop:'20px'}}>
                           <Pagination
                             onChange={this.changePage}
                             defaultCurrent={1}
                             pageSize={pageSize}
-                            total={100}
+                            total={this.state.oneTotal}
                           />
                         </div>
                       </div>
@@ -313,37 +493,24 @@ class UserDetails extends React.Component{
                   {
                     menuKey === 2&&
                       <div>
-                        <CeramicsTab
-                          t = {t}
-                          imgUrl='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2016551457,3277632260&fm=26&gp=0.jpg'
-                          content='立春 2月3-4日'
-                        />
-                        <CeramicsTab
-                          t = {t}
-                          imgUrl='https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=28463233,2696505373&fm=11&gp=0.jpg'
-                          content='立春 2月3-4日'
-                        />
-                        <CeramicsTab
-                          t = {t}
-                          imgUrl='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=153995377,2161912859&fm=26&gp=0.jpg'
-                          content='立春 2月3-4日'
-                        />
-                        <CeramicsTab
-                          t = {t}
-                          imgUrl='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2653335221,2108390734&fm=26&gp=0.jpg'
-                          content='立春 2月3-4日'
-                        />
-                        <CeramicsTab
-                          t = {t}
-                          imgUrl='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3503268207,941710284&fm=26&gp=0.jpg'
-                          content='立春 2月3-4日'
-                        />
+                        {
+                          invSCData.map((item,index)=>{
+                            return(
+                              <CeramicsTab
+                                invId={item.id}
+                                t = {t}
+                                imgUrl={item.imgUrl}
+                                content={item.content}
+                              />
+                            )
+                          })
+                        }
                         <div style={{height:'50px',marginTop:'20px'}}>
                           <Pagination
                             onChange={this.changePage}
                             defaultCurrent={1}
                             pageSize={pageSize}
-                            total={100}
+                            total={this.state.twoTotal}
                           />
                         </div>
                       </div>
@@ -351,26 +518,29 @@ class UserDetails extends React.Component{
                   {
                     menuKey===3 &&
                       <div>
-                        <MyComment
-                          t={t}
-                          time='2020/3/3'
-                          comment='早知道是这样，像梦一场，我才不会把爱都放在同一个地方'
-                          invContent='让我在没有你的地方疗伤'
-                        />
-                        <Divider/>
-                        <MyComment
-                          t={t}
-                          time='2020/3/3'
-                          comment='早知道是这样，像梦一场，我才不会把爱都放在同一个地方'
-                          invContent='让我在没有你的地方疗伤'
-                        />
-                        <Divider/>
+                        {
+                          comData.map((item,index)=>{
+                            return(
+                              <div>
+                                <MyComment
+                                  invId={item.invitationId}
+                                  comId={item.id}
+                                  t={t}
+                                  time={moment(Number(item.time)).format("YYYY/MM/DD")}
+                                  comment={item.content}
+                                  invContent={item.invContent}
+                                />
+                                <Divider/>
+                              </div>
+                            )
+                          })
+                        }
                         <div style={{height:'50px',marginTop:'20px'}}>
                           <Pagination
                             onChange={this.changePage}
                             defaultCurrent={1}
                             pageSize={pageSize}
-                            total={100}
+                            total={this.state.threeTotal}
                           />
                         </div>
                       </div>
@@ -378,52 +548,25 @@ class UserDetails extends React.Component{
                   {
                     menuKey===4 &&
                       <div>
-                        <ChipInfoTab
-                          t={t}
-                          name='乡俗'
-                          imgUrl='CP3.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='关于李白的那些事'
-                          imgUrl='SysBg.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='渔夫'
-                          imgUrl='CP2.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='小九寨'
-                          imgUrl='CP4.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='罗生'
-                          imgUrl='CP5.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='1935'
-                          imgUrl='CP6.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='清明传统'
-                          imgUrl='CP7.png'
-                        />
-                        <ChipInfoTab
-                          t={t}
-                          name='花旦'
-                          imgUrl='CP8.png'
-                        />
+                        {
+                          chipData.map((item,index)=>{
+                            return(
+                              <ChipInfoTab
+                                item={item}
+                                chipId={item.id}
+                                t={t}
+                                name={item.title}
+                                imgUrl={`CP${index+1}.png`}
+                              />
+                            )
+                          })
+                        }
                         <div style={{height:'50px',marginTop:'20px'}}>
                           <Pagination
                             onChange={this.changePage}
                             defaultCurrent={1}
                             pageSize={pageSize}
-                            total={100}
+                            total={this.state.fourTotal}
                           />
                         </div>
                       </div>
@@ -438,15 +581,18 @@ class UserDetails extends React.Component{
           placement="right"
           closable={false}
           visible={visible}
+          destroyOnClose={true}
         >
           <SysComJCDetails
             width='96%'
             closeDetails={this.closeInvitation}
+            invId={this.state.invJCId}
+            commentId={this.state.commentId}
           />
         </Drawer>
         <Drawer
           width='85%'
-          title="帖子详情"
+          title="陶片详情"
           placement="right"
           closable={false}
           visible={chipShow}
@@ -454,6 +600,7 @@ class UserDetails extends React.Component{
           <ChipDetails
             width='96%'
             closeDetails={this.closeChipDetails}
+            chipDetails={this.state.chipDetails}
           />
         </Drawer>
       </div>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Pagination } from 'antd';
+import { Pagination,message } from 'antd';
 import InfoTab from "../../../components/InfoTab";
 import GY from '../../../JSON/GY/GY.json';
 import config from "../../../config";
+import request from "../../../utils/request";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
 
@@ -18,13 +19,37 @@ class SysTechnology extends React.Component {
       modalTitle: '',
       fileList: [],
       modalShow: false,
+      qyData:[],
+      editId:'',
+      page:1,
+      total:10,
     }
+  }
+
+  //获取起源数据
+  getTechnologyData=(page)=>{
+    let data = {};
+    data.page = page;
+    data.pageSize = pageSize;
+    request({url:'/getTechnology',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          qyData:res.data,
+          total:res.total
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getTechnologyData(this.state.page);
   }
 
   //显示弹框
   showModal = (item, type) => {
-    let {title, subtitle, content,fileList} = this.state;
+    let {title, subtitle, content,fileList,editId} = this.state;
     if (type === '修改') {
+      editId=item.id;
       title = item.title;
       subtitle = item.subtitle;
       content = item.content;
@@ -37,6 +62,7 @@ class SysTechnology extends React.Component {
         }
       ]
     } else if (type === '新增') {
+      editId='';
       title = '';
       subtitle = '';
       content = '';
@@ -44,6 +70,7 @@ class SysTechnology extends React.Component {
     }
     this.setState({
       modalTitle: type,
+      editId,
       title,
       subtitle,
       content,
@@ -53,10 +80,47 @@ class SysTechnology extends React.Component {
   };
 
   //点击确定
-  handleOk = e => {
+  handleOk = values => {
+    let {modalTitle,editId} = this.state;
+    //如果是修改，调用修改的接口，否则调用新增接口
+    let fileList = this.state.fileList;
+    let imgUrl='';
+    let data={};
+    data.title=values.title;
+    data.subtitle=values.subtitle;
+    data.content=values.content;
+    data.imgUrl='';
+    if(modalTitle==='修改'){
+      data.id = editId;
+      request({url:'/updateTechnologyById',method:'GET',params:data}).then((res)=>{
+        if(res && res.code){
+          message.success("修改成功");
+          this.getTechnologyData(this.state.page);
+        }
+      })
+    }else{
+      request({url:'/insertTechnology',method:'GET',params:data}).then((res)=>{
+        if(res && res.code){
+          message.success("新增成功");
+          this.getTechnologyData(this.state.page);
+        }
+      })
+    }
     this.setState({
       modalShow: false,
     });
+  };
+
+  //删除操作
+  deleteData=(id)=>{
+    request({url:'/deleteTechnologyById/'+id,method:'GET'}).then((res)=>{
+      if(res && res.code){
+        message.success("删除成功");
+        this.getTechnologyData(this.state.page);
+      }else{
+        message.error("删除失败");
+      }
+    })
   };
 
   //点击取消
@@ -74,8 +138,11 @@ class SysTechnology extends React.Component {
   };
 
   //换页
-  changePage=(page,pageSize)=>{
-    console.log("page,pageSize:", page,pageSize);
+  changePage=(page)=>{
+    this.setState({
+      page
+    });
+    this.getTechnologyData(page);
   };
 
   render() {
@@ -115,12 +182,13 @@ class SysTechnology extends React.Component {
     return (
       <div style={{display:'flex',flexWrap:'wrap'}}>
         {
-          GY.map((item, index) => {
+          this.state.qyData.map((item, index) => {
             return (
               <InfoTab
                 showModal={this.showModal.bind(this, item, '修改')}
                 item={item}
                 key={index}
+                deleteData={this.deleteData}
               />
             )
           })
@@ -134,12 +202,12 @@ class SysTechnology extends React.Component {
           resource={resource}
         />
         <SysAddButton color='#7FBA00' showModal={this.showModal.bind(this, '', '新增')}/>
-        <div style={{height:'50px',marginLeft:'50%',transform:'translateX(-50%)'}}>
+        <div style={{width:'100%',textAlign:'center',height:'50px',marginLeft:'50%',transform:'translateX(-50%)'}}>
           <Pagination
             onChange={this.changePage}
             defaultCurrent={1}
             pageSize={pageSize}
-            total={500}
+            total={this.state.total}
           />
         </div>
       </div>

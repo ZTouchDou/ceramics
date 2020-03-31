@@ -1,53 +1,13 @@
 import React from 'react';
 import {Row, Col, Icon, Modal, Divider, Pagination,Tooltip,Popconfirm,message} from 'antd';
 import MenuTitle from "../../../components/MenuTitle";
+import request from "../../../utils/request";
+import moment from 'moment';
 import './SysComJCDetails.css';
 import config from "../../../config";
+import UserInfoTab from "../../../components/UserInfoTab";
 
 const pageSize = config.pageSize;
-
-//评论tab
-const UserInfoTab = ({t,imgUrl, name, time, content})=>{
-  return(
-    <div className='SysJCDe-comTab'>
-      <div className='SysJCDe-user'>
-        <Row style={{width:'100%',height:'100%'}}>
-          <Col span={2} style={{height:'100%'}}>
-            <img
-              style={{borderRadius:'50%',width:'100%',height:'100%'}}
-              src={imgUrl}
-              alt='用户头像'
-            />
-          </Col>
-          <Col span={22} style={{height:'100%'}}>
-            <div className='SysJCDe-user-name'>
-              {name}
-            </div>
-            <div className='SysJCDe-user-time'>
-              {time}
-            </div>
-          </Col>
-        </Row>
-      </div>
-      <div className='ComJC-commentText'>
-        {content?content:''}
-      </div>
-      <div style={{textAlign:'right',fontSize:'20px'}}>
-        <Popconfirm
-          title='确定删除吗？'
-          okText="确定"
-          cancelText="取消"
-          placement="left"
-          onConfirm={t.deleteInvitation}
-        >
-          <Tooltip placement="bottom" title="删除">
-            <Icon type="delete" theme="filled" />
-          </Tooltip>
-        </Popconfirm>
-      </div>
-    </div>
-  )
-};
 
 class SysComJCDetails extends React.Component{
   constructor(props) {
@@ -56,23 +16,85 @@ class SysComJCDetails extends React.Component{
       visible:false,
       ImageUrl:'',
       arr:['','','','',''],
-      major:true
+      major:true,
+      commentList:[],
+      page:1,
+      total:10,
+      jcDetailsData:[]
     }
   }
+
+  //取得帖子的详细信息：：：如果帖子是从用户帖子，或评论跳转过来的，则需要取得帖子的详细信息
+  getInvitationInfo=(id)=>{
+    request({url:'/getInvitationJC',method:'GET',params:{id:id}}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          jcDetailsData:res.data[0]
+        });
+        if(this.props.commentId){
+          //如果是从评论页面跳转来的，只显示当前评论
+          this.getInvitationComment(this.state.page,this.props.commentId);
+        }else{
+          //如果是从帖子页面跳转来的，显示所有评论
+          this.getInvitationComment(this.state.page);
+        }
+      }else{
+        message.error("请求出错");
+      }
+    })
+  };
+
+  //取得帖子的评论表
+  getInvitationComment=(page,comId)=>{
+    //这个id是帖子id
+    let id='';
+    if(this.props.jcDetails){
+      id=this.props.jcDetails.id;
+    }else{
+      id=this.props.invId;
+    }
+    let data={
+      id,
+      page:page,
+      pageSize:pageSize
+    };
+    let {major} = this.state;
+    //如果是minor，则是从帖子页面跳转过来
+    if(!major){
+      if(comId){
+        data.comId=comId;
+      }
+    }
+    request({url:'/getCommentFromInvitation',method:'GET',params:data}).then((res)=>{
+      this.setState({
+        commentList:res.data,
+        total:res.total
+      })
+    })
+  };
 
   componentDidMount() {
     //判断是从帖子详情页面进入还是点击的评论页面的帖子快捷跳转
     let type = sessionStorage.getItem('invitationType');
-    if(type && type==='minor'){
+    //通过父组件的jcDetails判断是不是从鉴瓷总页面跳转，如是，只需要请求评论列表
+    if(this.props.jcDetails){
+      this.getInvitationComment(this.state.page);
       this.setState({
-        arr:[''],
-        major:false
-      })
-    }else{
-      this.setState({
-        arr:['','',''],
+        jcDetailsData:this.props.jcDetails,
         major:true
       })
+    }else{
+      if(type && type==='minor'){
+        this.getInvitationInfo(this.props.invId);
+        this.setState({
+          major:false
+        })
+      }else{
+        this.getInvitationInfo(this.props.invId);
+        this.setState({
+          major:true
+        })
+      }
     }
   }
 
@@ -104,24 +126,34 @@ class SysComJCDetails extends React.Component{
   //展示所有的评论
   showAllComment=()=>{
     this.setState({
-      arr:['','',''],
       major:true
+    },()=>{
+      this.getInvitationComment(this.state.page);
     })
   };
 
   //删除评论
-  deleteInvitation=()=>{
-    message.success('删除成功');
+  deleteInvitation=(id)=>{
+    request({url:'/deleteCommentById/'+id,method:'GET'}).then((res)=>{
+      if(res && res.code){
+        message.success('删除成功');
+        this.getInvitationComment(this.state.page);
+      }else{
+        message.error('删除失败');
+      }
+    });
   };
 
   //换页
-  changePage=(page,pageSize)=>{
-    console.log("page,pageSize:", page,pageSize);
+  changePage=(page)=>{
+    this.setState({
+      page
+    })
   };
 
   render() {
     let t = this;
-    let {visible, ImageUrl, major} = this.state;
+    let {visible, ImageUrl, major, commentList,jcDetailsData} = this.state;
     return (
       <div className='SysJCDe-box' style={{width:`${this.props.width?this.props.width:'85%'}`}}>
         <Row style={{width:'100%',height:'100%'}}>
@@ -139,27 +171,27 @@ class SysComJCDetails extends React.Component{
                       {/*创作者id*/}
                       <div className='DivHeight-40'>
                         <span style={{fontWeight:'bold'}}>用户id：</span>
-                        <span> 1022628</span>
+                        <span> {jcDetailsData.userId?jcDetailsData.userId:''}</span>
                       </div>
                       {/*创作者昵称*/}
                       <div className='DivHeight-40'>
                         <span style={{fontWeight:'bold'}}>用户昵称：</span>
-                        <span> 小果果</span>
+                        <span> {jcDetailsData.userName?jcDetailsData.userName:''}</span>
                       </div>
                       {/*帖子id*/}
                       <div className='DivHeight-40'>
                         <span style={{fontWeight:'bold'}}>帖子id：</span>
-                        <span> 268952</span>
+                        <span> {jcDetailsData.id?jcDetailsData.id:''}</span>
                       </div>
                       {/*帖子标题*/}
                       <div className='DivHeight-40'>
                         <span style={{fontWeight:'bold'}}>帖子标题：</span>
-                        <span> 观形</span>
+                        <span> {jcDetailsData.title?jcDetailsData.title:''}</span>
                       </div>
                       {/*帖子时间*/}
                       <div className='DivHeight-40'>
                         <span style={{fontWeight:'bold'}}>发贴时间：</span>
-                        <span> 2020/3/3</span>
+                        <span> {moment(Number(jcDetailsData.time?jcDetailsData.time:'')).format("YYYY/MM/DD")}</span>
                       </div>
                     </div>
                   </Col>
@@ -170,9 +202,10 @@ class SysComJCDetails extends React.Component{
                       onClick={this.lookImage.bind(this,'http://img5.imgtn.bdimg.com/it/u=3760864727,4049862538&fm=26&gp=0.jpg')}
                     >
                       <img
+                        className='userAvatar'
                         style={{width:'100%',height:'100%'}}
                         alt='用户头像'
-                        src='http://img5.imgtn.bdimg.com/it/u=3760864727,4049862538&fm=26&gp=0.jpg'
+                        src={jcDetailsData.userImg?jcDetailsData.userImg:''}
                       />
                     </div>
                   </Col>
@@ -186,8 +219,9 @@ class SysComJCDetails extends React.Component{
                     <Col span={4}>
                       <div style={{height:'80px',padding:'2px 2px',display:'flex'}}>
                         <img
+                          className='invimage'
                           style={{width:'100%',height:'100%'}}
-                          src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2421384544,2639699292&fm=26&gp=0.jpg'
+                          src={jcDetailsData.imgUrl1?jcDetailsData.imgUrl1:''}
                           alt='帖子配图'
                         />
                         <div className='SysJCDe-deleteImg'>
@@ -218,15 +252,8 @@ class SysComJCDetails extends React.Component{
               {/*内容*/}
               <div className='SysJCDe-content'>
                 <div style={{fontWeight:'bold',marginBottom:'20px'}}>帖子内容：</div>
-                <div style={{overflow:'auto',height:'150px'}}>
-                  瓷之型代表和展现着历史、人文、政治、经济乃至形制和生产力发展的传承脉络。
-                  是一个时段政治经济发展演绎过程最直接的体现。
-                  因而，我们研究认识瓷之型的演绎过程也便于了解社会的进程与发展。
-                  如果我们对某一类的器物，从起源到发展的全过程有一番系统的了解，
-                  如瓷壶类，那么我们从器型，全然可以粗略地以型断代，
-                  然后依据同时代的取材、用料、配方工艺、人文历史等进行全方位的核实论证，就完全有可能准确的断其年代。
-                  假如说年代确立不了，那就容易张冠李戴，形成老虎吃天，无法下爪。
-                  由此可说，鉴定瓷器，观型断代是坚定的第一要素。
+                <div className='InvitationContent' style={{overflow:'auto',height:'150px'}}>
+                  {jcDetailsData.content?jcDetailsData.content:''}
                 </div>
               </div>
             </div>
@@ -241,15 +268,15 @@ class SysComJCDetails extends React.Component{
               />
               <div className='SysJCDe-comment'>
                 {
-                  this.state.arr.map((item,index)=>{
+                  commentList.map((item,index)=>{
                     return(
                       <div key={index}>
                         <UserInfoTab
-                          t={t}
-                          imgUrl='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1564199267,720190006&fm=26&gp=0.jpg'
-                          name='无衣'
-                          time='2020/3/3 15:34'
-                          content='所以古玩行人都极其认真钻研鉴定方法，苦练鉴定基本功。各个时期的古瓷都有不同的特征，下面，我们通过这二十个要点一起来学习。'
+                          deleteInvitation={this.deleteInvitation.bind(this,item.id)}
+                          imgUrl={item.userImg}
+                          name={item.userName}
+                          time={moment(Number(item.time)).format("YYYY/MM/DD HH:mm")}
+                          content={item.content}
                         />
                         <Divider/>
                       </div>
@@ -270,7 +297,7 @@ class SysComJCDetails extends React.Component{
                     onChange={this.changePage}
                     defaultCurrent={1}
                     pageSize={pageSize}
-                    total={100}
+                    total={this.state.total}
                   />
                 </div>
               </div>

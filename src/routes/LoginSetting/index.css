@@ -1,0 +1,22 @@
+.loginSetting-box{
+    background-color:white;
+    height:600px;
+    width:100%;
+    overflow-x: hidden;
+}
+
+.Avatar-picture{
+    width:260px;
+    height:240px;
+    margin:0 auto;
+}
+
+.Avatar-picture .ant-upload-list-picture-card-container{
+    width:260px;
+    height:240px;
+}
+
+.Avatar-picture .ant-upload-list-picture-card .ant-upload-list-item{
+    width:260px;
+    height:240px;
+}

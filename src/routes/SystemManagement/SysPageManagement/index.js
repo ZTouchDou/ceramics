@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tree, Icon, Button, notification,Row,Col} from 'antd';
+import request from "../../../utils/request";
 import SysPageBgl from '../../../Image/SysPageBgl.jpg';
 import SysPageBgr from '../../../Image/SysPageBgr.jpg';
 
@@ -10,174 +11,25 @@ class SysPageManagement extends React.Component{
     super(props);
     this.state={
       checkedApplication:[],
-      treeData:[
-        {
-          title: '超级管理员',
-          value: '所有',
-          key: '0-0',
-          checked:true,
-          children:[
-            {
-              title: '起源',
-              value: '所有',
-              key: '0-0-0',
-              checked:true,
-              children:[]
-            },
-            {
-              title: '陶瓷',
-              value: '所有',
-              key: '0-0-1',
-              checked:true,
-              children:[
-                {
-                  title: '主页',
-                  value: '所有',
-                  key: '0-0-1-0',
-                  checked:true,
-                  children:[]
-                },
-                {
-                  title: '详情',
-                  value: '所有',
-                  key: '0-0-1-1',
-                  checked:true,
-                  children:[]
-                },
-                {
-                  title: '店铺',
-                  value: '所有',
-                  key: '0-0-1-2',
-                  checked:true,
-                  children:[]
-                }
-              ]
-            },
-            {
-              title: '工序',
-              value: '所有',
-              key: '0-0-2',
-              checked:true,
-              children:[
-                {
-                  title: '详细信息',
-                  value: '所有',
-                  key: '0-0-2-0',
-                  checked:true,
-                  children:[]
-                }
-              ]
-            },
-            {
-              title: '工坊',
-              value: '所有',
-              key: '0-0-3',
-              checked:true,
-              children:[]
-            },
-            {
-              title: '社区',
-              value: '所有',
-              key: '0-0-4',
-              checked:true,
-              children:[]
-            },
-            {
-              title: '系统',
-              value: '所有',
-              key: '0-0-5',
-              checked:true,
-              children:[]
-            }
-          ]
-        },
-        {
-          title: '普通用户',
-          value: '所有',
-          key: '0-1',
-          checked:false,
-          children:[
-            {
-              title: '起源',
-              value: '所有',
-              key: '0-1-0',
-              checked:true,
-              children:[]
-            },
-            {
-              title: '陶瓷',
-              value: '所有',
-              key: '0-1-1',
-              checked:false,
-              children:[
-                {
-                  title: '主页',
-                  value: '所有',
-                  key: '0-1-1-0',
-                  checked:true,
-                  children:[]
-                },
-                {
-                  title: '详情',
-                  value: '所有',
-                  key: '0-1-1-1',
-                  checked:false,
-                  children:[]
-                },
-                {
-                  title: '店铺',
-                  value: '所有',
-                  key: '0-1-1-2',
-                  checked:false,
-                  children:[]
-                }
-              ]
-            },
-            {
-              title: '工序',
-              value: '所有',
-              key: '0-1-2',
-              checked:true,
-              children:[
-                {
-                  title: '详细信息',
-                  value: '所有',
-                  key: '0-1-2-0',
-                  checked:true,
-                  children:[]
-                }
-              ]
-            },
-            {
-              title: '工坊',
-              value: '所有',
-              key: '0-1-3',
-              checked:true,
-              children:[]
-            },
-            {
-              title: '社区',
-              value: '所有',
-              key: '0-1-4',
-              checked:false,
-              children:[]
-            },
-            {
-              title: '系统',
-              value: '所有',
-              key: '0-1-5',
-              checked:false,
-              children:[]
-            }
-          ]
-        }
-      ]
+      treeData:[]
     }
   }
 
+  //取得权限树
+  getTree=()=>{
+    request({url:'/getTreeData',method:'GET'}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          treeData:res.data
+        },()=>{
+          this.pushSelectedKeys(this.state.treeData);
+        })
+      }
+    })
+  };
+
   componentDidMount() {
-    let {treeData} = this.state;
-    this.pushSelectedKeys(treeData);
+    this.getTree();
   }
 
   //生成勾选树数组
@@ -186,12 +38,12 @@ class SysPageManagement extends React.Component{
     treeData.map((item)=>{
       if(item.children.length>0){
         if(item.checked){
-          checkedApplication.push(item.key);
+          checkedApplication.push(item.id);
         }
         this.pushSelectedKeys(item.children);
       }else{
         if(item.checked){
-          checkedApplication.push(item.key);
+          checkedApplication.push(item.id);
         }
       }
     });
@@ -207,8 +59,8 @@ class SysPageManagement extends React.Component{
           <TreeNode
             icon={({ checked }) => <Icon type={checked ? 'smile-o' : 'frown-o'}/>}
             title={item.title}
-            key={item.key}
-            disabled={item.key==='0-1-5'}
+            key={item.id}
+            disabled={item.disabled}
           >
             {
               item.children.length>0?this.createTree(item.children):''
@@ -220,7 +72,7 @@ class SysPageManagement extends React.Component{
 
   //选择树
   onCheck=(checkedKeys)=>{
-    console.log("checkedKeys:", checkedKeys);
+    console.log("checkedApplication:", checkedKeys);
     this.setState({
       checkedApplication:checkedKeys
     })
@@ -229,12 +81,27 @@ class SysPageManagement extends React.Component{
   //点击确定
   submitTree=()=>{
     let {checkedApplication} = this.state;
-    console.log("checkedApplication:", checkedApplication);
-    notification['success']({
-      message: '成功',
-      description:
-        '修改权限成功 ( ‘-ωก̀ )',
-      duration: 0,
+    let data={
+      arr:checkedApplication
+    };
+    console.log("data:", data);
+    request({url:'/updateTreeData',method:'POST',data:data}).then((res)=>{
+      if(res && res.code){
+        notification['success']({
+          message: '成功',
+          description:
+            '修改权限成功 ♪（＾∀＾●）ﾉｼ',
+          duration: 0,
+        });
+        this.getTree();
+      }else{
+        notification['error']({
+          message: '失败',
+          description:
+            '修改权限失败  ╮(๑•́ ₃•̀๑)╭',
+          duration: 0,
+        });
+      }
     });
   };
 

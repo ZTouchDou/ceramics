@@ -27,7 +27,7 @@ class MyModal extends React.Component{
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        this.props.onOk();
+        this.props.onOk(values);
       }
     });
   };

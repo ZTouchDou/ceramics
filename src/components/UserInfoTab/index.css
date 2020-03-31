@@ -1,0 +1,34 @@
+.UserInfoTab-comTab{
+    background-color: white;
+    transition: background-color 0.5s;
+}
+
+.UserInfoTab-comTab:hover{
+    cursor:pointer;
+    background-color: #ffd099;
+    transition: background-color 0.5s;
+}
+
+.UserInfoTab-user{
+    width:100%;
+    height:50px;
+}
+
+.UserInfoTab-user-name{
+    font-size:15px;
+    width:100%;
+    padding-left:20px;
+}
+
+.UserInfoTab-user-time{
+    font-size:15px;
+    width:100%;
+    color:#ccc;
+    padding-left:20px;
+}
+
+.UserInfoTab-commentText{
+    width:100%;
+    font-size:17px;
+    padding:10px 20px;
+}

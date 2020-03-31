@@ -63,6 +63,12 @@
 		"selector": "#qrcode",
 		"text": ["手机扫一下就能继续看，很方便呢～", "扫一扫，打开新世界的大门！"]
 	}, {
+		"selector": ".ant-upload-list-item-info",
+		"text": ["点击眼睛可以放大看呢！"]
+	}, {
+		"selector": "img.userAvatar",
+		"text": ["你觉得这个头像好看吗？","点击图片可以放大呢！"]
+	}, {
 		"selector": ".fancybox img, img.medium-zoom-image",
 		"text": ["点击图片可以放大呢！"]
 	}, {
@@ -71,10 +77,25 @@
 	}, {
 		"selector": ".container a[href^='http'], .nav-link .nav-text",
 		"text": ["要去看看 <span>{text}</span> 么？", "去 <span>{text}</span> 逛逛吧。", "到 <span>{text}</span> 看看吧。"]
+	},  {
+		"selector": "a.alink",
+		"text": ["要跳过去看看吗？", "这是个什么链接呢？点点看吧！"]
+	}, {
+		"selector": "a.log-off",
+		"text": ["你要走了吗？我也想去看看外面的世界呢。", "下次回来的话，跟我讲讲外面的趣事吧！","不要一直在电脑前面坐着哦，要多出去走走看看哦～"]
+	}, {
+		"selector": "a.userHome",
+		"text": ["去看看ta的家长什么样子吧～", "你要点进去的话，一定要带上我哦～"]
+	}, {
+		"selector": "a.deleteUser",
+		"text": ["残忍(ノへ￣、)", "ta 违规了嗼，关小黑屋嗼～","直须看尽洛城花，始共春风容易别。"]
+	}, {
+		"selector": "a.resaveUser",
+		"text": ["看我释放魔法，重见天日嗼嗼嗼～", "城南花已开～"]
 	}, {
 		"selector": "a[href^='mailto']",
 		"text": ["邮件我会及时回复的！", "点击就可以发送邮件啦～"]
-	}, {
+	},{
 		"selector": "a[href^='/tags/']",
 		"text": ["要去看看 <span>{text}</span> 标签么？", "点它可以查看此标签下的所有文章哟！"]
 	}, {
@@ -137,6 +158,12 @@
 	}, {
 		"selector": ".extend.prev",
 		"text": ["去上一页看看吧。", "点它可以后退哦！", "要翻到上一页吗？"]
+	},{
+		"selector": ".ant-pagination-next a.ant-pagination-item-link",
+		"text": ["去下一页看看吧。", "点它可以前进哦！", "要翻到下一页吗？"]
+	},  {
+		"selector": ".ant-pagination-prev a.ant-pagination-item-link",
+		"text": ["去上一页看看吧。", "点它可以后退哦！", "要翻到上一页吗？"]
 	}, {
 		"selector": "input.vnick",
 		"text": ["该怎么称呼你呢？", "留下你的尊姓大名！"]
@@ -164,16 +191,40 @@
 	}, {
 		"selector": ".vcontent .ComJC-commentText",
 		"text": ["哇，快看看这个精彩评论！", "如果有疑问，请尽快留言哦～"]
+	},{
+		"selector": "div.text",
+		"text": ["这个是不是跟手风琴一样～","往下滑，翻页在下面哦～"]
+	},{
+		"selector": "div.UserInfoTab-commentText",
+		"text": ["哇，快看看这个精彩评论！"]
+	},{
+		"selector": ".ant-timeline-item",
+		"text": ["最近的日志更新的怎么样？"]
+	}, {
+		"selector": ".InvitationContent",
+		"text": ["这个帖子内容，emmmmm，让我瞅瞅写得怎么样～","有时候也是个忧愁的小可爱呢，希望自己也能分分钟写出优秀的文章。","你知道鉴赏瓷器分几个环节吗？"]
 	}],
 	"click": [{
 		"selector": "#waifu #live2d",
 		"text": ["是…是不小心碰到了吧…", "萝莉控是什么呀？", "你看到我的小熊了吗？", "再摸的话我可要报警了！⌇●﹏●⌇", "110 吗，这里有个变态一直在摸我(ó﹏ò｡)", "不要摸我了，我会告诉老婆来打你的！", "干嘛动我呀！小心我咬你！", "别摸我，有什么好摸的！"]
+	}, {
+		"selector": "input",
+		"text": ["哈哈，你要写些什么呢？", "忆昔彤庭望日华，匆匆枯笔梦生花。要多多关注日常生活哦，这样写作就有丰富的素材啦～"]
+	}, {
+		"selector": "textarea",
+		"text": ["哈哈，你要写些什么呢？", "忆昔彤庭望日华，匆匆枯笔梦生花。要多多关注日常生活哦，这样写作就有丰富的素材啦～"]
 	}, {
 		"selector": ".veditor",
 		"text": ["要吐槽些什么呢？", "一定要认真填写喵～", "有什么想说的吗？"]
 	}, {
 		"selector": ".vsubmit",
 		"text": ["输入验证码就可以提交评论啦～"]
+	}, {
+		"selector": "button.noAvatar",
+		"text": ["你不想要头像了吗？？？","头像！头像！没头像不能提交哦，粗心啦～"]
+	}, {
+		"selector": "button.haveAvatar",
+		"text": ["嗯嗯～这个头像不错～"]
 	}],
 	"seasons": [{
 		"date": "01/01",

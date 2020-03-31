@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 import Util from './Util';
-
+import config from "../config";
 import { notification } from 'antd';
 require('es6-promise').polyfill();
 function parseJSON (response) {
@@ -94,7 +94,7 @@ export default function request (options) {
   const defaultOpt = {method: 'GET'};
   let params = paramSerializer(options.params);
   if (params) options.url = `${options.url}?${params}`;
-  options.url = options.url.slice(0,9) == '/waterenv' || options.url.slice(0,4) == '/ezs'? options.url : options.url;
+  options.url=config.poxzy.url+options.url;
   if(options.method && options.method.toLowerCase() === 'export') {
     window.location = options.url;
     return {};
@@ -149,10 +149,5 @@ export default function request (options) {
     })
     .catch(err => {
       console.log(`网络错误${err}`);
-        // notification.open({
-        //   message: '提示',
-        //   description: '网络错误',
-        //   duration: 3,
-        // });
     });
 }

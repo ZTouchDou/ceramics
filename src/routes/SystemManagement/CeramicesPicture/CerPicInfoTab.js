@@ -1,6 +1,7 @@
 import React from 'react';
-import {Popconfirm,Tooltip,Icon,message,Row,Col} from 'antd';
+import {Popconfirm,Tooltip,Icon,message,Row,Col,Avatar} from 'antd';
 import './CerPicInfoTab.css'
+import UserInfoTab from "../../../components/UserInfoTab";
 
 class CerPicInfoTab extends React.Component{
   constructor(props) {
@@ -10,16 +11,19 @@ class CerPicInfoTab extends React.Component{
 
   //删除评论
   deleteInvitation=()=>{
-    message.success('删除成功');
+    if(this.props.deleteInvitation){
+      this.props.deleteInvitation(this.props.infoData.id);
+    }
   };
 
   render() {
+    let {infoData} = this.props;
     return (
       <div className='CerInfoTab-box'>
         <div className='CerInfoTab-header'>
           <img
             style={{width:'100%',minHeight:'10vh'}}
-            src={this.props.imgUrl}
+            src={infoData.imgUrl}
             alt='配图'
           />
         </div>
@@ -27,7 +31,7 @@ class CerPicInfoTab extends React.Component{
           <Row>
             <Col span={21}>
               <div style={{fontSize:'20px'}}>
-                ID：102258
+                ID：{infoData.id}
               </div>
             </Col>
             <Col span={3}>
@@ -46,8 +50,18 @@ class CerPicInfoTab extends React.Component{
               </div>
             </Col>
           </Row>
+          <div>
+            <Row>
+              <Col span={4}>
+                <Avatar src={infoData.userImg}/>
+              </Col>
+              <Col span={20}>
+                {infoData.userName}
+              </Col>
+            </Row>
+          </div>
           <div style={{width:'100%',height:'96%',overflow:'auto'}}>
-            {this.props.content}
+            {infoData.content}
           </div>
         </div>
       </div>

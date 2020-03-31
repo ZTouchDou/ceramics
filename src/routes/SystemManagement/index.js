@@ -1,7 +1,6 @@
 import React from 'react';
-import { Layout, Menu,Icon } from 'antd';
+import { Layout, Menu,Icon,Row,Col,Avatar,Dropdown } from 'antd';
 import './index.css';
-import MenuButton from "../../components/MenuButton";
 import SysOrigin from "./SysOrigin";
 import SysCeramicsShow from "./SysCeramicsShow";
 import SysTechnology from "./SysTechnology";
@@ -13,6 +12,8 @@ import SysUser from "./SysUser";
 import Comment from "./Comment";
 import Chip from "./Chip";
 import DataScreen from "./DataScreen";
+import Book from "./Book";
+import LoginSetting from "../LoginSetting";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -25,6 +26,7 @@ class SystemManagement extends React.Component{
       visible: false,
       menuKey:1,
       collapsed: false,
+      rememberKey:-1
     }
   }
 
@@ -40,8 +42,47 @@ class SystemManagement extends React.Component{
     this.setState({ collapsed });
   };
 
+  //修改密码
+  changePassword=()=>{
+    let {menuKey} = this.state;
+    let akey = menuKey;
+    if(akey){
+      this.setState({
+        rememberKey:akey,
+        menuKey:0
+      })
+    }
+  };
+
+  //关闭修改密码框
+  closeDetails=()=>{
+    let {rememberKey} = this.state;
+    this.setState({
+      menuKey:rememberKey
+    })
+  };
+
+  //退出登陆
+  logoff=()=>{
+    this.props.history.push('/Login');
+  };
+
   render() {
     let {menuKey} = this.state;
+    const menu = (
+      <Menu>
+        <Menu.Item>
+          <a className='alink' onClick={this.changePassword}>
+            修改密码
+          </a>
+        </Menu.Item>
+        <Menu.Item>
+          <a className='log-off' onClick={this.logoff}>
+            退出登陆
+          </a>
+        </Menu.Item>
+      </Menu>
+    );
     return (
       <div>
         <Layout style={{ minHeight: '100vh' }}>
@@ -86,7 +127,7 @@ class SystemManagement extends React.Component{
                 <Menu.Item key="7" onClick={this.changeMenu.bind(this,7)}>鉴瓷</Menu.Item>
                 <Menu.Item key="8" onClick={this.changeMenu.bind(this,8)}>赏瓷</Menu.Item>
                 <Menu.Item key="9" onClick={this.changeMenu.bind(this,9)}>陶片</Menu.Item>
-                <Menu.Item key="10">书籍</Menu.Item>
+                <Menu.Item key="10" onClick={this.changeMenu.bind(this,10)}>书籍</Menu.Item>
                 <Menu.Item key="11" onClick={this.changeMenu.bind(this,11)}>评论</Menu.Item>
               </SubMenu>
               <Menu.Item key="12" onClick={this.changeMenu.bind(this,12)}>
@@ -96,7 +137,21 @@ class SystemManagement extends React.Component{
             </Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff',padding: 0 }} />
+            <Header style={{ background: '#fff',padding: 0 }} >
+              <Row>
+                <Col span={22}>
+
+                </Col>
+                <Col span={2}>
+                  <Dropdown overlay={menu}>
+                    <div>
+                      <Avatar src='http://img1.imgtn.bdimg.com/it/u=2492488577,388673270&fm=26&gp=0.jpg'/>
+                      <span>&nbsp;admin</span>
+                    </div>
+                  </Dropdown>
+                </Col>
+              </Row>
+            </Header>
             <Content style={{ margin: '10px 16px',overflow:'auto' }}>
               {
                 menuKey===1&&
@@ -108,7 +163,7 @@ class SystemManagement extends React.Component{
               }
               {
                 menuKey===3&&
-                  <SysCeramicsShow/>
+                <SysCeramicsShow/>
               }
               {
                 menuKey===4&&
@@ -128,11 +183,15 @@ class SystemManagement extends React.Component{
               }
               {
                 menuKey===8&&
-                  <CeramicsPicture/>
+                <CeramicsPicture/>
               }
               {
                 menuKey===9&&
                 <Chip/>
+              }
+              {
+                menuKey===10&&
+                <Book/>
               }
               {
                 menuKey===11&&
@@ -141,6 +200,12 @@ class SystemManagement extends React.Component{
               {
                 menuKey===12&&
                 <SysPageManagement/>
+              }
+              {
+                menuKey===0 &&
+                  <LoginSetting
+                    closeDetails={this.closeDetails}
+                  />
               }
             </Content>
             <Footer style={{ textAlign: 'center' }}>ZJGS University @2020 ZTouchDou</Footer>
