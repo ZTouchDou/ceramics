@@ -40,6 +40,11 @@ class Community extends React.Component{
     this.props.history.push('/Community/ComAdd');
   };
 
+  handleClick = ()=>{
+    this.props.history.push('/Community/Combookdetails');
+  };
+  };
+
   render() {
     let {MyTab} = this.state;
     return (
@@ -146,7 +151,7 @@ class Community extends React.Component{
           <div className='Community-title'>
              推荐书籍
           </div>
-          <div className='Community-book'>
+          <div className='Community-book' onClick={this.handleClick} >
             <Carousel
               className='ant-carousel-Community'
               ref={el => (this.slider = el)}

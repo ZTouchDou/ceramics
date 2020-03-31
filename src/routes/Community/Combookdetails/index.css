@@ -1,0 +1,39 @@
+.Combk-bg{
+    width: 100vw;
+    height:400vh;
+    background-color: darkgray;
+background-size:100% 180%;
+ background-repeat:no-repeat;
+}
+.cover{
+    overflow: hidden;
+    position: relative;
+    width:100%;
+    height:100%;
+    padding-left: 5vw;
+    padding-top: 3vw;
+
+}
+
+.cover:after{
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    box-shadow:0 0 30px 10px rgba(255,255,255,.7) inset;
+}
+
+.Combk-title{
+    width:100vw;
+    height:40vh;
+    background-image:url("../../../Image/18.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 0 1vmin 4vmin rgba(0,0,0,0.9);
+
+}
+.Combk-body{
+    padding-top: 45vh;
+
+}

@@ -1,6 +1,7 @@
 import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,} from 'antd';
 import React from 'react';
 import './index.css'
+import GoBackButton from '../../components/GoBackButton';
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 
@@ -8,6 +9,9 @@ class register extends React.Component {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
+  };
+  gotoBack=()=>{
+    this.props.history.push('/login');
   };
 
   handleSubmit = e => {
@@ -89,6 +93,10 @@ class register extends React.Component {
 
     return (
       <div className='register-background'>
+        <GoBackButton
+           color='LightGrey'
+          gotoBack={this.gotoBack}
+        />
         <div className='register-body'>
           <Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form'>
             <Form.Item label="邮箱" >

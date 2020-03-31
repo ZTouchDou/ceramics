@@ -68,12 +68,11 @@ class details extends React.Component {
           </Carousel>
         </div>
         <div className='details-bottom'>
+          
           {/*这里放陶瓷模型*/}
-          <div className='details-modul'>
-
           </div>
         </div>
-        </div>
+
     );
   }
 }
