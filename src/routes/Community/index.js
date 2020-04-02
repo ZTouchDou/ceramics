@@ -10,39 +10,38 @@ import Chip from "./Chip";
 
 const { Header, Content } = Layout;
 
-class Community extends React.Component{
+class Community extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      MyTab:1
+    this.state = {
+      MyTab: 1
     }
   }
 
   //游览
-  gotoVisit=(type)=>{
-    if(type==='SC'){
+  gotoVisit = (type) => {
+    if (type === 'SC') {
       this.props.history.push('/Community/ComSC');
-    }else if(type==='JC'){
+    } else if (type === 'JC') {
       this.props.history.push('/Community/ComJC');
     }
   };
 
   //切换
-  changeTab=(type)=>{
+  changeTab = (type) => {
     this.setState({
-      MyTab:type
+      MyTab: type
     })
   };
 
   //发布
-  gotoAdd=(type)=>{
-    sessionStorage.setItem('AddType',type);
+  gotoAdd = (type) => {
+    sessionStorage.setItem('AddType', type);
     this.props.history.push('/Community/ComAdd');
   };
 
-  handleClick = ()=>{
+  handleClick = () => {
     this.props.history.push('/Community/Combookdetails');
-  };
   };
 
   render() {
@@ -58,41 +57,41 @@ class Community extends React.Component{
             <div className='Community-title'>
               鉴赏
             </div>
-            <Row style={{width:'100%',height:'80%'}}>
-              <Col span={12} style={{height:'100%'}}>
+            <Row style={{width: '100%', height: '80%'}}>
+              <Col span={12} style={{height: '100%'}}>
                 <div className='Community-body-tab gradient1'>
                   <div className='tab-img'>
                     <img
-                      style={{width:'100%',height:'100%'}}
+                      style={{width: '100%', height: '100%'}}
                       src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
                       alt="example"
                     />
                   </div>
                   <div className='tab-body'>
-                    <div style={{fontSize:'4vmin',fontWeight:'500'}}>
+                    <div style={{fontSize: '4vmin', fontWeight: '500'}}>
                       鉴瓷
                     </div>
-                    <div style={{fontSize:'3.5vmin'}}>
+                    <div style={{fontSize: '3.5vmin'}}>
                       工人莫献天机巧，此器能输郡国材。
                     </div>
                   </div>
                   <div className='tab-action'>
-                    <Row style={{height:'100%'}}>
-                      <Col span={11} style={{height:'100%'}}>
+                    <Row style={{height: '100%'}}>
+                      <Col span={11} style={{height: '100%'}}>
                         <div
-                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
-                          onClick={this.gotoAdd.bind(this,'JC')}
+                          style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}
+                          onClick={this.gotoAdd.bind(this, 'JC')}
                         >
                           发布
                         </div>
                       </Col>
-                      <Col span={2} style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
+                      <Col span={2} style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}>
                         |
                       </Col>
-                      <Col span={11} style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
+                      <Col span={11} style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}>
                         <div
-                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
-                          onClick={this.gotoVisit.bind(this,'JC')}
+                          style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}
+                          onClick={this.gotoVisit.bind(this, 'JC')}
                         >
                           游览
                         </div>
@@ -101,42 +100,42 @@ class Community extends React.Component{
                   </div>
                 </div>
               </Col>
-              <Col span={12} style={{height:'100%'}}>
+              <Col span={12} style={{height: '100%'}}>
                 <div className='Community-body-tab gradient2'>
                   <div className='tab-img'>
                     <img
-                      style={{width:'100%',height:'100%'}}
+                      style={{width: '100%', height: '100%'}}
                       src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                       alt="example"
                     />
                   </div>
                   <div className='tab-body'>
-                    <div style={{fontSize:'4vmin',fontWeight:'500'}}>
+                    <div style={{fontSize: '4vmin', fontWeight: '500'}}>
                       赏瓷
                     </div>
-                    <div style={{fontSize:'3.5vmin'}}>
+                    <div style={{fontSize: '3.5vmin'}}>
                       玲珑剔透万般好，静中见动青山来。
                     </div>
                   </div>
                   <div className='tab-action'>
-                    <Row style={{height:'100%'}}>
-                      <Col span={11} style={{height:'100%'}}>
+                    <Row style={{height: '100%'}}>
+                      <Col span={11} style={{height: '100%'}}>
                         <div
-                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
-                          onClick={this.gotoAdd.bind(this,'SC')}
+                          style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}
+                          onClick={this.gotoAdd.bind(this, 'SC')}
                         >
                           发布
                         </div>
                       </Col>
-                      <Col span={2} style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
-                        <div style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
+                      <Col span={2} style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}>
+                        <div style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}>
                           |
                         </div>
                       </Col>
-                      <Col span={11} style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}>
+                      <Col span={11} style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}>
                         <div
-                          style={{height:'100%',lineHeight:'6vh',textAlign:'center'}}
-                          onClick={this.gotoVisit.bind(this,'SC')}
+                          style={{height: '100%', lineHeight: '6vh', textAlign: 'center'}}
+                          onClick={this.gotoVisit.bind(this, 'SC')}
                         >
                           游览
                         </div>
@@ -149,9 +148,9 @@ class Community extends React.Component{
           </div>
           <Divider/>
           <div className='Community-title'>
-             推荐书籍
+            推荐书籍
           </div>
-          <div className='Community-book' onClick={this.handleClick} >
+          <div className='Community-book' onClick={this.handleClick}>
             <Carousel
               className='ant-carousel-Community'
               ref={el => (this.slider = el)}
@@ -160,19 +159,21 @@ class Community extends React.Component{
               dotPosition='bottom'
               lazyLoad={true}
             >
-              <div style={{width:'100%',height:'25vh'}}>
-                <img src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3554881036,1166117629&fm=26&gp=0.jpg'
-                     style={{width:'100%',height:'25vh'}}
+              <div style={{width: '100%', height: '25vh'}}>
+                <img
+                  src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3554881036,1166117629&fm=26&gp=0.jpg'
+                  style={{width: '100%', height: '25vh'}}
                 />
               </div>
-              <div style={{width:'100%',height:'25vh'}}>
+              <div style={{width: '100%', height: '25vh'}}>
                 <img src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=617031907,3445052043&fm=26&gp=0.jpg'
-                     style={{width:'100%',height:'25vh'}}
+                     style={{width: '100%', height: '25vh'}}
                 />
               </div>
-              <div style={{width:'100%',height:'25vh'}}>
-                <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3291806322,1575920950&fm=26&gp=0.jpg'
-                     style={{width:'100%',height:'25vh'}}
+              <div style={{width: '100%', height: '25vh'}}>
+                <img
+                  src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3291806322,1575920950&fm=26&gp=0.jpg'
+                  style={{width: '100%', height: '25vh'}}
                 />
               </div>
             </Carousel>
@@ -204,23 +205,23 @@ class Community extends React.Component{
             <div className='Community-MyHome-invInfo'>
               <Layout className='ant-c-layout'>
                 <Header className="header">
-                  <div className="logo" />
+                  <div className="logo"/>
                   <Menu
                     className='ant-c-menu'
                     theme="light"
                     mode="horizontal"
                     defaultSelectedKeys={['1']}
-                    style={{ lineHeight: '10vh' }}
+                    style={{lineHeight: '10vh'}}
                   >
-                    <Menu.Item className='ant-c-submenu' key="1" onClick={this.changeTab.bind(this,1)}>帖子</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="2" onClick={this.changeTab.bind(this,2)}>晒瓷</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="3" onClick={this.changeTab.bind(this,3)}>评论</Menu.Item>
-                    <Menu.Item className='ant-c-submenu' key="4" onClick={this.changeTab.bind(this,4)}>瓷片</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="1" onClick={this.changeTab.bind(this, 1)}>帖子</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="2" onClick={this.changeTab.bind(this, 2)}>晒瓷</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="3" onClick={this.changeTab.bind(this, 3)}>评论</Menu.Item>
+                    <Menu.Item className='ant-c-submenu' key="4" onClick={this.changeTab.bind(this, 4)}>瓷片</Menu.Item>
                   </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
-                  <Layout className="site-layout-background " style={{height:'54.5vh', padding: '4vh 0' }}>
-                    <Content style={{overflow:'auto'}}>
+                <Content style={{padding: '0 50px'}}>
+                  <Layout className="site-layout-background " style={{height: '54.5vh', padding: '4vh 0'}}>
+                    <Content style={{overflow: 'auto'}}>
                       {/*{*/}
                       {/*  TC.length>0?TC.map((item,index)=>{*/}
 
@@ -232,16 +233,16 @@ class Community extends React.Component{
                       {/*  )*/}
                       {/*}*/}
                       {
-                        MyTab ===1 && <Invitation history={this.props.history}/>
+                        MyTab === 1 && <Invitation history={this.props.history}/>
                       }
                       {
-                        MyTab ===2 && <CeramicsPicture/>
+                        MyTab === 2 && <CeramicsPicture/>
                       }
                       {
-                        MyTab ===3 && <Comment/>
+                        MyTab === 3 && <Comment/>
                       }
                       {
-                        MyTab ===4 && <Chip/>
+                        MyTab === 4 && <Chip/>
                       }
                     </Content>
                   </Layout>
@@ -254,5 +255,4 @@ class Community extends React.Component{
     );
   }
 }
-
-export default Community;
+  export default Community;
