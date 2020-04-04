@@ -33,11 +33,11 @@
     height:55vh;
 }
 
-.details-modul{
+.details-module{
     width:70%;
     height:70%;
     margin-left:15%;
-    padding-top:15%;
+    padding-top:3%;
 }
 
 .ant-carousel .slick-slide h3 {
