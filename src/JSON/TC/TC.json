@@ -5,7 +5,8 @@
     "content": "这里还有一个问题，谷歌点击事件跟swiper有冲突，刷新一下就好了，实机运行这个问题不存在。",
     "imgUrl": "GF1.jpg",
     "objUrl": "../../models/model-1.obj",
-    "mtlUrl": "../../models/model-1.mtl"
+    "mtlUrl": "../../models/model-1.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
   },
   {
     "id": "2",
@@ -13,7 +14,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF2.jpg",
     "objUrl": "../../models/model-2.obj",
-    "mtlUrl": "../../models/model-2.mtl"
+    "mtlUrl": "../../models/model-2.mtl",
+    "textureUrl": "../../models/texture-5.jpg"
+
   },
   {
     "id": "3",
@@ -21,7 +24,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF3.jpg",
     "objUrl": "../../models/model-3.obj",
-    "mtlUrl": "../../models/model-3.mtl"
+    "mtlUrl": "../../models/model-3.mtl",
+    "textureUrl": "../../models/texture-2.jpg"
+
   },
   {
     "id": "4",
@@ -29,7 +34,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF4.jpg",
     "objUrl": "../../models/model-4.obj",
-    "mtlUrl": "../../models/model-4.mtl"
+    "mtlUrl": "../../models/model-4.mtl",
+    "textureUrl": "../../models/texture-2.jpg"
+
   },
   {
     "id": "5",
@@ -37,7 +44,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF5.jpg",
     "objUrl": "../../models/model-5.obj",
-    "mtlUrl": "../../models/model-5.mtl"
+    "mtlUrl": "../../models/model-5.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
+
   },
   {
     "id": "6",
@@ -45,7 +54,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF6.jpg",
     "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl"
+    "mtlUrl": "../../models/model-6.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
+
   },
   {
     "id": "7",
@@ -53,7 +64,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF7.jpg",
     "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl"
+    "mtlUrl": "../../models/model-6.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
+
   },
   {
     "id": "8",
@@ -61,7 +74,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF8.jpg",
     "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl"
+    "mtlUrl": "../../models/model-6.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
+
   },
   {
     "id": "9",
@@ -69,7 +84,9 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF9.jpg",
     "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl"
+    "mtlUrl": "../../models/model-6.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
+
   },
   {
     "id": "10",
@@ -77,6 +94,8 @@
     "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
     "imgUrl": "GF10.jpg",
     "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl"
+    "mtlUrl": "../../models/model-6.mtl",
+    "textureUrl": "../../models/texture-4.jpg"
+
   }
 ]

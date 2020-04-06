@@ -3,17 +3,13 @@ import Swiper from 'swiper';
 import 'swiper/css/swiper.min.css';
 import './index.css';
 import MenuButton from "../../components/MenuButton";
-import request from "../../utils/request";
 import TC from '../../JSON/TC/TC.json';
 import * as THREE from 'three'
-import config from "../../config";
 import Orbitcontrols from 'three-orbitcontrols'
 import {MTLLoader,OBJLoader} from 'three-obj-mtl-loader'
 //import {FBXLoader} from 'three-fbx-loader'
 //import {FBXLoader} from  'three/examples/js/loaders/FBXLoader.js'
 import 'three/examples/js/libs/inflate.min.js'
-
-const pageSize = config.pageSize;
 //陶瓷页
 class CeramicsShow extends React.Component{
   constructor(props){
@@ -24,68 +20,62 @@ class CeramicsShow extends React.Component{
       timer:'',
       dataItem:{},
       scene:'',
+      obj:'',
       mtlurl:'',
       objurl:'',
-
-      qyData:[]
+      imgurl:'',
+      numberOfObjects:'',
     }
   }
-  /*
-  init=()=>{
-    //加载fbx文件
-       let fbx=new FBXLoader();
-       fbx.load('../../models/test1.FBX',(object)=>{
-     // object.scale.set(0.5,0.5,0.5);
-     // object.position.set(0,0,0);
-      this.scene.add(object);
-      })
-    }
 
-   */
-
-  init=(objurl,mtlurl)=>{
-    //加载mtl obj文件
+  init=(objurl,mtlurl,textureurl)=> {
+    let manager = new THREE.LoadingManager();
+    let texture = new THREE.Texture();
+    let loader = new THREE.ImageLoader(manager);
+    loader.load(textureurl, function (image) {
+      texture.image = image;
+      texture.needsUpdate = true;
+    })
     let mtl = new MTLLoader();
-    let obj=new OBJLoader();
-   // mtl.setPath('../../models/');
-    mtl.load(mtlurl,(materials)=> {
+    let obj = new OBJLoader(manager);
+    mtl.load(mtlurl, (materials) => {
       materials.preload();
-    //  console.log("mtlobject:", mtlurl);
       obj.setMaterials(materials);
-    //  obj.setPath('../../models/');
-      obj.load(objurl,(object) =>{
+      obj.load(objurl, (object) => {
+        object.traverse(function (child) {
+          if (child instanceof THREE.Mesh) {
+            child.material.map = texture;
+          }
+        });
         object.position.y = 0;
         object.rotation.x = 0;
         object.rotation.y = 0;
         object.rotation.z = 0;
-        object.name=objurl;
-        //自行调整模型比例
-       // object.scale.set(7,7, 7);
+        object.name = objurl;
+        // object.scale.set(7,7, 7);
+
         this.state.scene.add(object);
-        console.log("object:", object);
+        this.numberOfObjects = this.state.scene.children.length;
+        console.log("objectnumber:", this.state.scene.children);
+        if(this.state.scene.children.length>4){
+          let allchilden=this.state.scene.children;
+          let lastObject = allchilden[allchilden.length - 2];
+          this.state.scene.remove(lastObject);
+          console.log("lastObject:",lastObject);
+        }
+        object.needsUpdate = true;
       });
     });
+    this.setState({
+      obj,
+
+    });
   }
-
- //跳转页面
+  //跳转页面
   gotoTab2 = (name,dataItem)=>{
+    console.log("dataItem:", dataItem);
     sessionStorage.setItem('dataItem',JSON.stringify(dataItem));
-      this.props.history.push('/CeramicsShow/details',{name:name});
-  };
-
-  //获取陶瓷数据
-  getCeramicsData=(page)=>{
-    let data = {};
-    data.page = page;
-    data.pageSize = pageSize;
-    request({url:'/getCeramics',method:'GET',params:data}).then((res)=>{
-      if(res && res.code){
-        this.setState({
-          qyData:res.data,
-          total:res.total
-        })
-      }
-    })
+    this.props.history.push('/CeramicsShow/details',{name:name});
   };
 
   componentDidMount() {
@@ -97,41 +87,39 @@ class CeramicsShow extends React.Component{
       effect : 'coverflow',//设置切换效果
       slidesPerView: 3,
       centeredSlides: true,
-
       offsetSlidesBefore:2,
       on:{
         transitionEnd:t.onChange,
       }
     });
     t.initThree();
-    t.getCeramicsData(this.state.page);
-  }
 
+  }
   componentWillUnmount() {
     let {timer} = this.state;
     if(timer){
       clearTimeout(timer)
     }
+
   }
 
   initThree() {
     let camera, scene, renderer, group;
     let c=document.getElementById('3d-output');
-    let width = c.clientWidth/2, height = c.clientHeight/2;
+    let width = 200, height = 300;
     //创建场景
     scene = new THREE.Scene();
     group = new THREE.Group();
     scene.add(group);
-    scene.background = new THREE.Color("rgb(255,255,255)");
-    scene.add(new THREE.GridHelper(400, 10)); //网格辅助
+    //  scene.background = new THREE.Color(255,255,255);
+    //scene.add(new THREE.GridHelper(400, 10)); //网格辅助
     //创建透视相机
-    camera = new THREE.PerspectiveCamera(60,  window.innerWidth/window.innerHeight, 1, 2000);
+    camera = new THREE.PerspectiveCamera(60,  width/height, 1, 1500);
     camera.position.x = 0;
-    camera.position.y = 2;
-    camera.position.z = 350;
+    camera.position.y = 0;
+    camera.position.z = 380;
     camera.lookAt(scene.position);
     //控制相机
-    let orbitControls = new Orbitcontrols(camera);
     //光源
     let ambi = new THREE.AmbientLight(0x686868);
     scene.add(ambi);
@@ -140,19 +128,20 @@ class CeramicsShow extends React.Component{
     spotLight.intensity = 0.6;
     scene.add(spotLight);
     //实例化渲染器
-    renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer = new THREE.WebGLRenderer({antialias:true,alpha: true});
     renderer.setClearColor(0xffffff);
-
+    renderer.setClearAlpha(0x000000, 0 );
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize( window.innerWidth/2, window.innerHeight/2);
-
+    //  camera.updateProjectionMatrix();
+    renderer.setSize( width, height);
+    renderer.autoClear = true;
     c.appendChild(renderer.domElement);
-  //  c.scissor(0,0,width,height);
+    let orbitControls = new Orbitcontrols(camera,renderer.domElement);
     animate();
     function animate() {
       //每一帧渲染一次画面,不然画面是静止的
-      requestAnimationFrame(animate);
       render();
+      requestAnimationFrame(animate);
     }
     function render() {
       renderer.render(scene, camera);
@@ -162,15 +151,15 @@ class CeramicsShow extends React.Component{
     });
 
   }
-
   onChange = ()=>{
     let bgimg = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-bgimg');
     let name = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-name');
     let dataItem = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-item');
     document.getElementById('bgimage').setAttribute('class','bgimgchange');
-    console.log(":", JSON.parse(dataItem));
+    console.log("dataItem:", JSON.parse(dataItem));
     let mtlurl = JSON.parse(dataItem).mtlUrl;
     let objurl = JSON.parse(dataItem).objUrl;
+    let textureurl=JSON.parse(dataItem).textureUrl;
     let timer = setTimeout(function (){
       document.getElementById('bgimage').setAttribute('class','bgimg');
     },10);
@@ -180,9 +169,10 @@ class CeramicsShow extends React.Component{
       name,
       mtlurl,
       objurl,
+      textureurl,
       dataItem:JSON.parse(dataItem),
     });
-    this.init(objurl,mtlurl);
+    this.init(objurl,mtlurl,textureurl);
 
   };
 
@@ -190,14 +180,11 @@ class CeramicsShow extends React.Component{
     let {name,details,bgimg,dataItem,mtlurl,objurl} = this.state;
     return (
       <div className='box'>
-        <div  onClick={this.gotoTab2.bind(this,name,dataItem)}  id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
+        <div    id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
         </div>
         <MenuButton/>
-        <div  className='box-left'>
-          <div id='3d-output' >
-              <div>
-
-              </div>
+        <div onClick={this.gotoTab2.bind(this,name,dataItem)} className='box-left'>
+          <div id='3d-output' style={{position:'relative',backgroundColor:'transparent'}}>
           </div>
         </div>
         <div className='box-right'>
