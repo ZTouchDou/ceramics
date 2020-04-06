@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from "moment"
 import { withRouter } from 'react-router-dom'
 import {Popconfirm, Icon,notification }from 'antd';
 import './CommentInfoTab.css';
@@ -27,16 +28,20 @@ class CommentInfoTab extends React.Component{
   };
 
   //展示这个评论的帖子页面
-  gotoInvitation=()=>{
-    this.props.history.push('/Community/ComJC');
+  gotoInvitation=(id)=>{
+    if(id){
+      sessionStorage.setItem("invJCId",id);
+      this.props.history.push('/Community/ComJC');
+    }
   };
 
   render() {
+    let {item} = this.props;
     return (
       <div className='ComInfoTab-box'>
         <div className='ComInfoTab-header'>
           <div className='ComInfoTab-time'>
-            2020/3/4
+            {moment(Number(item.time)).format("YYYY/MM/DD HH:mm")}
           </div>
           <div onClick={this.topPropagationClick}>
             <Popconfirm
@@ -53,10 +58,10 @@ class CommentInfoTab extends React.Component{
           </div>
         </div>
         <div className='ComInfoTab-body'>
-          Support for let and class redeclarations When experimenting with new code in the Console
+          {item.content}
         </div>
-        <div className='ComInfoTab-invitation' onClick={this.gotoInvitation}>
-          Improved WebAssembly debugging The Sources pannel has increased support for stepping over code.
+        <div className='ComInfoTab-invitation' onClick={this.gotoInvitation.bind(this,item.invitationId)}>
+          {item.invContent}
         </div>
       </div>
     );

@@ -13,7 +13,7 @@ class ChipInfoTab extends React.Component{
 
 
   render() {
-    let {name, imgUrl} = this.props;
+    let {item, imgUrl} = this.props;
     const mask={
       "WebkitMask":`url(${require('../../../Image/'+imgUrl)})`,
       "WebkitMaskSize":"100% 100%"
@@ -21,7 +21,7 @@ class ChipInfoTab extends React.Component{
     return (
       <div className='ChipInfoTab-box' onClick={this.props.gotoDetails}>
         <div className='ChipInfoTab-name'>
-          {name}
+          {item.title}
         </div>
         <div className='ChipInfoTab-pic' style={{...mask}}/>
       </div>

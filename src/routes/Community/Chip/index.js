@@ -1,22 +1,49 @@
 import React from 'react';
 import {Drawer} from 'antd';
 import './index.css';
+import request from "../../../utils/request";
 import ChipInfoTab from "./ChipInfoTab";
 import ChipDetails from "./ChipDetails";
+
+const pageSize = 10;
 
 class Chip extends React.Component{
   constructor(props) {
     super(props);
     this.state={
       detailShow:false,
-      chipName:''
+      chipDetails:'',
+      chipData:[],
+      page:1,
+      total:10
     }
+  }
+  //取得陶片信息
+  getUserChip=(page)=>{
+    let id = sessionStorage.getItem("userId");
+    let data={
+      id:id,
+      page:page,
+      pageSize:pageSize
+    };
+    request({url:'/getChipFromUser',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          chipData:res.data,
+          total:res.total
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getUserChip(this.state.page);
   }
 
   //跳转详情页
-  gotoDetails=(name)=>{
+  gotoDetails=(item)=>{
     this.setState({
-      chipName:name,
+      chipDetails:item,
       detailShow:true
     })
   };
@@ -32,46 +59,18 @@ class Chip extends React.Component{
     let {detailShow} = this.state;
     return (
       <div className='Chip-box'>
-        <ChipInfoTab
-          name='乡俗'
-          gotoDetails={this.gotoDetails.bind(this,'乡俗')}
-          imgUrl='CP3.png'
-        />
-        <ChipInfoTab
-          name='关于李白的那些事'
-          gotoDetails={this.gotoDetails.bind(this,'关于李白的那些事')}
-          imgUrl='SysBg.png'
-        />
-        <ChipInfoTab
-          name='渔夫'
-          gotoDetails={this.gotoDetails.bind(this,'渔夫')}
-          imgUrl='CP2.png'
-        />
-        <ChipInfoTab
-          name='小九寨'
-          gotoDetails={this.gotoDetails.bind(this,'小九寨')}
-          imgUrl='CP4.png'
-        />
-        <ChipInfoTab
-          name='罗生'
-          gotoDetails={this.gotoDetails.bind(this,'罗生')}
-          imgUrl='CP5.png'
-        />
-        <ChipInfoTab
-          name='1935'
-          gotoDetails={this.gotoDetails.bind(this,'1935')}
-          imgUrl='CP6.png'
-        />
-        <ChipInfoTab
-          name='清明传统'
-          gotoDetails={this.gotoDetails.bind(this,'清明传统')}
-          imgUrl='CP7.png'
-        />
-        <ChipInfoTab
-          name='花旦'
-          gotoDetails={this.gotoDetails.bind(this,'花旦')}
-          imgUrl='CP8.png'
-        />
+        {
+          this.state.chipData.map((item,index)=>{
+            return(
+              <ChipInfoTab
+                key={index}
+                item={item}
+                gotoDetails={this.gotoDetails.bind(this,item)}
+                imgUrl={`CP${index+1}.png`}
+              />
+            )
+          })
+        }
         <Drawer
           className='ant-drawer-body-Chip'
           placement="right"
@@ -81,7 +80,7 @@ class Chip extends React.Component{
           height='100vh'
         >
           <ChipDetails
-            name={this.state.chipName}
+            chipDetails={this.state.chipDetails}
             closeDetails={this.closeDetails}
           />
         </Drawer>

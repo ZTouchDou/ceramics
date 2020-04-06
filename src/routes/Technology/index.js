@@ -3,6 +3,7 @@ import {Row, Col} from 'antd';
 import Swiper from 'swiper';
 import 'swiper/css/swiper.min.css';
 import './index.css';
+import request from "../../utils/request";
 import MenuButton from "../../components/MenuButton";
 import TechnologyStep from "../../components/TechnologyStep";
 import CloudModal from "../../components/CloudModal";
@@ -10,6 +11,8 @@ import GY from '../../JSON/GY/GY.json';
 import config from '../../config.js';
 
 const fontName = config.fontName;
+const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 
 const font = {
   fontFamily:fontName
@@ -23,26 +26,44 @@ class Technology extends React.Component{
       showTextLength:60,//显示的字数，建议不大于72
       modalshow:false,
       dataItem:'',
-      menuShow:true
+      menuShow:true,
+      page:1,
+      qyData:[]
     }
   }
 
-  componentDidMount() {
-    let swiper = new Swiper('.swiper-container',{
-      parallax: true,
-      speed: 600,
-      autoplay:false,
-      loop:false,
-      noSwiping : true,
-    });
+  //获取工艺数据
+  getTechnologyData=(page)=>{
+    let data = {};
+    data.page = page;
+    data.pageSize = pageSize;
+    request({url:'/getTechnology',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          qyData:res.data,
+        },()=>{
+          let swiper = new Swiper('.swiper-container',{
+            parallax: true,
+            speed: 600,
+            autoplay:false,
+            loop:false,
+            noSwiping : true,
+          });
 
-    //获取屏幕宽度和高度
-    let windowWidth = document.querySelector('body').offsetWidth;
-    let showTextLength = (windowWidth>992)?40:(windowWidth<=992&&windowWidth>=768)?45:60;
-    this.setState({
-      swiper,
-      showTextLength
+          //获取屏幕宽度和高度
+          let windowWidth = document.querySelector('body').offsetWidth;
+          let showTextLength = (windowWidth>992)?40:(windowWidth<=992&&windowWidth>=768)?45:60;
+          this.setState({
+            swiper,
+            showTextLength
+          })
+        })
+      }
     })
+  };
+
+  componentDidMount() {
+    this.getTechnologyData(this.state.page);
   }
 
   componentWillUnmount() {
@@ -52,7 +73,7 @@ class Technology extends React.Component{
     }
   }
 
-  //跳转到制定页
+  //跳转到指定页
   slideTo = (index)=>{
     let {swiper} = this.state;
     swiper.slideTo(index-1);
@@ -83,7 +104,7 @@ class Technology extends React.Component{
     },()=>{
       document.getElementById('swiper').setAttribute('class','swiper-container fullscreen');
     })
-  }
+  };
 
   render() {
     let {showTextLength,modalShow,dataItem,menuShow} = this.state;
@@ -104,11 +125,11 @@ class Technology extends React.Component{
           <div className='bg' data-swiper-parallax="-23%" data-swiper-parallax-duration="3000"></div>
           <div className='swiper-wrapper fullscreen'>
             {
-              GY.map((item,index)=>{
+              this.state.qyData.map((item,index)=>{
                 return(
                   <div className='swiper-slide' key={index}>
                     <div className='Technology-top' data-swiper-parallax="0" data-swiper-parallax-opacity="0.3">
-                      <img src={require('../../JSON/GY/Images/'+item.imgUrl)} alt="工序插图" className='Technology-img' data-swiper-parallax-scale="0.15"/>
+                      <img src={uploadUrl+item.imgUrl} alt="工序插图" className='Technology-img' data-swiper-parallax-scale="0.15"/>
                     </div>
                     <div className='Technology-bottom'>
                       <Row style={{height:'100%'}}>

@@ -1,7 +1,11 @@
 import React from 'react';
-import { Upload, Icon, Modal, Input } from 'antd';
+import { Upload, Icon, Modal, Input, message } from 'antd';
 import './index.css';
 import GoBackButton from "../../../components/GoBackButton";
+import request from "../../../utils/request";
+import config from "../../../config";
+
+const uploadUrl = config.poxzy.uploadUrl+"/upload";
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -19,37 +23,8 @@ class ComAdd extends React.Component{
       AddType:'',
       previewVisible: false,
       previewImage: '',
-      fileList: [
-        // {
-        //   uid: '-1',
-        //   name: 'image.png',
-        //   status: 'done',
-        //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        // },
-        // {
-        //   uid: '-2',
-        //   name: 'image.png',
-        //   status: 'done',
-        //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        // },
-        // {
-        //   uid: '-3',
-        //   name: 'image.png',
-        //   status: 'done',
-        //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        // },
-        // {
-        //   uid: '-4',
-        //   name: 'image.png',
-        //   status: 'done',
-        //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        // },
-        // {
-        //   uid: '-5',
-        //   name: 'image.png',
-        //   status: 'error',
-        // },
-      ]
+      fileList: [],
+      gobackModal:false
     }
   }
 
@@ -57,18 +32,110 @@ class ComAdd extends React.Component{
     let type = sessionStorage.getItem('AddType')?sessionStorage.getItem('AddType'):'SC';
     this.setState({
       AddType:type
+    },()=>{
+      if(this.state.AddType==="JC"){
+        let title=localStorage.getItem("myInvJCTitle");
+        let content = localStorage.getItem("myInvJCText");
+        document.getElementById("invTitle").value=title?title:'';
+        document.getElementById("invText").innerHTML=content?content:'';
+      }else{
+        let content = localStorage.getItem("myInvSCText");
+        document.getElementById("invText").innerHTML=content?content:'';
+      }
     })
   }
 
   //点击发布
   ComAddSubmit=()=>{
-
+    let {AddType,fileList} = this.state;
+    let url='';
+    let data={};
+    let title="";
+    if(AddType==="JC"){
+      title=document.getElementById("invTitle").value;
+    }else{
+      title="1";
+    }
+    let content = document.getElementById("invText").innerHTML;
+    if(title==="" || content === ""){
+      message.warn("标题和发布内容不可为空哦");
+      return;
+    }
+    if(AddType==="JC"){
+      url="/insertInvitationJC";
+      data.title=title;
+      data.content=content;
+      data.imgUrl1=fileList.length>0?fileList[0].response.filePath:"";
+      data.imgUrl2=fileList.length>1?fileList[1].response.filePath:"";
+      data.imgUrl3=fileList.length>2?fileList[2].response.filePath:"";
+      data.imgUrl4=fileList.length>3?fileList[3].response.filePath:"";
+      data.imgUrl5=fileList.length>4?fileList[4].response.filePath:"";
+    }else{
+      url="/insertInvitationSC";
+      data.content=content;
+      data.imgUrl=fileList.length>0?fileList[0].response.filePath:"";
+    }
+    data.userId=sessionStorage.getItem("userId");
+    request({url:url,method:'POST',data:data}).then((res)=>{
+      if(res && res.code){
+        message.success("发布成功");
+        if(this.state.AddType==="JC"){
+          localStorage.removeItem("myInvJCTitle");
+          localStorage.removeItem("myInvJCText");
+        }else{
+          localStorage.removeItem("myInvSCText");
+        }
+        this.props.history.push('/Community');
+      }else{
+        message.error("发布失败，可能网络不好哦");
+      }
+    })
   };
 
   //返回
   gotoBack=()=>{
-    this.props.history.push('/Community');
-  }
+    let title="";
+    if(this.state.AddType==="JS"){
+      title=document.getElementById("invTitle").value;
+    }
+    let content=document.getElementById("invText").innerHTML;
+    if(title || content){
+      this.setState({
+        gobackModal:true
+      })
+    }else{
+      this.props.history.push('/Community');
+    }
+  };
+
+  //不保存
+  noSave=()=>{
+    this.setState({
+      gobackModal:false
+    },()=>{
+      this.props.history.push('/Community');
+    })
+  };
+
+  //保存编辑的内容
+  saveText=()=>{
+    let title="";
+    let content="";
+    if(this.state.AddType==="JC"){
+      title=document.getElementById("invTitle").value;
+      content=document.getElementById("invText").innerHTML;
+      localStorage.setItem("myInvJCTitle",title);
+      localStorage.setItem("myInvJCText",content);
+    }else{
+      content=document.getElementById("invText").innerHTML;
+      localStorage.setItem("myInvSCText",content);
+    }
+    this.setState({
+      gobackModal:false
+    },()=>{
+      this.props.history.push('/Community');
+    })
+  };
 
   //点击文件链接或预览图标时的回调
   handlePreview = async file=> {
@@ -79,7 +146,7 @@ class ComAdd extends React.Component{
       previewImage: file.url || file.preview,
       previewVisible: true,
     });
-  }
+  };
 
   //上传文件改变时的状态，将新增的图片加入已上传文件列表
   handleChange=({ fileList })=>{
@@ -90,7 +157,7 @@ class ComAdd extends React.Component{
   handleCancel = () => this.setState({ previewVisible: false });
 
   render() {
-    const { AddType, previewVisible, previewImage, fileList } = this.state;
+    const { AddType, previewVisible, previewImage, fileList, gobackModal } = this.state;
     //上传按钮
     const uploadButton = (
       <div>
@@ -116,28 +183,43 @@ class ComAdd extends React.Component{
           </div>
         </div>
         <div className='ComAdd-body'>
-          <div className='ComAdd-title'>
-            <Input
-              style={{width:'100%',height:'100%',border:'none'}}
-              placeholder="标题"
-              maxLength={20}
-            />
-          </div>
-          <div className='ComAdd-content' contentEditable="true" placeholder='写点什么吧……'>
+          {
+            this.state.AddType==="JC" &&
+            <div className='ComAdd-title'>
+              <Input
+                id="invTitle"
+                style={{width:'100%',height:'100%',border:'none'}}
+                placeholder="标题"
+                maxLength={20}
+              />
+            </div>
+          }
+          <div id="invText" className='ComAdd-content' contentEditable="true" placeholder='写点什么吧……'>
 
           </div>
           <div className='ComAdd-image'>
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              action={uploadUrl}
               listType="picture-card"
               fileList={fileList}
               onPreview={this.handlePreview}
               onChange={this.handleChange}
             >
-              {fileList.length >= (AddType==='JC'?8:1) ? null : uploadButton}
+              {fileList.length >= (AddType==='JC'?5:1) ? null : uploadButton}
             </Upload>
             <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
               <img alt="example" style={{ width: '100%' }} src={previewImage} />
+            </Modal>
+            <Modal visible={gobackModal}
+                   onCancel={this.noSave}
+                   onOk={this.saveText}
+                   closable={false}
+                   cancelText="不了，我只是随便写写的"
+                   okText="当然，我下次可不想重写"
+            >
+              <div>
+                需要将本次目前编辑的内容作为草稿保存吗？
+              </div>
             </Modal>
           </div>
         </div>

@@ -3,13 +3,17 @@ import Swiper from 'swiper';
 import 'swiper/css/swiper.min.css';
 import './index.css';
 import MenuButton from "../../components/MenuButton";
+import request from "../../utils/request";
 import TC from '../../JSON/TC/TC.json';
 import * as THREE from 'three'
+import config from "../../config";
 import Orbitcontrols from 'three-orbitcontrols'
 import {MTLLoader,OBJLoader} from 'three-obj-mtl-loader'
 //import {FBXLoader} from 'three-fbx-loader'
 //import {FBXLoader} from  'three/examples/js/loaders/FBXLoader.js'
 import 'three/examples/js/libs/inflate.min.js'
+
+const pageSize = config.pageSize;
 //陶瓷页
 class CeramicsShow extends React.Component{
   constructor(props){
@@ -22,7 +26,9 @@ class CeramicsShow extends React.Component{
       scene:'',
       mtlurl:'',
       objurl:'',
-      }
+
+      qyData:[]
+    }
   }
   /*
   init=()=>{
@@ -63,9 +69,23 @@ class CeramicsShow extends React.Component{
 
  //跳转页面
   gotoTab2 = (name,dataItem)=>{
-    console.log("dataItem:", dataItem);
     sessionStorage.setItem('dataItem',JSON.stringify(dataItem));
       this.props.history.push('/CeramicsShow/details',{name:name});
+  };
+
+  //获取陶瓷数据
+  getCeramicsData=(page)=>{
+    let data = {};
+    data.page = page;
+    data.pageSize = pageSize;
+    request({url:'/getCeramics',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          qyData:res.data,
+          total:res.total
+        })
+      }
+    })
   };
 
   componentDidMount() {
@@ -84,6 +104,7 @@ class CeramicsShow extends React.Component{
       }
     });
     t.initThree();
+    t.getCeramicsData(this.state.page);
   }
 
   componentWillUnmount() {
@@ -175,7 +196,7 @@ class CeramicsShow extends React.Component{
         <div  className='box-left'>
           <div id='3d-output' >
               <div>
-                {/*这里别用map了，数据下面取好然后这里根据路径变换模型，而且swiper-slide是Swiper框架独有的class这里没用。*/}
+
               </div>
           </div>
         </div>

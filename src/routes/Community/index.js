@@ -1,7 +1,9 @@
 import React from 'react';
-import {Divider,Layout, Menu,Col,Row,Carousel} from 'antd';
+import {Divider,Layout, Menu,Col,Row,Carousel,Pagination} from 'antd';
 import './index.css';
 import userimg from '../../Image/5.jpg'
+import request from "../../utils/request";
+import config from "../../config";
 import MenuButton from "../../components/MenuButton";
 import Invitation from "./Invitation";
 import CeramicsPicture from "./CeramicesPicture";
@@ -9,13 +11,31 @@ import Comment from "./Comment";
 import Chip from "./Chip";
 
 const { Header, Content } = Layout;
+const pageSize = 10;
+const uploadUrl = config.poxzy.imgUrl;
 
 class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      MyTab: 1
+      MyTab: 1,
+      bookList:[]
     }
+  }
+
+  //取得书籍
+  getBookList=(id)=>{
+    request({url:'/getBookData',method:"GET",params:{id:id}}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          bookList:res.data
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getBookList(0);
   }
 
   //游览
@@ -23,6 +43,7 @@ class Community extends React.Component {
     if (type === 'SC') {
       this.props.history.push('/Community/ComSC');
     } else if (type === 'JC') {
+      sessionStorage.setItem("invJCId",0);
       this.props.history.push('/Community/ComJC');
     }
   };
@@ -63,7 +84,7 @@ class Community extends React.Component {
                   <div className='tab-img'>
                     <img
                       style={{width: '100%', height: '100%'}}
-                      src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+                      src={require("../../Image/JC.jpg")}
                       alt="example"
                     />
                   </div>
@@ -105,7 +126,7 @@ class Community extends React.Component {
                   <div className='tab-img'>
                     <img
                       style={{width: '100%', height: '100%'}}
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                      src={require("../../Image/noSC.jpg")}
                       alt="example"
                     />
                   </div>
@@ -159,23 +180,19 @@ class Community extends React.Component {
               dotPosition='bottom'
               lazyLoad={true}
             >
-              <div style={{width: '100%', height: '25vh'}}>
-                <img
-                  src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3554881036,1166117629&fm=26&gp=0.jpg'
-                  style={{width: '100%', height: '25vh'}}
-                />
-              </div>
-              <div style={{width: '100%', height: '25vh'}}>
-                <img src='https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=617031907,3445052043&fm=26&gp=0.jpg'
-                     style={{width: '100%', height: '25vh'}}
-                />
-              </div>
-              <div style={{width: '100%', height: '25vh'}}>
-                <img
-                  src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3291806322,1575920950&fm=26&gp=0.jpg'
-                  style={{width: '100%', height: '25vh'}}
-                />
-              </div>
+              {
+                this.state.bookList.map((item,index)=>{
+                  return(
+                    <div key={index} style={{width: '100%', height: '25vh'}}>
+                      <img
+                        src={uploadUrl+item.imgUrl}
+                        style={{width: '100%', height: '25vh'}}
+                        alt="书籍配图"
+                      />
+                    </div>
+                  )
+                })
+              }
             </Carousel>
           </div>
           <Divider/>
@@ -187,16 +204,16 @@ class Community extends React.Component {
               <Row>
                 <Col span={8}>
                   <div className='Community-user'>
-                    <img src={userimg} alt='你的头像阵亡了' className='Community-user-image'/>
+                    <img src={uploadUrl+sessionStorage.getItem("userimg")} alt='你的头像阵亡了' className='Community-user-image'/>
                   </div>
                 </Col>
                 <Col span={16}>
                   <div className='Community-user-Info'>
                     <div className='Community-user-name'>
-                      一咖喱
+                      {sessionStorage.getItem("username")}
                     </div>
                     <div className='Community-user-id'>
-                      ID:102220200304068
+                      ID:{sessionStorage.getItem("userId")}
                     </div>
                   </div>
                 </Col>
@@ -222,16 +239,6 @@ class Community extends React.Component {
                 <Content style={{padding: '0 50px'}}>
                   <Layout className="site-layout-background " style={{height: '54.5vh', padding: '4vh 0'}}>
                     <Content style={{overflow: 'auto'}}>
-                      {/*{*/}
-                      {/*  TC.length>0?TC.map((item,index)=>{*/}
-
-                      {/*  }):*/}
-                      {/*  (*/}
-                      {/*    <div style={{width:'24vw',fontSize:'6vmin',opacity:'0.7',marginTop:'50%',marginLeft:'50%',transform:'translate(-50%,-50%)'}}>*/}
-                      {/*      空空如也*/}
-                      {/*    </div>*/}
-                      {/*  )*/}
-                      {/*}*/}
                       {
                         MyTab === 1 && <Invitation history={this.props.history}/>
                       }

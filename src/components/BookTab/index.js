@@ -10,9 +10,7 @@ const pStyle = {
   fontFamily:fontName,
   color: 'rgba(0,0,0,0.85)',
   lineHeight: '2vh',
-  display: 'block',
   marginLeft: '3vw',
-  marginTop: '-37vh'
   //marginBottom: '4vh',
 };
 
@@ -20,10 +18,9 @@ const pStyle = {
 const contentStyle1= {
   fontSize: '4vmin',
   fontFamily: fontName,
-  width: '50%',
-  height: '30vh',
-  marginLeft:'45vw',
-  marginTop:'-38vh',
+  padding:"0 2vw",
+  height:"10vh",
+  overflow:"hidden",
   color: 'rgba(0,0,0,1)',
 };
 
@@ -31,10 +28,9 @@ const contentStyle1= {
 const contentStyle2={
   fontSize: '3vmin',
   fontFamily: fontName,
-  width: '50%',
-  height: '100%',
-  marginTop:'-20vh',
-  marginLeft:'45vw',
+  padding:"0 2vw",
+  height:"25vh",
+  overflow:'auto',
   color: 'rgba(0,0,0,1)',
 };
 
@@ -49,16 +45,22 @@ class BookTab extends React.Component{
   render() {
     let {title, leftContent, imgUrl, bottomContent} = this.props;
     return (
-      <div style={  {marginBottom: '50vh'}}>
+      <div style={{marginTop:'4vh'}}>
             <p style={pStyle}>{title}</p>
-            <div style={{height:'37vh',width:'40%',marginLeft:'3vw'}}>
-              {
-                imgUrl ?
-                  <img src={imgUrl} style={{width:'100%',height:'100%',borderRadius:'4px'}} alt='配图'/>:''
-              }
-            </div>
-            <p style={contentStyle1}>{leftContent}</p>
-            <p style={contentStyle2}>{bottomContent}</p>
+            <Row>
+              <Col span={10}>
+                <div style={{height:'37vh',marginLeft:'3vw'}}>
+                  {
+                    imgUrl ?
+                      <img src={imgUrl} style={{width:'100%',height:'100%',borderRadius:'4px'}} alt='配图'/>:''
+                  }
+                </div>
+              </Col>
+              <Col span={14}>
+                <div style={contentStyle1}>{leftContent}</div>
+                <div style={contentStyle2}>{bottomContent}</div>
+              </Col>
+            </Row>
 
       </div>
     )
