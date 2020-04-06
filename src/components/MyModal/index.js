@@ -1,6 +1,7 @@
 import React from 'react';
 import {Modal, Form, Input, DatePicker, Upload, Icon} from 'antd';
-
+import config from "../../config";
+const uploadUrl = config.poxzy.uploadUrl+"/upload";
 const {TextArea} = Input;
 
 function getBase64(file) {
@@ -124,9 +125,9 @@ class MyModal extends React.Component{
                         initialValue:item.initialValue?item.initialValue:''
                       })
                       (
-                        <div className="clearfix">
+                        <div >
                           <Upload
-                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            action={uploadUrl}
                             listType="picture-card"
                             fileList={item.fileList}
                             onPreview={this.handlePreview}

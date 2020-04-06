@@ -201,7 +201,7 @@ class DataScreen extends React.Component{
                       color={index%2===0?'green':'#1890FF'}
                       dot={index%3===0?(<Icon type="clock-circle-o" style={{ fontSize: '16px' }}/>):''}
                     >
-                      {item.content} —— <span style={{color:'#FA7F00'}}>{moment(Number(item.time)).format("YYYY-MM-DD")}</span>
+                      {item.content} —— <span style={{color:'#FA7F00'}}>{moment(Number(item.time)).format("YYYY-MM-DD HH:mm:ss")}</span>
                     </Timeline.Item>
                   )
                 })

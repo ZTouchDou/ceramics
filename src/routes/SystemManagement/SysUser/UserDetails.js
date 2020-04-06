@@ -9,6 +9,7 @@ import config from "../../../config";
 import ChipDetails from "../Chip/ChipDetails";
 
 const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 
 //鉴瓷
 const InvitationTab = ({t,invId,title,time,content})=>{
@@ -63,7 +64,7 @@ const CeramicsTab = ({t,invId,imgUrl,content})=>{
             <img
               style={{width:'100%',height:'100%'}}
               alt='配图'
-              src={imgUrl}/>
+              src={uploadUrl+imgUrl}/>
           </div>
         </Col>
         <Col span={12} style={{height:'100%'}}>
@@ -139,7 +140,7 @@ const MyComment = ({t,invId,comId,time,comment,invContent})=>{
             </div>
           </Col>
           <Col span={9}>
-            <div className='MyComment-invContent' onClick={t.showInvitation.bind(t,invId,'minor',comId)}>
+            <div className='MyComment-invContent' onClick={invContent!=="来自书评"?t.showInvitation.bind(t,invId,'minor',comId):''}>
               {invContent}
             </div>
           </Col>
@@ -418,7 +419,7 @@ class UserDetails extends React.Component{
                 <img
                   style={{width:'100%',height:'100%'}}
                   alt='用户头像'
-                  src={userInfo.imgUrl}
+                  src={uploadUrl+userInfo.imgUrl}
                 />
               </div>
               <div className='UserDetails-baseInfo'>

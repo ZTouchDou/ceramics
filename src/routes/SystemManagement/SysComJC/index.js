@@ -5,6 +5,7 @@ import request from "../../../utils/request";
 import TC from '../../../JSON/TC/TC.json';
 import config from "../../../config";
 import SysComJCDetails from "./SysComJCDetails";
+import SearchTab from "../../../components/SearchTab";
 
 const pageSize = config.pageSize;
 

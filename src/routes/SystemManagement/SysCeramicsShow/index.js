@@ -6,6 +6,7 @@ import config from "../../../config";
 import request from "../../../utils/request";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
+import SearchTab from "../../../components/SearchTab";
 
 const pageSize = config.pageSize;
 
@@ -22,14 +23,19 @@ class SysCeramicsShow extends React.Component {
       editId:'',
       page:1,
       total:10,
+
+      searchId:'',
+      searchTitle:''
     }
   }
 
-  //获取起源数据
+  //获取陶瓷数据
   getCeramicsData=(page)=>{
     let data = {};
     data.page = page;
     data.pageSize = pageSize;
+    data.id = this.state.searchId?this.state.searchId:null;
+    data.title = this.state.searchTitle?this.state.searchTitle:null;
     request({url:'/getCeramics',method:'GET',params:data}).then((res)=>{
       if(res && res.code){
         this.setState({
@@ -43,6 +49,16 @@ class SysCeramicsShow extends React.Component {
   componentDidMount() {
     this.getCeramicsData(this.state.page);
   }
+  //搜索
+  searchData=(values)=>{
+    this.setState({
+      searchId:values.id,
+      searchTitle:values.title
+    },()=>{
+      this.getCeramicsData(this.state.page);
+    })
+  };
+
 
   //显示弹框
   showModal = (item, type) => {
@@ -124,6 +140,23 @@ class SysCeramicsShow extends React.Component {
   };
 
   render() {
+    const searchMenu=[
+      {
+        title:'标题',
+        label:'title',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'ID',
+        label:'id',
+        type:'input',
+        rules: '',
+        initialValue:''
+      }
+    ];
+
     const resource = [
       {
         title: '标题',
@@ -143,6 +176,10 @@ class SysCeramicsShow extends React.Component {
 
     return (
       <div style={{display:'flex',flexWrap:'wrap'}}>
+        <SearchTab
+          resource = {searchMenu}
+          onOk={this.searchData}
+        />
         {
           this.state.qyData.map((item, index) => {
             return (

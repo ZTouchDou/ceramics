@@ -7,6 +7,7 @@ import SysComJCDetails from "../SysComJC/SysComJCDetails";
 
 const pageSize = 6;
 
+
 class Comment extends React.Component{
   constructor(props) {
     super(props);

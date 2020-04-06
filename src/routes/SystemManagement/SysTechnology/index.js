@@ -6,8 +6,10 @@ import config from "../../../config";
 import request from "../../../utils/request";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
+import SearchTab from "../../../components/SearchTab";
 
 const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 
 class SysTechnology extends React.Component {
   constructor(props) {
@@ -23,14 +25,19 @@ class SysTechnology extends React.Component {
       editId:'',
       page:1,
       total:10,
+
+      searchId:'',
+      searchTitle:''
     }
   }
 
-  //获取起源数据
+  //获取工艺数据
   getTechnologyData=(page)=>{
     let data = {};
     data.page = page;
     data.pageSize = pageSize;
+    data.id = this.state.searchId?this.state.searchId:null;
+    data.title = this.state.searchTitle?this.state.searchTitle:null;
     request({url:'/getTechnology',method:'GET',params:data}).then((res)=>{
       if(res && res.code){
         this.setState({
@@ -45,6 +52,16 @@ class SysTechnology extends React.Component {
     this.getTechnologyData(this.state.page);
   }
 
+  //搜索
+  searchData=(values)=>{
+    this.setState({
+      searchId:values.id,
+      searchTitle:values.title
+    },()=>{
+      this.getTechnologyData(this.state.page);
+    })
+  };
+
   //显示弹框
   showModal = (item, type) => {
     let {title, subtitle, content,fileList,editId} = this.state;
@@ -53,14 +70,14 @@ class SysTechnology extends React.Component {
       title = item.title;
       subtitle = item.subtitle;
       content = item.content;
-      fileList=[
+      fileList=item.imgUrl?[
         {
           uid: '-1',
           name: 'image.png',
           status: 'done',
-          url: 'http://img1.imgtn.bdimg.com/it/u=3495633323,551723840&fm=26&gp=0.jpg',
+          url: uploadUrl+item.imgUrl,
         }
-      ]
+      ]:[];
     } else if (type === '新增') {
       editId='';
       title = '';
@@ -84,12 +101,12 @@ class SysTechnology extends React.Component {
     let {modalTitle,editId} = this.state;
     //如果是修改，调用修改的接口，否则调用新增接口
     let fileList = this.state.fileList;
-    let imgUrl='';
+    let imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
     let data={};
     data.title=values.title;
     data.subtitle=values.subtitle;
     data.content=values.content;
-    data.imgUrl='';
+    data.imgUrl=imgUrl;
     if(modalTitle==='修改'){
       data.id = editId;
       request({url:'/updateTechnologyById',method:'GET',params:data}).then((res)=>{
@@ -146,6 +163,23 @@ class SysTechnology extends React.Component {
   };
 
   render() {
+    const searchMenu=[
+      {
+        title:'标题',
+        label:'title',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'ID',
+        label:'id',
+        type:'input',
+        rules: '',
+        initialValue:''
+      }
+    ];
+
     const resource = [
       {
         title: '标题',
@@ -181,6 +215,10 @@ class SysTechnology extends React.Component {
 
     return (
       <div style={{display:'flex',flexWrap:'wrap'}}>
+        <SearchTab
+          resource = {searchMenu}
+          onOk={this.searchData}
+        />
         {
           this.state.qyData.map((item, index) => {
             return (

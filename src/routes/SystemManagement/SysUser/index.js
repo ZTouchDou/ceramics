@@ -2,8 +2,11 @@ import React from 'react';
 import { message,Table, Divider, Tag, Avatar, Modal, Tree,Icon } from 'antd';
 import request from "../../../utils/request";
 import UserDetails from "./UserDetails";
+import SearchTab from "../../../components/SearchTab";
+import config from "../../../config";
 
 const { TreeNode } = Tree;
+const uploadUrl = config.poxzy.imgUrl;
 
 class SysUser extends React.Component{
   constructor(props) {
@@ -110,13 +113,21 @@ class SysUser extends React.Component{
       ],
       userData:[],
       userInfo:{},
-      userId:''
+      userId:'',
+
+      searchId:'',
+      searchName:'',
+      searchAccount:''
     }
   }
 
   //取得用户列表
   getUser=()=>{
-    request({url:'/getUser',method:'GET'}).then((res)=>{
+    let data={};
+    data.id = this.state.searchId?this.state.searchId:null;
+    data.name = this.state.searchName?this.state.searchName:null;
+    data.account = this.state.searchAccount?this.state.searchAccount:null;
+    request({url:'/getUser',method:'GET',params:data}).then((res)=>{
       if(res && res.code){
         this.setState({
           userData:res.data
@@ -128,6 +139,17 @@ class SysUser extends React.Component{
   componentDidMount() {
     this.getUser();
   }
+
+  //搜索
+  searchData=(values)=>{
+    this.setState({
+      searchId:values.id,
+      searchName:values.name,
+      searchAccount:values.account
+    },()=>{
+      this.getUser();
+    })
+  };
 
   //关闭确认删除弹框
   closeDelete=()=>{
@@ -268,6 +290,31 @@ class SysUser extends React.Component{
 
   render() {
     let {deleteWarn, modalTitle, modalContent, showTree,treeData, userDetails } = this.state;
+
+    const searchMenu=[
+      {
+        title:'昵称',
+        label:'name',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'ID',
+        label:'id',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'账号',
+        label:'account',
+        type:'input',
+        rules: '',
+        initialValue:''
+      }
+    ];
+
     const columns = [
       {
         title: 'ID',
@@ -284,7 +331,7 @@ class SysUser extends React.Component{
         title: '头像',
         dataIndex: 'imgUrl',
         key: 'imgUrl',
-        render: imgUrl => <Avatar src={imgUrl} />
+        render: imgUrl => <Avatar src={uploadUrl+imgUrl} />
       },
       {
         title: '账号',
@@ -328,6 +375,10 @@ class SysUser extends React.Component{
 
     return (
       <div style={{display:'flex'}}>
+        <SearchTab
+          resource = {searchMenu}
+          onOk={this.searchData}
+        />
         <Table style={{width:'100%'}} columns={columns} dataSource={this.state.userData} />
         <Modal
           okText='确定'

@@ -8,6 +8,8 @@ import UserInfoTab from "../../../components/UserInfoTab";
 import config from "../../../config";
 
 const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
+const uploadAction = config.poxzy.uploadUrl+"/upload";
 const {TextArea} = Input;
 
 function getBase64(file) {
@@ -82,10 +84,11 @@ class BookDetails extends React.Component{
   //提交对书籍的修改
   handleSubmit=(e)=>{
     e.preventDefault();
+    let {fileList} = this.props;
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         values.id=this.props.bookDetails.id;
-        values.imgUrl='';
+        values.imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
         request({url:'/updateBookInfoById',method:'POST',data:values}).then((res)=>{
           if(res && res.code){
             message.success("修改成功");
@@ -163,7 +166,7 @@ class BookDetails extends React.Component{
             <div className='BookDetails-baseInfo'>
               <div className='BookDetails-picture'>
                 <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  action={uploadAction}
                   listType="picture-card"
                   fileList={fileList}
                   onPreview={this.handlePreview}
@@ -245,7 +248,7 @@ class BookDetails extends React.Component{
                     <div key={index}>
                       <UserInfoTab
                         deleteComment={this.deleteComment.bind(this,item.id)}
-                        imgUrl={item.userImg}
+                        imgUrl={uploadUrl+item.userImg}
                         name={item.userName}
                         time={moment(Number(item.time)).format("YYYY/MM/DD HH:mm")}
                         content={item.content}

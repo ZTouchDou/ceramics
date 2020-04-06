@@ -4,6 +4,9 @@ import moment from "moment";
 import { withRouter } from 'react-router-dom'
 import {Popconfirm, Icon,notification,Avatar }from 'antd';
 import './CommentInfoTab.css';
+import config from "../../../config";
+
+const uploadUrl = config.poxzy.imgUrl;
 
 class CommentInfoTab extends React.Component{
   constructor(props) {
@@ -38,7 +41,7 @@ class CommentInfoTab extends React.Component{
           <div className='ComInfoTab-header'>
             <div className='ComInfoTab-time'>
               <Avatar
-                src={item.userImg}
+                src={uploadUrl+item.userImg}
               />
               <div>
                 <div style={{padding:'2px 10px'}}>

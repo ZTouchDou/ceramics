@@ -61,6 +61,8 @@ export default {
   },
 
   poxzy:{
-    url:'http://192.168.56.1:8080'
+    url:'http://192.168.56.1:8080',
+    imgUrl:'http://116.62.152.234:88/',
+    uploadUrl:'http://192.168.56.1:8080',
   }
 }

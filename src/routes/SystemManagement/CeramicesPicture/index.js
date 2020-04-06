@@ -7,6 +7,7 @@ import config from "../../../config";
 
 const pageSize = config.pageSize;
 
+
 class CeramicsPicture extends React.Component{
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ class CeramicsPicture extends React.Component{
   getInvitationSC = (page)=>{
     let data = {};
     data.page = page;
-    data.pageSize = pageSize;
+    data.pageSize = pageSize*2;
     request({url:'/getInvitationSC',method:'GET',params:data}).then((res)=>{
       if(res && res.code){
         this.setState({

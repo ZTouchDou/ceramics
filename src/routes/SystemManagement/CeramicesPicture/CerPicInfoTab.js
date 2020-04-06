@@ -2,6 +2,9 @@ import React from 'react';
 import {Popconfirm,Tooltip,Icon,message,Row,Col,Avatar} from 'antd';
 import './CerPicInfoTab.css'
 import UserInfoTab from "../../../components/UserInfoTab";
+import config from "../../../config";
+
+const uploadUrl = config.poxzy.imgUrl;
 
 class CerPicInfoTab extends React.Component{
   constructor(props) {
@@ -23,7 +26,7 @@ class CerPicInfoTab extends React.Component{
         <div className='CerInfoTab-header'>
           <img
             style={{width:'100%',minHeight:'10vh'}}
-            src={infoData.imgUrl}
+            src={uploadUrl+infoData.imgUrl}
             alt='配图'
           />
         </div>
@@ -53,14 +56,14 @@ class CerPicInfoTab extends React.Component{
           <div>
             <Row>
               <Col span={4}>
-                <Avatar src={infoData.userImg}/>
+                <Avatar src={uploadUrl+infoData.userImg}/>
               </Col>
-              <Col span={20}>
+              <Col span={20} style={{fontSize:'18px',paddingTop:'10px'}}>
                 {infoData.userName}
               </Col>
             </Row>
           </div>
-          <div style={{width:'100%',height:'96%',overflow:'auto'}}>
+          <div style={{fontSize:'20px',width:'100%',height:'96%',overflow:'auto',marginTop:'10px'}}>
             {infoData.content}
           </div>
         </div>

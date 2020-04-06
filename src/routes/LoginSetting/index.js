@@ -1,7 +1,12 @@
 import React from 'react';
-import {Row,Col,Form,Upload,Modal,Icon,Input,Button} from 'antd';
+import {Row,Col,Form,Upload,Modal,Icon,Input,Button,message} from 'antd';
 import './index.css';
 import MenuTitle from "../../components/MenuTitle";
+import config from "../../config";
+import request from "../../utils/request";
+
+const uploadUrl = config.poxzy.imgUrl;
+const uploadAction = config.poxzy.uploadUrl+"/upload";
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -22,7 +27,7 @@ class LoginSetting extends React.Component{
         uid: '-1',
         name: 'image.png',
         status: 'done',
-        url: 'http://img1.imgtn.bdimg.com/it/u=2492488577,388673270&fm=26&gp=0.jpg',
+        url: uploadUrl+sessionStorage.getItem("userimg")
       }]
     }
   }
@@ -43,10 +48,10 @@ class LoginSetting extends React.Component{
   //图片列表改变
   handleChange = ({ fileList }) => this.setState({ fileList },()=>{
     if(fileList.length===0){
-      let button = document.getElementById('changePasswordSubmit');
-      button.setAttribute('class','ant-btn ant-btn-primary noAvatar');
+      let button = document.getElementById('changeAvator');
+      button.setAttribute('class','ant-btn ant-btn-danger noAvatar');
     }else{
-      let button = document.getElementById('changePasswordSubmit');
+      let button = document.getElementById('changeAvator');
       button.setAttribute('class','ant-btn ant-btn-primary haveAvatar');
     }
   });
@@ -55,13 +60,43 @@ class LoginSetting extends React.Component{
     this.props.closeDetails();
   };
 
+  //提交表单
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.changePassword(values);
       }
     });
+  };
+
+  //改变头像
+  changeAvator=()=>{
+    let id=sessionStorage.getItem("userId");
+    let {fileList} = this.state;
+    let imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
+    request({url:"/changeAvator",method:'GET',params:{id:id,imgUrl:imgUrl}}).then((res)=>{
+      if(res && res.code){
+        message.success("头像更换成功");
+        sessionStorage.setItem('userimg', imgUrl);
+      }else{
+        message.error("头像更换失败");
+      }
+    })
+  };
+
+  //更换密码
+  changePassword=(values)=>{
+    values.id=sessionStorage.getItem("userId");
+    request({url:'/changeUserPassword',method:"POST",data:values}).then((res)=>{
+      if(res && res.code){
+        message.success("密码更换成功");
+      }else if(res){
+        message.error(res.message);
+      }else{
+        message.error("密码更换失败，服务器出错");
+      }
+    })
   };
 
   render() {
@@ -117,7 +152,7 @@ class LoginSetting extends React.Component{
         <div>
           <div className='Avatar-picture'>
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              action={uploadAction}
               listType="picture-card"
               fileList={fileList}
               onPreview={this.handlePreview}
@@ -128,6 +163,14 @@ class LoginSetting extends React.Component{
             <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
               <img alt="example" style={{ width: '100%' }} src={previewImage} />
             </Modal>
+            <Button
+              id='changeAvator'
+              type="primary"
+              ghost
+              onClick={this.changeAvator}
+            >
+              更换头像
+            </Button>
           </div>
         </div>
         <div style={{height:'30px'}}/>
@@ -152,10 +195,19 @@ class LoginSetting extends React.Component{
               ],
             })(<Input.Password style={{width:'30%'}}/>)}
           </Form.Item>
+          <Form.Item label="确认密码" hasFeedback>
+            {getFieldDecorator('confirmPassword', {
+              rules: [
+                {
+                  required: true,
+                  message: '请再次输入密码!',
+                }
+              ],
+            })(<Input.Password style={{width:'30%'}}/>)}
+          </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button
               id='changePasswordSubmit'
-              className='changeSubmit'
               type="primary"
               htmlType="submit"
               onClick={this.handleSubmit}

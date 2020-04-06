@@ -6,8 +6,10 @@ import config from "../../../config";
 import request from "../../../utils/request";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
+import SearchTab from "../../../components/SearchTab";
 
 const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 
 class SysOrigin extends React.Component{
   constructor(props) {
@@ -22,6 +24,9 @@ class SysOrigin extends React.Component{
       editId:'',
       page:1,
       total:10,
+
+      searchId:'',
+      searchTitle:''
     }
   }
 
@@ -30,6 +35,8 @@ class SysOrigin extends React.Component{
     let data = {};
     data.page = page;
     data.pageSize = pageSize;
+    data.id = this.state.searchId?this.state.searchId:null;
+    data.title = this.state.searchTitle?this.state.searchTitle:null;
     request({url:'/getOrigin',method:'GET',params:data}).then((res)=>{
       if(res && res.code){
         this.setState({
@@ -44,6 +51,16 @@ class SysOrigin extends React.Component{
     this.getOriginData(this.state.page);
   }
 
+  //搜索
+  searchData=(values)=>{
+    this.setState({
+      searchId:values.id,
+      searchTitle:values.title
+    },()=>{
+      this.getOriginData(this.state.page);
+    })
+  };
+
   //显示弹框
   showModal = (item,type)=>{
     let {title, content,fileList,editId}=this.state;
@@ -51,26 +68,32 @@ class SysOrigin extends React.Component{
       editId=item.id;
       title=item.title;
       content=item.content;
-      fileList=[
-        {
+      let imgList = [];
+      if(item.pic1){
+        imgList.push({
           uid: '-1',
           name: 'image.png',
           status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
+          url: uploadUrl+item.pic1,
+        })
+      }
+      if(item.pic2){
+        imgList.push({
           uid: '-2',
           name: 'image.png',
           status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
+          url: uploadUrl+item.pic2,
+        })
+      }
+      if(item.pic3){
+        imgList.push({
           uid: '-3',
           name: 'image.png',
           status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        }
-      ]
+          url: uploadUrl+item.pic3,
+        })
+      }
+      fileList=imgList;
     }else if(type==='新增'){
       editId='';
       title='';
@@ -92,9 +115,10 @@ class SysOrigin extends React.Component{
     let {modalTitle,editId} = this.state;
     //如果是修改，调用修改的接口，否则调用新增接口
     let fileList = this.state.fileList;
-    let pic1='';
-    let pic2='';
-    let pic3='';
+    console.log("fileList:", fileList);
+    let pic1=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
+    let pic2=fileList.length>1?fileList[1].url?("ceramics"+fileList[1].url.split("ceramics")[1]):fileList[1].response.filePath:'';
+    let pic3=fileList.length>2?fileList[2].url?("ceramics"+fileList[2].url.split("ceramics")[1]):fileList[2].response.filePath:'';
     let data={};
     data.title=values.title;
     data.content=values.content;
@@ -157,6 +181,23 @@ class SysOrigin extends React.Component{
   };
 
   render() {
+    const searchMenu=[
+      {
+        title:'标题',
+        label:'title',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'ID',
+        label:'id',
+        type:'input',
+        rules: '',
+        initialValue:''
+      }
+    ];
+
     const resource =[
       {
         title:'标题',
@@ -185,6 +226,10 @@ class SysOrigin extends React.Component{
 
     return (
       <div style={{display:'flex',flexWrap:'wrap'}}>
+        <SearchTab
+          resource = {searchMenu}
+          onOk={this.searchData}
+        />
         {
           this.state.qyData.map((item,index)=>{
             return (

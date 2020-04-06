@@ -8,6 +8,7 @@ import config from "../../../config";
 import UserInfoTab from "../../../components/UserInfoTab";
 
 const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 
 class SysComJCDetails extends React.Component{
   constructor(props) {
@@ -99,8 +100,19 @@ class SysComJCDetails extends React.Component{
   }
 
   //删除图片
-  deleteImage=()=>{
-
+  deleteImage=(index)=>{
+    let {jcDetailsData}= this.state;
+    jcDetailsData['imgUrl'+(index)] = "";
+    request({url:"/updateInvitationJC",method:"GET",params:jcDetailsData}).then((res)=>{
+      if(res && res.code){
+        message.success("删除成功");
+        this.setState({
+          jcDetailsData
+        })
+      }else{
+        message.error("删除失败");
+      }
+    });
   };
 
   //查看图片
@@ -153,7 +165,7 @@ class SysComJCDetails extends React.Component{
 
   render() {
     let t = this;
-    let {visible, ImageUrl, major, commentList,jcDetailsData} = this.state;
+    let {visible, ImageUrl, major, commentList,jcDetailsData, arr} = this.state;
     return (
       <div className='SysJCDe-box' style={{width:`${this.props.width?this.props.width:'85%'}`}}>
         <Row style={{width:'100%',height:'100%'}}>
@@ -199,13 +211,13 @@ class SysComJCDetails extends React.Component{
                     {/*右边用户头像*/}
                     <div
                       style={{height:'200px',boxShadow:'3px 3px 10px 3px #ccc'}}
-                      onClick={this.lookImage.bind(this,'http://img5.imgtn.bdimg.com/it/u=3760864727,4049862538&fm=26&gp=0.jpg')}
+                      onClick={this.lookImage.bind(this,jcDetailsData.userImg)}
                     >
                       <img
                         className='userAvatar'
                         style={{width:'100%',height:'100%'}}
                         alt='用户头像'
-                        src={jcDetailsData.userImg?jcDetailsData.userImg:''}
+                        src={jcDetailsData.userImg?uploadUrl+jcDetailsData.userImg:''}
                       />
                     </div>
                   </Col>
@@ -216,36 +228,45 @@ class SysComJCDetails extends React.Component{
                 <div style={{fontWeight:'bold',marginBottom:'20px'}}>帖子配图：</div>
                 <div className='SysJCDe-invimage-image'>
                   <Row>
-                    <Col span={4}>
-                      <div style={{height:'80px',padding:'2px 2px',display:'flex'}}>
-                        <img
-                          className='invimage'
-                          style={{width:'100%',height:'100%'}}
-                          src={jcDetailsData.imgUrl1?jcDetailsData.imgUrl1:''}
-                          alt='帖子配图'
-                        />
-                        <div className='SysJCDe-deleteImg'>
-                          <Row style={{height:'100%'}}>
-                            <Col span={12} style={{height:'100%'}}>
-                              <Icon
-                                onClick={this.lookImage.bind(this,'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2421384544,2639699292&fm=26&gp=0.jpg')}
-                                className='SysJCDe-deleteImg-icon'
-                                type="eye"
-                                theme="filled"
-                              />
-                            </Col>
-                            <Col span={12} style={{height:'100%'}}>
-                              <Icon
-                                onClick={this.deleteImage}
-                                className='SysJCDe-deleteImg-icon'
-                                type="delete"
-                                theme="filled"
-                              />
-                            </Col>
-                          </Row>
-                        </div>
-                      </div>
-                    </Col>
+                    {
+                      arr.map((item,index)=>{
+                        return(
+                          <Col span={4}>
+                            {
+                              jcDetailsData['imgUrl'+(index+1)] &&
+                              <div style={{height:'80px',padding:'2px 2px',display:'flex'}}>
+                                <img
+                                  className='invimage'
+                                  style={{width:'100%',height:'100%'}}
+                                  src={uploadUrl+jcDetailsData['imgUrl'+(index+1)]}
+                                  alt='帖子配图'
+                                />
+                                <div className='SysJCDe-deleteImg'>
+                                  <Row style={{height:'100%'}}>
+                                    <Col span={12} style={{height:'100%'}}>
+                                      <Icon
+                                        onClick={this.lookImage.bind(this,jcDetailsData['imgUrl'+(index+1)])}
+                                        className='SysJCDe-deleteImg-icon'
+                                        type="eye"
+                                        theme="filled"
+                                      />
+                                    </Col>
+                                    <Col span={12} style={{height:'100%'}}>
+                                      <Icon
+                                        onClick={this.deleteImage.bind(this,index+1)}
+                                        className='SysJCDe-deleteImg-icon'
+                                        type="delete"
+                                        theme="filled"
+                                      />
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </div>
+                            }
+                          </Col>
+                        )
+                      })
+                    }
                   </Row>
                 </div>
               </div>
@@ -273,7 +294,7 @@ class SysComJCDetails extends React.Component{
                       <div key={index}>
                         <UserInfoTab
                           deleteInvitation={this.deleteInvitation.bind(this,item.id)}
-                          imgUrl={item.userImg}
+                          imgUrl={uploadUrl+item.userImg}
                           name={item.userName}
                           time={moment(Number(item.time)).format("YYYY/MM/DD HH:mm")}
                           content={item.content}
@@ -309,7 +330,7 @@ class SysComJCDetails extends React.Component{
           footer={null}
           onCancel={this.handleCancel}
         >
-          <img alt="example" style={{ width: '100%' }} src={ImageUrl} />
+          <img alt="example" style={{ width: '100%' }} src={uploadUrl+ImageUrl} />
         </Modal>
       </div>
     );

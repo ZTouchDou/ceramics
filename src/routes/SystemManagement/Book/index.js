@@ -6,6 +6,8 @@ import SysAddButton from "../SysAddButton";
 import MyModal from "../../../components/MyModal";
 import config from "../../../config";
 
+const uploadUrl = config.poxzy.imgUrl;
+
 class Book extends React.Component{
   constructor(props) {
     super(props);
@@ -14,14 +16,7 @@ class Book extends React.Component{
       modalShow:false,
       bookData:[],
       bookDetails:'',
-      fileList: [
-        {
-          uid: '-1',
-          name: 'image.png',
-          status: 'done',
-          url: 'https://img3.doubanio.com/view/subject/l/public/s29230941.jpg',
-        }
-      ]
+      fileList: []
     }
   }
 
@@ -42,8 +37,18 @@ class Book extends React.Component{
 
   //显示书籍详情
   showDetails=(record)=>{
+    let imgList = [];
+    if(record.imgUrl){
+      imgList.push({
+        uid: '-1',
+        name: 'image.png',
+        status: 'done',
+        url: uploadUrl+record.imgUrl,
+      })
+    };
     this.setState({
       bookDetails:record,
+      fileList: imgList,
       visible:true
     })
   };
@@ -58,12 +63,16 @@ class Book extends React.Component{
   //新增书籍弹框
   showModal=()=>{
     this.setState({
-      modalShow:true
+      modalShow:true,
+      fileList:[]
     })
   };
 
   //确认新增书籍
   handleOk=(values)=>{
+    let {fileList} = this.state;
+    let imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
+    values.imgUrl=imgUrl;
     request({url:'/insertBook',method:'POST',data:values}).then((res)=>{
       if(res && res.code){
         message.success("新增成功");
@@ -242,6 +251,7 @@ class Book extends React.Component{
           modalTitle='新增'
           visible={this.state.modalShow}
           onOk={this.handleOk}
+          setFileList={this.setFileList}
           onCancel={this.handleCancel}
           resource={resource}
         />

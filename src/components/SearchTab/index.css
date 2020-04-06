@@ -1,0 +1,56 @@
+.searchBox{
+    position:absolute;
+    display: flex;
+    flex-shrink: 0;
+    margin-top:-60px;
+    height:40px;
+    text-align: center;
+    font-weight: bold;
+    font-size:15px;
+    line-height:40px;
+    opacity: 0.4;
+    background: url("../../Image/searchBg.jpg") no-repeat center/cover;
+    box-shadow: 1px 1px 3px 1px #ccc;
+    transition: opacity 1s ease-in-out;
+    overflow: hidden;
+}
+
+.searchBox:hover{
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.spot{
+    height:40px;
+    position:absolute;
+    left:0;
+    top:0;
+    color:transparent;
+    background-color:yellow;
+    opacity: 0.5;
+    clip-path:ellipse(40px 40px at 0% 50%);
+    animation: spotlight 5s infinite;
+}
+
+@keyframes spotlight {
+    0%{
+        clip-path:ellipse(40px 40px at 0% 50%);
+        background-color:#CAD9A5;
+    }
+    50%{
+        clip-path:ellipse(40px 40px at 100% 50%);
+        background-color:#FE6C69;
+    }
+    100%{
+        clip-path:ellipse(40px 40px at 0% 50%);
+        background-color:#CAD9A5;
+    }
+}
+
+.searchInput{
+    background-color:transparent;
+}
+
+.searchDatePicker input{
+    background-color:transparent;
+}

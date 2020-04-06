@@ -14,8 +14,10 @@ import Chip from "./Chip";
 import DataScreen from "./DataScreen";
 import Book from "./Book";
 import LoginSetting from "../LoginSetting";
+import config from "../../config";
 
 const { Header, Content, Footer, Sider } = Layout;
+const uploadUrl = config.poxzy.imgUrl;
 
 const { SubMenu } = Menu;
 
@@ -145,8 +147,8 @@ class SystemManagement extends React.Component{
                 <Col span={2}>
                   <Dropdown overlay={menu}>
                     <div>
-                      <Avatar src='http://img1.imgtn.bdimg.com/it/u=2492488577,388673270&fm=26&gp=0.jpg'/>
-                      <span>&nbsp;admin</span>
+                      <Avatar src={uploadUrl+sessionStorage.getItem("userimg")}/>
+                      <span>&nbsp;{sessionStorage.getItem("username")?sessionStorage.getItem("username"):''}</span>
                     </div>
                   </Dropdown>
                 </Col>

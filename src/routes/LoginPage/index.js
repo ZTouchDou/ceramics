@@ -91,7 +91,6 @@ class Login extends React.Component {
    * 登录
    */
   login = (values) => {
-    console.log("values:", values);
     const {userName, password, code, VcodeValue, remberPass, isChange} = this.state;
     const {history} = this.props;
     let pass = getCookie('password');
@@ -101,11 +100,6 @@ class Login extends React.Component {
         Vkey: VcodeValue
       });
       return message.error('验证码错误');
-    }
-    if(values.username==='admin' && values.password==='123456'){
-      history.push('/SystemManagement');
-    }else{
-      return message.error('用户名或密码错误');
     }
     let p = '';
 
@@ -123,89 +117,75 @@ class Login extends React.Component {
     // } else {
     //   p = md5(password);
     // }
-    // const data = new FormData();
-    // data.append('username', userName);
-    // data.append('password', password);
-    // this.setState({
-    //   loading: true, // 显示loading
-    // });
-    // // PublicService.fullScreen(document.documentElement);
-    // const headers = new Headers({
-    //   'Accept': '*/*',
-    //   "Content-Type": "multipart/form-data",
-    // });
-    // request({url: '/hzz/authentication/login', method: 'POST', form: data, headers}).then((res) => {
-    //   if (res.code === 1) {
-    //     message.success('登录成功');
-    //     // sessionStorage.setItem('navSettingsAll', JSON.stringify(res.ret.sub));
-    //     // sessionStorage.setItem('navSettingsList', JSON.stringify(res.ret.sub.slice(1)));
-    //     // sessionStorage.setItem('username', data.userName);
-    //     this.setState({
-    //       loading: false, // 隐藏loading
-    //     });
-    //     sessionStorage.setItem('isLogin', true);
-    //     sessionStorage.setItem('areaId', res.data.areaId);
-    //     console.log("res.data.id:", res.data.id);
-    //     // PublicService.setCookie('userId', res.data.id);
-    //     if (remberPass) { // 选中记住密码，过期时间设置为14天
-    //       setCookie('username', userName, 14);
-    //       setCookie('password', password, 14);
-    //       setCookie('remberPass', remberPass, 14);
-    //     } else { // 没选中记住密码
-    //       const user = getCookie('username');
-    //       pass = getCookie('password');
-    //       const rember = getCookie('remberPass');
-    //       deleteCookie('username', user);
-    //       deleteCookie('password', pass);
-    //       deleteCookie('remberPass', rember);
-    //     }
-    //     sessionStorage.setItem('username', userName);
-    //     sessionStorage.setItem('token', res.data.token);
-    //     sessionStorage.setItem('loginId', res.data.id);
-    //     sessionStorage.setItem('dept',res.data.dept?JSON.stringify(res.data.dept):'');
-    //     sessionStorage.setItem('areaId',res.data.areaId?res.data.areaId:0);
-    //     sessionStorage.setItem('areaLevel',res.data.areaLevel?res.data.areaLevel:1);
-    //     sessionStorage.setItem('resourcesDTO',res.data.resourcesDTO?JSON.stringify(res.data.resourcesDTO) : []);
-    //     setCookie('token', res.data.token, 14);
-    //     this.goToPath(res.data.resourcesDTO.zhswWeb);
-    //     // if (res.ret.sub[0].hasAuthority) {
-    //     // location.replace({ pathname: '/SystemTabs' });
-    //     // if(res.data.areaLevel<=2){
-    //     //   history.push({pathname: '/cockpit/overview'});
-    //     // }else{
-    //     //   history.push({pathname: '/cockpit/UserWindow'});
-    //     // }
-    //
-    //     // } else {
-    //     // for (let i = 1; i < res.ret.sub.length; i += 1) {
-    //     // if (res.ret.sub[i].hasAuthority) {
-    //     // history.replace({ pathname: `/${res.ret.sub[i].sub[0].url}` });
-    //     // return false;
-    //     // }
-    //     // }
-    //     // }
-    //   } else {
-    //     // document.exitFullscreen ? document.exitFullscreen() :
-    //     //   document.mozCancelFullScreen ? document.mozCancelFullScreen() :
-    //     //     document.webkitExitFullscreen ? document.webkitExitFullscreen() : '';
-    //     // message.error(res.message);
-    //     // this.setState({
-    //     //   loading: false, // 隐藏loading
-    //     // });
-    //   }
-    //   return false;
-    // }).catch((err) => {
-    //   this.render();
-    //   message.error('用户名或密码错误！');
-    //   this.setState({
-    //     loading: false, // 隐藏loading
-    //   });
-    // });
+    const data = {
+      account:values.username,
+      password:values.password
+    };
+    // PublicService.fullScreen(document.documentElement);
+    request({url: '/login', method: 'POST', data: data}).then((res) => {
+      if (res && res.code) {
+        message.success('登录成功');
+        // sessionStorage.setItem('navSettingsAll', JSON.stringify(res.ret.sub));
+        // sessionStorage.setItem('navSettingsList', JSON.stringify(res.ret.sub.slice(1)));
+        // sessionStorage.setItem('username', data.userName);
+        // PublicService.setCookie('userId', res.data.id);
+        if (remberPass) { // 选中记住密码，过期时间设置为14天
+          setCookie('username', values.username, 14);
+          setCookie('password', values.password, 14);
+          setCookie('remberPass', remberPass, 14);
+        } else { // 没选中记住密码
+          const user = getCookie('username');
+          pass = getCookie('password');
+          const rember = getCookie('remberPass');
+          deleteCookie('username', user);
+          deleteCookie('password', pass);
+          deleteCookie('remberPass', rember);
+        }
+        sessionStorage.setItem('username', values.username);
+        sessionStorage.setItem('userimg', res.data[0].imgUrl);
+        sessionStorage.setItem('token', res.data[0].token);
+        sessionStorage.setItem('isLogin', true);
+        sessionStorage.setItem('userId', res.data[0].id);
+        // sessionStorage.setItem('dept',res.data.dept?JSON.stringify(res.data.dept):'');
+        // sessionStorage.setItem('areaId',res.data.areaId?res.data.areaId:0);
+        // sessionStorage.setItem('areaLevel',res.data.areaLevel?res.data.areaLevel:1);
+        // sessionStorage.setItem('resourcesDTO',res.data.resourcesDTO?JSON.stringify(res.data.resourcesDTO) : []);
+        setCookie('token', res.data[0].token, 14);
+        history.push('/SystemManagement');
+        // this.goToPath(res.data.resourcesDTO.zhswWeb);
+        // if (res.ret.sub[0].hasAuthority) {
+        // location.replace({ pathname: '/SystemTabs' });
+        // if(res.data.areaLevel<=2){
+        //   history.push({pathname: '/cockpit/overview'});
+        // }else{
+        //   history.push({pathname: '/cockpit/UserWindow'});
+        // }
+
+        // } else {
+        // for (let i = 1; i < res.ret.sub.length; i += 1) {
+        // if (res.ret.sub[i].hasAuthority) {
+        // history.replace({ pathname: `/${res.ret.sub[i].sub[0].url}` });
+        // return false;
+        // }
+        // }
+        // }
+      } else if(res){
+        message.error(res.message);
+        // document.exitFullscreen ? document.exitFullscreen() :
+        //   document.mozCancelFullScreen ? document.mozCancelFullScreen() :
+        //     document.webkitExitFullscreen ? document.webkitExitFullscreen() : '';
+        // message.error(res.message);
+        // this.setState({
+        //   loading: false, // 隐藏loading
+        // });
+      }else{
+        message.error("无法连接到服务器");
+      }
+    })
   };
 
   goToPath = (item) => {
     const {history} = this.props;
-    console.log(item,'111')
         let len = item.length;
           for(let i = 0;i<len;i++){
             if (item[i].sub.length == 0 && item[i].hasAuthority) {
@@ -284,6 +264,7 @@ class Login extends React.Component {
                     <Form.Item>
                       {getFieldDecorator('username', {
                         rules: [{ required: true, message: '请输入用户名!' }],
+                        initialValue:getCookie('username')?getCookie('username'):""
                       })(
                         <Input
                           prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -294,6 +275,7 @@ class Login extends React.Component {
                     <Form.Item>
                       {getFieldDecorator('password', {
                         rules: [{ required: true, message: '请输入密码' }],
+                        initialValue:getCookie('password')?getCookie('password'):""
                       })(
                         <Input
                           prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -334,7 +316,7 @@ class Login extends React.Component {
                     <Form.Item>
                       {getFieldDecorator('remember', {
                         valuePropName: 'checked',
-                        initialValue: true,
+                        initialValue: getCookie('remberPass')?getCookie('remberPass'):this.state.remberPass,
                       })(<Checkbox onChange={this.changeSwitch} style={{color:'white'}}>记住密码</Checkbox>)}
                       <Button
                         type="primary"

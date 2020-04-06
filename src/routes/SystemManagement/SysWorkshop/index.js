@@ -7,8 +7,10 @@ import config from "../../../config";
 import request from "../../../utils/request";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../SysAddButton";
+import SearchTab from "../../../components/SearchTab";
 
 const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 
 class SysWorkshop extends React.Component{
   constructor(props) {
@@ -25,14 +27,24 @@ class SysWorkshop extends React.Component{
       editId:'',
       page:1,
       total:10,
+
+      searchId:'',
+      searchTitle:'',
+      searchLocation:'',
+      searchTime:''
     }
   }
 
-  //获取起源数据
+  //获取工坊数据
   getWorkshopData=(page)=>{
     let data = {};
     data.page = page;
     data.pageSize = pageSize;
+    data.id = this.state.searchId?this.state.searchId:null;
+    data.title = this.state.searchTitle?this.state.searchTitle:null;
+    data.location = this.state.searchLocation?this.state.searchLocation:null;
+    data.time = this.state.searchTime?this.state.searchTime:null;
+    console.log("data:", data);
     request({url:'/getWorkshop',method:'GET',params:data}).then((res)=>{
       if(res && res.code){
         this.setState({
@@ -47,6 +59,18 @@ class SysWorkshop extends React.Component{
     this.getWorkshopData(this.state.page);
   }
 
+  //搜索
+  searchData=(values)=>{
+    this.setState({
+      searchId:values.id,
+      searchTitle:values.title,
+      searchLocation:values.location,
+      searchTime:moment(values.time).unix()*1000
+    },()=>{
+      this.getWorkshopData(this.state.page);
+    })
+  };
+
   //显示弹框
   showModal = (item,type)=>{
     let {title, time, location, content,fileList,editId} = this.state;
@@ -57,14 +81,14 @@ class SysWorkshop extends React.Component{
       time=newtime;
       location=item.location;
       content=item.content;
-      fileList=[
+      fileList=item.imgUrl?[
         {
           uid: '-1',
           name: 'image.png',
           status: 'done',
-          url: 'http://img1.imgtn.bdimg.com/it/u=2233431505,2282541580&fm=26&gp=0.jpg',
+          url: uploadUrl+item.imgUrl,
         }
-      ];
+      ]:[];
     }else if(type==='新增'){
       editId='';
       title='';
@@ -90,7 +114,7 @@ class SysWorkshop extends React.Component{
     let {modalTitle,editId} = this.state;
     //如果是修改，调用修改的接口，否则调用新增接口
     let fileList = this.state.fileList;
-    let imgUrl='';
+    let imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
     let data={};
     data.title=values.title;
     data.location=values.location;
@@ -150,6 +174,37 @@ class SysWorkshop extends React.Component{
   };
 
   render() {
+    const searchMenu=[
+      {
+        title:'标题',
+        label:'title',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'ID',
+        label:'id',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'地点',
+        label:'location',
+        type:'input',
+        rules: '',
+        initialValue:''
+      },
+      {
+        title:'成立时间',
+        label:'time',
+        type:'datePicker',
+        rules: '',
+        initialValue:""
+      }
+    ];
+
     const resource =[
       {
         title:'标题',
@@ -192,6 +247,10 @@ class SysWorkshop extends React.Component{
 
     return (
       <div style={{display:'flex',flexWrap:'wrap'}}>
+        <SearchTab
+          resource = {searchMenu}
+          onOk={this.searchData}
+        />
         {
           this.state.qyData.map((item,index)=>{
             return (
