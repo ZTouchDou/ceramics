@@ -69,7 +69,7 @@ class CommentInfoTab extends React.Component{
           <div className='ComInfoTab-body'>
             {item.content}
           </div>
-          <div className='ComInfoTab-invitation' onClick={this.props.showModal.bind(this,item)}>
+          <div className='ComInfoTab-invitation' onClick={item.invContent!=="来自书评"?this.props.showModal.bind(this,item):''}>
             {item.invContent}
           </div>
         </div>
