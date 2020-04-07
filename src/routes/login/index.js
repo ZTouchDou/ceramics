@@ -68,6 +68,10 @@ class login extends React.Component {
     // PublicService.fullScreen(document.documentElement);
     request({url: '/login', method: 'POST', data: data}).then((res) => {
       if (res && res.code) {
+        if(res.data[0].status===0){
+          message.error("限制登陆");
+          return;
+        }
         message.success('登录成功');
         // sessionStorage.setItem('navSettingsAll', JSON.stringify(res.ret.sub));
         // sessionStorage.setItem('navSettingsList', JSON.stringify(res.ret.sub.slice(1)));
@@ -86,10 +90,12 @@ class login extends React.Component {
           deleteCookie('remberPass', rember);
         }
         sessionStorage.setItem('username', values.username);
+        sessionStorage.setItem('nickName',res.data[0].name);
         sessionStorage.setItem('userimg', res.data[0].imgUrl);
         sessionStorage.setItem('token', res.data[0].token);
         sessionStorage.setItem('isLogin', true);
         sessionStorage.setItem('userId', res.data[0].id);
+        sessionStorage.setItem('resourceDTS',JSON.stringify(res.aclass));
         // sessionStorage.setItem('dept',res.data.dept?JSON.stringify(res.data.dept):'');
         // sessionStorage.setItem('areaId',res.data.areaId?res.data.areaId:0);
         // sessionStorage.setItem('areaLevel',res.data.areaLevel?res.data.areaLevel:1);

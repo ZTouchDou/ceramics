@@ -210,7 +210,7 @@ class Community extends React.Component {
                 <Col span={16}>
                   <div className='Community-user-Info'>
                     <div className='Community-user-name'>
-                      {sessionStorage.getItem("username")}
+                      {sessionStorage.getItem("nickName")}
                     </div>
                     <div className='Community-user-id'>
                       ID:{sessionStorage.getItem("userId")}
