@@ -19,12 +19,9 @@ class InfoTab extends React.Component{
   //确认删除
   handleDelete=(id,e)=>{
     console.log("id:", id);
-    notification['success']({
-      message: '成功',
-      description:
-        '删除操作成功（假的，接口还没调呢）( ‘-ωก̀ )',
-      duration: 0,
-    });
+    if(this.props.deleteData){
+      this.props.deleteData(id);
+    }
   };
 
   render() {
