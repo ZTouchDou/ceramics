@@ -124,6 +124,10 @@ class Login extends React.Component {
     // PublicService.fullScreen(document.documentElement);
     request({url: '/login', method: 'POST', data: data}).then((res) => {
       if (res && res.code) {
+        if(res.aclass.title!=="超级管理员"){
+          message.error('没有权限');
+          return;
+        }
         message.success('登录成功');
         // sessionStorage.setItem('navSettingsAll', JSON.stringify(res.ret.sub));
         // sessionStorage.setItem('navSettingsList', JSON.stringify(res.ret.sub.slice(1)));

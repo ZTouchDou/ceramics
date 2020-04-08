@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 import Util from './Util';
 import config from "../config";
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 require('es6-promise').polyfill();
 function parseJSON (response) {
   return response.json();
@@ -80,6 +80,10 @@ function deleteUndefindeProps (Obj) {
  */
 
 export default function request (options) {
+
+  if(!sessionStorage.getItem("isLogin")){
+    window.location.href="#/Login";
+  }
 
   if (!Util.isObject(options)) {
     throw new Error('Http request configuration must be an object');
