@@ -1,5 +1,5 @@
 import React from 'react';
-import {Divider,Layout, Menu,Col,Row,Carousel,Pagination} from 'antd';
+import {Divider,Layout, Menu,Col,Row,Carousel,Button,Drawer,Upload,Icon,Modal,Input,message} from 'antd';
 import './index.css';
 import userimg from '../../Image/5.jpg'
 import request from "../../utils/request";
@@ -13,15 +13,50 @@ import Chip from "./Chip";
 const { Header, Content } = Layout;
 const pageSize = 10;
 const uploadUrl = config.poxzy.imgUrl;
+const uploadAction = config.poxzy.uploadUrl+"/upload";
+
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
 
 class Community extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       MyTab: 1,
-      bookList:[]
+      bookList:[],
+      editModalShow:false,
+      previewVisible: false,
+      previewImage: '',
+      fileList:[]
     }
   }
+
+  //关闭图片详情框
+  modalCancel = () => this.setState({ previewVisible: false });
+  //查看图片
+  handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+    });
+  };
+
+  //图片列表改变
+  handleChange = ({ fileList }) => {
+      this.setState({
+        fileList
+      })
+  };
 
   //取得书籍
   getBookList=(id)=>{
@@ -65,8 +100,112 @@ class Community extends React.Component {
     this.props.history.push('/Community/Combookdetails');
   };
 
+  //编辑资料
+  editUserInfo=()=>{
+    let img=[];
+    if(sessionStorage.getItem("userimg")){
+      img.push({
+        uid: '-2',
+        name: 'image.png',
+        status: 'done',
+        url: uploadUrl+sessionStorage.getItem("userimg")
+      })
+    }
+    this.setState({
+      editModalShow:true,
+      fileList:img
+    })
+  };
+
+  editClose=()=>{
+    this.setState({
+      editModalShow:false
+    })
+  };
+
+  //更改头像
+  changeAvator=()=>{
+    let id=sessionStorage.getItem("userId");
+    let {fileList} = this.state;
+    let imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
+    request({url:"/changeAvator",method:'GET',params:{id:id,imgUrl:imgUrl}}).then((res)=>{
+      if(res && res.code){
+        message.success("头像更换成功");
+        sessionStorage.setItem('userimg', imgUrl);
+      }else{
+        message.error("头像更换失败");
+      }
+    })
+  };
+
+  //更改昵称
+  changeNickName=()=>{
+    let nickName=document.getElementById("nickName").value;
+    if(!nickName){
+      message.error("请输入昵称");
+      return;
+    }
+    let id=sessionStorage.getItem("userId");
+    let data={
+      id,
+      nickName
+    }
+    request({url:'/changeNickName',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        message.success("昵称修改成功");
+        sessionStorage.setItem('nickName', nickName);
+
+      }else if(res){
+        message.error(res.message);
+      }else{
+        message.error("昵称修改失败，服务器出错");
+      }
+    })
+  };
+
+  //更改密码
+  changePassword=()=>{
+    let oldPassword = document.getElementById("oldPassword").value;
+    let newPassword = document.getElementById("newPassword").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+    console.log("oldPassword:", oldPassword);
+    if(!oldPassword){
+      message.error("请输入原密码");
+      return;
+    }
+    if(!newPassword){
+      message.error("请输入新密码");
+      return;
+    }
+    if(!confirmPassword){
+      message.error("请再次输入密码");
+      return;
+    }
+    let data={
+      id:sessionStorage.getItem("userId"),
+      oldPassword,
+      newPassword,
+      confirmPassword
+    };
+    request({url:'/changeUserPassword',method:"POST",data:data}).then((res)=>{
+      if(res && res.code){
+        message.success("密码更换成功");
+      }else if(res){
+        message.error(res.message);
+      }else{
+        message.error("密码更换失败，服务器出错");
+      }
+    })
+  };
+
   render() {
-    let {MyTab} = this.state;
+    let {MyTab,editModalShow,previewVisible, previewImage,fileList} = this.state;
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">上传</div>
+      </div>
+    );
     return (
       <div className='Community-box'>
         <MenuButton/>
@@ -207,7 +346,7 @@ class Community extends React.Component {
                     <img src={uploadUrl+sessionStorage.getItem("userimg")} alt='你的头像阵亡了' className='Community-user-image'/>
                   </div>
                 </Col>
-                <Col span={16}>
+                <Col span={10}>
                   <div className='Community-user-Info'>
                     <div className='Community-user-name'>
                       {sessionStorage.getItem("nickName")}
@@ -216,6 +355,11 @@ class Community extends React.Component {
                       ID:{sessionStorage.getItem("userId")}
                     </div>
                   </div>
+                </Col>
+                <Col span={6}>
+                  <Button ghost size="small" onClick={this.editUserInfo}>
+                    编辑资料
+                  </Button>
                 </Col>
               </Row>
             </div>
@@ -258,6 +402,93 @@ class Community extends React.Component {
             </div>
           </div>
         </div>
+        <Drawer
+          placement="right"
+          closable={true}
+          destroyOnClose={true}
+          onClose={this.editClose}
+          visible={editModalShow}
+          width='100vw'
+          height='100vh'
+        >
+          <div>
+            <div>
+              <div style={{height:'7vh',fontWeight:'bold'}}>
+                用户头像
+              </div>
+              <div>
+                <Upload
+                  action={uploadAction}
+                  listType="picture-card"
+                  fileList={fileList}
+                  onPreview={this.handlePreview}
+                  onChange={this.handleChange}
+                >
+                  {fileList.length >=1 ? null : uploadButton}
+                </Upload>
+                <Modal visible={previewVisible} footer={null} onCancel={this.modalCancel}>
+                  <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                </Modal>
+              </div>
+              <Button
+                type="primary"
+                disabled={!fileList.length}
+                onClick={this.changeAvator}
+              >
+                确认修改
+              </Button>
+            </div>
+            <Divider/>
+            <div>
+              <div style={{height:'7vh',fontWeight:'bold'}}>
+                用户昵称
+              </div>
+              <div style={{height:'7vh'}}>
+                <Input
+                  id="nickName"
+                  disabled={sessionStorage.getItem("nickName")?sessionStorage.getItem("nickName")==="admin"?true:false:false} defaultValue={sessionStorage.getItem("nickName")?sessionStorage.getItem("nickName"):''}
+                />
+              </div>
+              <Button
+                onClick={this.changeNickName}
+                disabled={sessionStorage.getItem("nickName")?sessionStorage.getItem("nickName")==="admin"?true:false:false}
+                type="primary"
+              >
+                确认修改
+              </Button>
+            </div>
+            <Divider/>
+            <div>
+              <div style={{height:'7vh',fontWeight:'bold'}}>
+                修改密码
+              </div>
+              <div style={{height:'12vh'}}>
+                <div>
+                  原密码：
+                </div>
+                <Input.Password id="oldPassword"/>
+              </div>
+              <div style={{height:'12vh'}}>
+                <div>
+                  新密码：
+                </div>
+                <Input.Password id="newPassword"/>
+              </div>
+              <div style={{height:'12vh'}}>
+                <div>
+                  确认密码：
+                </div>
+                <Input.Password id="confirmPassword"/>
+              </div>
+              <Button
+                onClick={this.changePassword}
+                type="primary"
+              >
+                确认修改
+              </Button>
+            </div>
+          </div>
+        </Drawer>
       </div>
     );
   }
