@@ -75,6 +75,10 @@ class LoginSetting extends React.Component{
     let id=sessionStorage.getItem("userId");
     let {fileList} = this.state;
     let imgUrl=fileList.length>0?fileList[0].url?("ceramics"+fileList[0].url.split("ceramics")[1]):fileList[0].response.filePath:'';
+    if(imgUrl===''){
+      message.error("请给我个头像");
+      return;
+    }
     request({url:"/changeAvator",method:'GET',params:{id:id,imgUrl:imgUrl}}).then((res)=>{
       if(res && res.code){
         message.success("头像更换成功");

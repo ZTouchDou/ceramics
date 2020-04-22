@@ -11,6 +11,7 @@ class SysPageManagement extends React.Component{
     super(props);
     this.state={
       checkedApplication:[],
+      checkedResult:[],
       treeData:[]
     }
   }
@@ -37,9 +38,6 @@ class SysPageManagement extends React.Component{
     let {checkedApplication} = this.state;
     treeData.map((item)=>{
       if(item.children.length>0){
-        if(item.checked){
-          checkedApplication.push(item.id);
-        }
         this.pushSelectedKeys(item.children);
       }else{
         if(item.checked){
@@ -71,18 +69,21 @@ class SysPageManagement extends React.Component{
   };
 
   //选择树
-  onCheck=(checkedKeys)=>{
+  onCheck=(checkedKeys,e)=>{
     console.log("checkedApplication:", checkedKeys);
+    let checkedKeysResult=[...checkedKeys,...e.halfCheckedKeys]
+    console.log("checkedKeysResult:", checkedKeysResult);
     this.setState({
-      checkedApplication:checkedKeys
+      checkedApplication:checkedKeys,
+      checkedResult:checkedKeysResult
     })
   };
 
   //点击确定
   submitTree=()=>{
-    let {checkedApplication} = this.state;
+    let {checkedResult} = this.state;
     let data={
-      arr:checkedApplication
+      arr:checkedResult
     };
     console.log("data:", data);
     request({url:'/updateTreeData',method:'POST',data:data}).then((res)=>{
@@ -135,6 +136,7 @@ class SysPageManagement extends React.Component{
                   <div style={{marginLeft:'40%'}}>
                     <Button shape="circle" style={{width:'15vmin',height:'15vmin',backgroundColor:'#FEFDF9',color:'#8F8044'}}
                             onClick={this.submitTree}
+                            disabled={!this.state.checkedResult.length}
                     >
                       确定
                     </Button>
