@@ -9,6 +9,8 @@ import Invitation from "./Invitation";
 import CeramicsPicture from "./CeramicesPicture";
 import Comment from "./Comment";
 import Chip from "./Chip";
+import MyModal from "../../components/MyModal";
+import SysAddButton from "../SystemManagement/SysAddButton";
 
 const { Header, Content } = Layout;
 const pageSize = 10;
@@ -33,7 +35,8 @@ class Community extends React.Component {
       editModalShow:false,
       previewVisible: false,
       previewImage: '',
-      fileList:[]
+      fileList:[],
+      modalShow:false
     }
   }
 
@@ -206,6 +209,7 @@ class Community extends React.Component {
         <div className="ant-upload-text">上传</div>
       </div>
     );
+
     return (
       <div className='Community-box'>
         <MenuButton/>

@@ -10,8 +10,6 @@ class ChipInfoTab extends React.Component{
     }
   }
 
-
-
   render() {
     let {item, imgUrl} = this.props;
     const mask={
