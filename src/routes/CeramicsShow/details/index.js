@@ -53,7 +53,7 @@ class details extends React.Component {
     camera = new THREE.PerspectiveCamera(60,  width/height, 1, 1500);
     camera.position.x = 0;
     camera.position.y = 0;
-    camera.position.z = 450;
+    camera.position.z = 350;
     camera.lookAt(scene.position);
     //控制相机
     //光源
