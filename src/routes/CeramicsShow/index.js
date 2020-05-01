@@ -24,7 +24,7 @@ class CeramicsShow extends React.Component{
       objurl:'',
       imgurl:'',
       numberOfObjects:'',
-      }
+    }
   }
 
   init=(objurl,mtlurl,textureurl)=> {
@@ -67,11 +67,11 @@ class CeramicsShow extends React.Component{
       obj,
     });
   }
- //跳转页面
+  //跳转页面
   gotoTab2 = (name,dataItem)=>{
     console.log("dataItem:", dataItem);
     sessionStorage.setItem('dataItem',JSON.stringify(dataItem));
-      this.props.history.push('/CeramicsShow/details',{name:name});
+    this.props.history.push('/CeramicsShow/details',{name:name});
   };
 
   componentDidMount() {
@@ -107,7 +107,7 @@ class CeramicsShow extends React.Component{
     scene = new THREE.Scene();
     group = new THREE.Group();
     scene.add(group);
-  //  scene.background = new THREE.Color(255,255,255);
+    //  scene.background = new THREE.Color(255,255,255);
     //scene.add(new THREE.GridHelper(400, 10)); //网格辅助
     //创建透视相机
     camera = new THREE.PerspectiveCamera(60,  width/height, 1, 1500);
@@ -128,7 +128,7 @@ class CeramicsShow extends React.Component{
     renderer.setClearColor(0xffffff);
     renderer.setClearAlpha(0x000000, 0 );
     renderer.setPixelRatio(window.devicePixelRatio);
-  //  camera.updateProjectionMatrix();
+    //  camera.updateProjectionMatrix();
     renderer.setSize( width, height);
     renderer.autoClear = true;
     c.appendChild(renderer.domElement);
@@ -156,7 +156,7 @@ class CeramicsShow extends React.Component{
     let mtlurl = JSON.parse(dataItem).mtlUrl;
     let objurl = JSON.parse(dataItem).objUrl;
     let textureurl=JSON.parse(dataItem).textureUrl;
-   let timer = setTimeout(function (){
+    let timer = setTimeout(function (){
       document.getElementById('bgimage').setAttribute('class','bgimg');
     },10);
     this.setState({

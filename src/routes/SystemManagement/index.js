@@ -49,16 +49,6 @@ class SystemManagement extends React.Component{
               <Menu.Item className='ant-s-submenu' key="2" onClick={this.changeMenu.bind(this,2)}>陶瓷</Menu.Item>
               <Menu.Item className='ant-s-submenu' key="3" onClick={this.changeMenu.bind(this,3)}>工艺</Menu.Item>
               <Menu.Item className='ant-s-submenu' key="4" onClick={this.changeMenu.bind(this,4)}>工坊</Menu.Item>
-              <Menu.Item className='ant-s-submenu' key="5" onClick={this.changeMenu.bind(this,5)}>页面管理</Menu.Item>
-              <SubMenu
-                key="sub1"
-                title='社区管理'
-              >
-                <Menu.Item key="6" onClick={this.changeMenu.bind(this,6)}>鉴瓷</Menu.Item>
-                <Menu.Item key="7" onClick={this.changeMenu.bind(this,7)}>赏瓷</Menu.Item>
-                <Menu.Item key="8" onClick={this.changeMenu.bind(this,8)}>评论</Menu.Item>
-                <Menu.Item key="9" onClick={this.changeMenu.bind(this,9)}>瓷片</Menu.Item>
-              </SubMenu>
             </Menu>
           </Header>
           <Content style={{ padding: '0 50px' }}>
@@ -79,26 +69,6 @@ class SystemManagement extends React.Component{
                 {
                   menuKey===4&&
                   <SysWorkshop/>
-                }
-                {
-                  menuKey===5&&
-                  <SysPageManagement/>
-                }
-                {
-                  menuKey===6&&
-                  <Invitation/>
-                }
-                {
-                  menuKey===7&&
-                  <CeramicsPicture/>
-                }
-                {
-                  menuKey===8&&
-                  <Comment/>
-                }
-                {
-                  menuKey===9&&
-                  <Chip/>
                 }
               </Content>
             </Layout>

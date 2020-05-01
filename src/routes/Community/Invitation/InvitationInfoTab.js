@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
-import {Popconfirm, Icon, notification, Row, Col} from 'antd';
+import {Popconfirm, Icon,Row, Col} from 'antd';
+import moment from 'moment';
 import in1 from '../../../Image/Invitation1.jpg';
 import './InvitationInfoTab.css';
 
@@ -17,29 +18,29 @@ class InvitationInfoTab extends React.Component{
   };
 
   //确认删除
-  handleDelete=(id,e)=>{
-    console.log("id:", id);
-    notification['success']({
-      message: '成功',
-      description:
-        '删除操作成功（假的，接口还没调呢）( ‘-ωก̀ )',
-      duration: 0,
-    });
+  handleDelete=(id)=>{
+    if(this.props.deleteInvitation){
+      this.props.deleteInvitation(id);
+    }
   };
 
   //跳转详情页
-  gotoDetails=()=>{
-    this.props.history.push('/Community/ComJC');
+  gotoDetails=(id)=>{
+    if(id){
+      sessionStorage.setItem("invJCId",id);
+      this.props.history.push('/Community/ComJC');
+    }
   };
 
   render() {
+    let {item}=this.props;
     return (
-      <div className='InvIn-box' onClick={this.gotoDetails}>
+      <div className='InvIn-box' onClick={this.gotoDetails.bind(this,item.id)}>
         <img className='InvIn-le' src={in1} alt='配图'/>
         <div className='InvIn-ri'>
           <div className='InvIn-header'>
             <div className='InvIn-title'>
-              西游记
+              {item.title}
             </div>
             <div onClick={this.topPropagationClick}>
               <Popconfirm
@@ -47,7 +48,7 @@ class InvitationInfoTab extends React.Component{
                 okText="确定"
                 cancelText="取消"
                 placement="left"
-                onConfirm={this.handleDelete.bind(this)}
+                onConfirm={this.handleDelete.bind(this,item.id)}
               >
                 <div className='InvIn-delete'>
                   <Icon type="close-circle" theme="filled" />
@@ -59,16 +60,16 @@ class InvitationInfoTab extends React.Component{
             <Row style={{height:'100%'}}>
               <Col span={12} style={{height:'100%'}}>
                 <div className='InvIn-text'>
-                  观棋柯烂，伐木丁丁，云边谷口徐行。卖薪沽酒，狂笑自陶情。苍径秋高，对月枕松根，一觉天明。认旧林，登崖过岭，持斧断枯藤。收来成一担，行歌市上，易米三升。更无些子争竞，时价平平。不会机谋巧算，没荣辱，恬淡延生。相逢处，非仙即道，静坐讲《黄庭》。
+                  {item.content}
                 </div>
               </Col>
               <Col span={12} style={{height:'100%'}}>
                 <div className='InvIn-time'>
                   <div className='InvIn-year'>
-                    2020
+                    {moment(Number(item.time)).format("YYYY")}
                   </div>
                   <div className='InvIn-day'>
-                    3/3
+                    {moment(Number(item.time)).format("MM/DD")}
                   </div>
                 </div>
               </Col>

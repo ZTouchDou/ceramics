@@ -3,13 +3,17 @@ import {Col, Row} from 'antd';
 import LazyLoad from 'react-lazyload';
 import GF from '../../JSON/GF/GF.json';
 import Texty from 'rc-texty';
+import request from "../../utils/request";
 import MenuButton from "../../components/MenuButton";
 import iags from '../../Image/WorkshopStart.jpg';
 import iage from '../../Image/WorkshopEnd.jpg';
+import moment from 'moment';
 import './index.css';
 import config from '../../config.js';
 
 const fontName = config.fontName;
+const pageSize = config.pageSize;
+const uploadUrl = config.poxzy.imgUrl;
 //工坊页面
 
 let number_of_animation = 10;
@@ -33,8 +37,28 @@ class Workshop extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-
+      qyData:[],
+      page:1
     }
+  }
+
+  //获取工坊数据
+  getWorkshopData=(page)=>{
+    let data = {};
+    data.page = page;
+    data.pageSize = pageSize;
+    console.log("data:", data);
+    request({url:'/getWorkshop',method:'GET',params:data}).then((res)=>{
+      if(res && res.code){
+        this.setState({
+          qyData:res.data,
+        })
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getWorkshopData(this.state.page);
   }
 
   componentWillUnmount() {
@@ -74,9 +98,9 @@ class Workshop extends React.Component{
 
         </div>
         <div style={{marginTop:'10vh', backgroundColor:'white'}}>
-          <div style={{width:'100vw',height:'4vh',backgroundImage:`url(${iags})`,backgroundSize:'100% 100%'}}></div>
+          <div style={{width:'100vw',height:'4vh',backgroundImage:`url(${iags})`,backgroundSize:'100% 100%'}}/>
           {
-            GF.map((item,index)=>(
+            this.state.qyData.map((item,index)=>(
               <LazyLoad height='50vh' key = {index}>
                 <div className='WorkshopTabBox' key = {index}>
                   <div className='WorkshopTabTitle' style={{...font}}>
@@ -84,7 +108,7 @@ class Workshop extends React.Component{
                       {item.title}
                     </Texty>
                   </div>
-                  <div style={{width:'100vw',height:'3vh'}}></div>
+                  <div style={{width:'100vw',height:'3vh'}}/>
 
                   {/*下面的代码不写成组件的形式，是因为Texty在组件形式下会出错，因此牺牲了代码的优越性，此处代码重复度较高，现在未找到解决办法。 (～￣(OO)￣)ブ */}
 
@@ -98,11 +122,11 @@ class Workshop extends React.Component{
                             </Texty>
                           </div>
                           <Texty type='alpha' mode='smooth' duration='1000' interval='15'>
-                            {item.time}
+                            {moment(Number(item.time)).format("YYYY/MM/DD")}
                           </Texty>
                         </div>
 
-                        <div style={{width:'100%',height:'1vh'}}></div>
+                        <div style={{width:'100%',height:'1vh'}}/>
 
                         <div className='WorkshopTabContent-div'>
                           <div className='WorkshopTabContent-div-title'>
@@ -122,11 +146,11 @@ class Workshop extends React.Component{
                           item.imgUrl?
                             <img
                               id={`img-${index}`}
-                              src={require('../../JSON/GF/Images/'+item.imgUrl)}
+                              src={uploadUrl+item.imgUrl}
                               alt="工坊配图"
                               className={`WorkshopTabImage-img${index%number_of_animation}`}
                               onClick={this.showPicture}
-                            /> : ''
+                            />:''
                         }
                       </div>
                     </Col>

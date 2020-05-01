@@ -1,5 +1,6 @@
 export default {
   fontName:'方正楷体',
+  pageSize:100,
   reg: {
     required: {
       required: true,
@@ -57,5 +58,11 @@ export default {
       pattern: /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
       message: '请填写正确的邮箱'
     }
+  },
+
+  poxzy:{
+    url:'http://192.168.56.1:8080',
+    imgUrl:'http://116.62.152.234:10080/',
+    uploadUrl:'http://192.168.56.1:8080',
   }
 }
