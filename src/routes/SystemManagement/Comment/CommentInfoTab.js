@@ -2,7 +2,7 @@ import React from 'react';
 import {Tooltip} from 'antd';
 import moment from "moment";
 import { withRouter } from 'react-router-dom'
-import {Popconfirm, Icon,notification,Avatar }from 'antd';
+import {Popconfirm, Icon,Avatar }from 'antd';
 import './CommentInfoTab.css';
 import config from "../../../config";
 
@@ -23,14 +23,10 @@ class CommentInfoTab extends React.Component{
   };
 
   //确认删除
-  handleDelete=(id,e)=>{
-    console.log("id:", id);
-    notification['success']({
-      message: '成功',
-      description:
-        '删除操作成功（假的，接口还没调呢）( ‘-ωก̀ )',
-      duration: 0,
-    });
+  handleDelete=(id)=>{
+    if(this.props.deleteComment){
+      this.props.deleteComment(id);
+    }
   };
 
   render() {
@@ -58,7 +54,7 @@ class CommentInfoTab extends React.Component{
                 okText="确定"
                 cancelText="取消"
                 placement="left"
-                onConfirm={this.handleDelete}
+                onConfirm={this.handleDelete.bind(this,item.id)}
               >
                 <div className='ComInfoTab-delete'>
                   <Icon type="close-circle" theme="filled" />

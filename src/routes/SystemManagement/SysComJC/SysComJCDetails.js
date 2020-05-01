@@ -145,7 +145,7 @@ class SysComJCDetails extends React.Component{
   };
 
   //删除评论
-  deleteInvitation=(id)=>{
+  deleteComment=(id)=>{
     request({url:'/deleteCommentById/'+id,method:'GET'}).then((res)=>{
       if(res && res.code){
         message.success('删除成功');
@@ -293,11 +293,11 @@ class SysComJCDetails extends React.Component{
                     return(
                       <div key={index}>
                         <UserInfoTab
-                          deleteInvitation={this.deleteInvitation.bind(this,item.id)}
                           imgUrl={uploadUrl+item.userImg}
                           name={item.userName}
                           time={moment(Number(item.time)).format("YYYY/MM/DD HH:mm")}
                           content={item.content}
+                          deleteComment={this.deleteComment.bind(this,item.id)}
                         />
                         <Divider/>
                       </div>

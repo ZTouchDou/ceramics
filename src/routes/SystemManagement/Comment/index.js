@@ -2,7 +2,6 @@ import React from 'react';
 import {Pagination, message} from 'antd';
 import request from "../../../utils/request";
 import CommentInfoTab from "./CommentInfoTab";
-import config from "../../../config";
 import SysComJCDetails from "../SysComJC/SysComJCDetails";
 
 const pageSize = 6;
@@ -54,6 +53,18 @@ class Comment extends React.Component{
     this.getCommentList(this.state.page);
   }
 
+  //删除评论
+  deleteComment=(id)=>{
+    request({url:'/deleteCommentById/'+id,method:'GET'}).then((res)=>{
+      if(res && res.code){
+        message.success('删除成功');
+        this.getCommentList(this.state.page);
+      }else{
+        message.error('删除失败');
+      }
+    });
+  };
+
   //展示这个评论的帖子页面
   gotoInvitation=(item)=>{
     sessionStorage.setItem('invitationType','minor');
@@ -91,6 +102,7 @@ class Comment extends React.Component{
                   key={index}
                   item={item}
                   showModal={this.gotoInvitation}
+                  deleteComment={this.deleteComment}
                 />
               )
             })
