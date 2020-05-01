@@ -1,101 +1,71 @@
 [
   {
     "id": "1",
-    "title": "Slide1",
-    "content": "这里还有一个问题，谷歌点击事件跟swiper有冲突，刷新一下就好了，实机运行这个问题不存在。",
+    "title": "青花瓷",
+    "content": "青花瓷，又称白地青花瓷，常简称青花，是中国瓷器的主流品种之一，属釉下彩瓷。青花瓷是用含氧化钴的钴矿为原料，在陶瓷坯体上描绘纹饰，再罩上一层透明釉，经高温还原焰一次烧成。钴料烧成后呈蓝色，具有着色力强、发色鲜艳、烧成率高、呈色稳定的特点。原始青花瓷于唐宋已见端倪，成熟的青花瓷则出现在元代景德镇的湖田窑。明代青花成为瓷器的主流。清康熙时发展到了顶峰。明清时期，还创烧了青花五彩、孔雀绿釉青花、豆青釉青花、青花红彩、黄地青花、哥釉青花等衍生品种。",
     "imgUrl": "GF1.jpg",
     "objUrl": "../../models/model-1.obj",
     "mtlUrl": "../../models/model-1.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
+    "textureUrl": "../../models/texture-8.jpg"
   },
   {
     "id": "2",
-    "title": "Slide2",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "title": "黄釉瓷",
+    "content": "黄釉瓷在古陶瓷艺术中占有很重要的位置，黄色一向是帝王专用色，黄釉瓷器更是明清宫廷用瓷，决不许民间使用。即使在叛乱不断的嘉靖时期，也严禁民间使用，民窑即使可用金彩，也不可以用黄釉瓷。明黄色是黄金的颜色，中国封建朝代里，从唐朝开始，明黄即是皇帝专用颜色，黄袍被当作封建帝王的御用服饰，黄者，君之服也，它是皇权的象征，唐高祖李渊以黄袍为常服，赵匡胤陈桥兵变黄袍加身就意味着登上了帝位，满清时期，龙袍、龙椅、龙旗、御辇、羽盖、圣旨、琉璃瓦盖皆为黄色，直至现在，它和红色都是能代表中国的主色调。",
     "imgUrl": "GF2.jpg",
     "objUrl": "../../models/model-2.obj",
     "mtlUrl": "../../models/model-2.mtl",
-    "textureUrl": "../../models/texture-5.jpg"
+    "textureUrl": "../../models/texture-15.jpg"
 
   },
   {
     "id": "3",
-    "title": "Slide3",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "title": "蓝釉瓷",
+    "content": "蓝釉瓷始创于元代景德镇窑，元代蓝釉的烧制成功，为明清两代霁蓝釉的发现奠定了坚实的基础。明朝宣德年间蓝釉瓷釉汁浓厚，质感凝重，色调均匀稳定，色泽深沉美艳，丽如宝石，莹似天霁，被誉为“宝石蓝”、“霁蓝”，与同时期的祭红、甜白瓷并重，作为宫廷祭器之用。清康熙时期有霁蓝、洒蓝、天蓝釉。霁蓝釉呈失透，釉面如橘皮，色泽匀润稳定，因主要用于祭祀，故又称“祭蓝”。洒蓝仿明宣德洒蓝品种，但更趋完美。由于采用喷吹法施釉，在通体的浅蓝色地上，呈现出水迹洒落般的深色斑点，故称“洒蓝”，又称“鱼子蓝”。又因其水点时或呈现雪花状，犹如雪飞冰地，故又有“雪花蓝”之称。天蓝是由于釉呈晴天蓝空之色而得名，色调淡雅悠闲，弥足珍贵。",
     "imgUrl": "GF3.jpg",
     "objUrl": "../../models/model-3.obj",
     "mtlUrl": "../../models/model-3.mtl",
-    "textureUrl": "../../models/texture-2.jpg"
+    "textureUrl": "../../models/texture-13.jpg"
 
   },
   {
     "id": "4",
-    "title": "Slide4",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "title": "绿釉瓷",
+    "content": "绿釉最早见于汉代，从汉代的铅绿釉陶开始，低温绿釉的烧制一直都没有间断过，宋代的磁州窑和定窑等都有烧造，定窑所烧的绿釉被称为“绿定”，弥足珍贵。金代扒村窑和元代磁州窑都有绿釉釉下彩褐彩的制作。元代景德镇在优质的瓷胎上烧制成了孔雀绿釉釉下青花的新品种。明代的绿釉以孔雀绿色釉为主，早期有呈色似瓜皮的“瓜皮绿”，永乐年间有淡绿色釉。另据《南窑笔记》记载：“法蓝、法翠二色旧时为成化窑有，最佳。”这说明孔雀绿翡翠绿釉在明成化年间的烧制成功。孔雀绿即“法翠”，也叫翡翠釉或吉翠釉。",
     "imgUrl": "GF4.jpg",
     "objUrl": "../../models/model-4.obj",
     "mtlUrl": "../../models/model-4.mtl",
-    "textureUrl": "../../models/texture-2.jpg"
+    "textureUrl": "../../models/texture-14.jpg"
 
   },
   {
     "id": "5",
-    "title": "Slide5",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "title": "五彩瓷",
+    "content": "五彩是在已烧成的白瓷上以低温色料描绘图案纹样，然后经第二次入窑烧成，最主要特点是有绚丽的色彩。关于五彩所用色彩，清《南窑笔记》云：“彩色有矾红，用皂矾炼者，以陈为佳；黄色用石末铅粉，入矾红少许配成；用铅粉、石末入铜花为绿色；铅粉石末入青料则成紫色；翠色则以京翠为上，广翠次之。”这些颜料是含有铁、钻、铜、锰、锑等矿物元素着色剂的低温色料。五彩是将这些颜色巧妙搭配在一起，构成丰富多彩的装饰效果。色料是成就五彩的基本条件。",
     "imgUrl": "GF5.jpg",
-    "objUrl": "../../models/model-5.obj",
-    "mtlUrl": "../../models/model-5.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
-
+    "objUrl": "../../models/model-1.obj",
+    "mtlUrl": "../../models/model-1.mtl",
+    "textureUrl": "../../models/texture-16.png"
   },
   {
     "id": "6",
-    "title": "Slide6",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "title": "古铜彩",
+    "content": "古铜彩是陶瓷特殊装饰工艺手段之一，其装饰的器物多为宫廷里的陈设瓷，生活用具相对较少。由于古铜彩瓷制作工艺复杂，耗工费时且成本昂贵，故而其产量是十分有限的。图为乾隆御窑厂生产的古铜彩瓷碗。古铜彩瓷的制作工艺十分讲究，也非常复杂，它属于低温釉种。古铜彩瓷一般造型都很逼真、生动，古朴典雅，奢华而大气。",
     "imgUrl": "GF6.jpg",
     "objUrl": "../../models/model-6.obj",
     "mtlUrl": "../../models/model-6.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
+    "textureUrl": "../../models/texture-5.jpg"
 
   },
   {
     "id": "7",
-    "title": "Slide7",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
+    "title": "白瓷",
+    "content": "白釉是瓷器的本色釉。一般瓷土和釉料，都或多或少含有一些氧化铁，器物烧出后必\n然呈现出深浅不同的青色来。如果釉料中的铁元素含量小于0.75%，烧出来的就会是白釉。古代白瓷的制作，并不是在釉料中加进白色呈色剂，而是选择含铁量较少的瓷土和釉料加工精制，使含铁量降低到最少的程度。这样在洁白的瓷胎上施以纯净的透明釉，就能烧制白度很高的白瓷。白釉出现于北朝。北齐范粹墓出土的白瓷，是中国至今所见的最早的白瓷。",
     "imgUrl": "GF7.jpg",
-    "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
-
-  },
-  {
-    "id": "8",
-    "title": "Slide8",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
-    "imgUrl": "GF8.jpg",
-    "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
-
-  },
-  {
-    "id": "9",
-    "title": "Slide9",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
-    "imgUrl": "GF9.jpg",
-    "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
-
-  },
-  {
-    "id": "10",
-    "title": "Slide10",
-    "content": "这里还有一个问题，就在于给swiper-slide添加点击事件，一般来说是直接给swiper-slide这个div添加一个onClick事件",
-    "imgUrl": "GF10.jpg",
-    "objUrl": "../../models/model-6.obj",
-    "mtlUrl": "../../models/model-6.mtl",
-    "textureUrl": "../../models/texture-4.jpg"
+    "objUrl": "../../models/model-7.obj",
+    "mtlUrl": "../../models/model-7.mtl",
+    "textureUrl": "../../models/texture-17.jpg"
 
   }
+
 ]

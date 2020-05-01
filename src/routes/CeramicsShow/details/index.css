@@ -16,6 +16,7 @@
     height:45vh;
     font-size:5vmin;
     padding-top:4vh;
+    margin-left: -15vw;
     line-height: 6vh;
     writing-mode: vertical-rl;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
     writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/

@@ -7,9 +7,8 @@ import TC from '../../JSON/TC/TC.json';
 import * as THREE from 'three'
 import Orbitcontrols from 'three-orbitcontrols'
 import {MTLLoader,OBJLoader} from 'three-obj-mtl-loader'
-//import {FBXLoader} from 'three-fbx-loader'
-//import {FBXLoader} from  'three/examples/js/loaders/FBXLoader.js'
 import 'three/examples/js/libs/inflate.min.js'
+
 //陶瓷页
 class CeramicsShow extends React.Component{
   constructor(props){
@@ -52,8 +51,6 @@ class CeramicsShow extends React.Component{
         object.rotation.y = 0;
         object.rotation.z = 0;
         object.name = objurl;
-        // object.scale.set(7,7, 7);
-
         this.state.scene.add(object);
         this.numberOfObjects = this.state.scene.children.length;
         console.log("objectnumber:", this.state.scene.children);
@@ -68,7 +65,6 @@ class CeramicsShow extends React.Component{
     });
     this.setState({
       obj,
-
     });
   }
   //跳转页面
@@ -124,7 +120,7 @@ class CeramicsShow extends React.Component{
     let ambi = new THREE.AmbientLight(0x686868);
     scene.add(ambi);
     let spotLight = new THREE.DirectionalLight(0xffffff);
-    spotLight.position.set(550, 100, 550);
+    spotLight.position.set(100, 100, 100);
     spotLight.intensity = 0.6;
     scene.add(spotLight);
     //实例化渲染器
@@ -200,7 +196,7 @@ class CeramicsShow extends React.Component{
                          data-item={JSON.stringify(item)}
                     >
                       <div className='swiperTitle'>{item.title}</div>
-                      <div className='swiperContent'>{item.content.slice(0,40)}</div>
+
                     </div>
                   )
                 })
