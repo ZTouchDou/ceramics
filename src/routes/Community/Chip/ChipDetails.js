@@ -53,6 +53,7 @@ class ChipDetails extends React.Component{
         this.getChipComment();
       }
     });
+
     this.setState({
       modalShow: false,
     });
