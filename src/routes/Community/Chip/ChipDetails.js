@@ -91,8 +91,14 @@ class ChipDetails extends React.Component{
             {
               this.state.chipContent.map((item,index)=>{
                 return(
-                  <div className='ChipDetails-text' key={index}>
-                    {item.content}
+                  <div>
+                    {
+                      item.visible?<div className='ChipDetails-text' key={index}>
+                        {item.content}
+                      </div>:
+                        ''
+                    }
+
                   </div>
                 )
               })
