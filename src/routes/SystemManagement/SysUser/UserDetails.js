@@ -557,7 +557,7 @@ class UserDetails extends React.Component{
                                 chipId={item.id}
                                 t={t}
                                 name={item.title}
-                                imgUrl={`CP${index+1}.png`}
+                                imgUrl={`CP${index%8+1}.png`}
                               />
                             )
                           })
