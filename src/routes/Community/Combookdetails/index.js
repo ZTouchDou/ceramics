@@ -68,7 +68,7 @@ class Combk extends React.Component {
         />
         <div className='Combk-title'>
           <p style={{...pstyle}}>
-            ——推荐书单 Top50
+            ——推荐书单 Top7
           </p>
           <div className='cover'>
             <img src={Img} alt="" style={{...imgstyle}}/>

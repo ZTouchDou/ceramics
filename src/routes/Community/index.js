@@ -102,6 +102,9 @@ class Community extends React.Component {
   handleClick = () => {
     this.props.history.push('/Community/Combookdetails');
   };
+  handleClick2 = () => {
+    this.props.history.push('/login');
+  };
 
   //编辑资料
   editUserInfo=()=>{
@@ -363,6 +366,9 @@ class Community extends React.Component {
                 <Col span={6}>
                   <Button ghost size="small" onClick={this.editUserInfo}>
                     编辑资料
+                  </Button>
+                  <Button ghost size="small" onClick={this.handleClick2}>
+                    退出登录
                   </Button>
                 </Col>
               </Row>
