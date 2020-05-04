@@ -7,7 +7,9 @@ import image1 from '../../Image/7.jpg';
 import image2 from '../../Image/6.jpg';
 import image3 from '../../Image/8.jpg';
 import image4 from '../../Image/10.jpg';
-import image5 from '../../Image/1.jpg';
+import image5 from '../../Image/38.jpg';
+import image6 from '../../Image/39.jpg';
+
 // import config from '../../config.js';
 
 // let fontName = config.fontName;
@@ -113,7 +115,7 @@ class MenuPage extends React.Component{
           <MenuTab
             title={menuTab.children[5].title}
             gotoTab={this.gotoTab.bind(this,'XT')}
-            imgUrl={image5}
+            imgUrl={image6}
             divider={false}
           />
         }

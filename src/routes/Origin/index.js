@@ -15,7 +15,7 @@ const font = {
 };
 
 class Origin extends React.Component{
-  constructor(props) {
+  constructor(props) { //react数据初始化
     super(props);
     this.state = {
       contentLength:0,
@@ -41,7 +41,7 @@ class Origin extends React.Component{
     })
   };
 
-  componentDidMount() {
+  componentDidMount() {//第一次渲染完成，生成dom节点，调用ajax请求，返回数据后重新渲染
     this.getOriginData(this.state.page);
   }
 
@@ -70,7 +70,7 @@ class Origin extends React.Component{
     })
   };
 
-  render() {
+  render() { //渲染
     let {contentLength, isShow, imgUrl} = this.state;
     return (
       <div className='Origin-box'>

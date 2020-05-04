@@ -56,7 +56,7 @@ class ComAdd extends React.Component{
     }else{
       title="1";
     }
-    let content = document.getElementById("invText").innerHTML;
+    let content = document.getElementById("invText").innerText;
     if(title==="" || content === ""){
       message.warn("标题和发布内容不可为空哦");
       return;
@@ -123,7 +123,7 @@ class ComAdd extends React.Component{
     let content="";
     if(this.state.AddType==="JC"){
       title=document.getElementById("invTitle").value;
-      content=document.getElementById("invText").innerHTML;
+      content=document.getElementById("invText").innerText;
       localStorage.setItem("myInvJCTitle",title);
       localStorage.setItem("myInvJCText",content);
     }else{
