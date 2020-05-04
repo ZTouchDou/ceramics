@@ -11,15 +11,24 @@
 .ChipInfoTab-name{
     width:50%;
     height:100%;
-    text-align: center;
     overflow: auto;
-    padding:8vh 2vw 1vh 2vw;
-    color:#1890FF;
     font-size:7vmin;
     font-weight:bold;
     background-color: white;
     border-top-left-radius: 10%;
     border-bottom-left-radius: 10%;
+}
+
+.ChipInfoTab-name-delete{
+    height:10%;
+}
+
+.ChipInfoTab-name-title{
+    padding:6vh 2vw 1vh 2vw;
+    height:90%;
+    text-align: center;
+    overflow: auto;
+    color:#1890FF;
 }
 
 .ChipInfoTab-pic{

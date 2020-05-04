@@ -7,6 +7,7 @@ import ChipDetails from "./ChipDetails";
 import MyModal from "../../../components/MyModal";
 import SysAddButton from "../../SystemManagement/SysAddButton";
 import config from "../../../config";
+import moment from 'moment';
 
 const pageSize = 10;
 
@@ -40,8 +41,30 @@ class Chip extends React.Component{
     })
   };
 
+  //随机取得陶片
+  getMyOwnChip=()=>{
+    let data={
+      id:sessionStorage.getItem("userId")
+    };
+    request({url:'/getMyOwnChip',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        localStorage.setItem("ChipCD",moment().format("HH"));
+      }
+    })
+  };
+
   componentDidMount() {
     this.getUserChip(this.state.page);
+    if(localStorage.getItem("ChipCD")==undefined){
+      this.getMyOwnChip();
+    }else{
+      let hour = moment().format("HH");
+      let absHour = Math.abs(Number(localStorage.getItem("ChipCD"))-Number(hour));
+      console.log("absHour:", absHour);
+      if(absHour>=8){
+        this.getMyOwnChip();
+      }
+    }
   }
 
   //跳转详情页
@@ -91,6 +114,22 @@ class Chip extends React.Component{
     });
   };
 
+  //删除陶片
+  deleteChip=(id)=>{
+    let data={
+      id:sessionStorage.getItem("userId"),
+      chipId:id
+    };
+    request({url:'/deleteChipByIdInUser',method:"GET",params:data}).then((res)=>{
+      if(res && res.code){
+        message.success("删除成功");
+        this.getUserChip(this.state.page);
+      }else{
+        message.error("操作失败")
+      }
+    });
+  };
+
   render() {
     let {detailShow} = this.state;
     const resource =[
@@ -111,6 +150,7 @@ class Chip extends React.Component{
                 item={item}
                 gotoDetails={this.gotoDetails.bind(this,item)}
                 imgUrl={`CP${index%8+1}.png`}
+                deleteChip={this.deleteChip.bind(this,item.id)}
               />
             )
           })

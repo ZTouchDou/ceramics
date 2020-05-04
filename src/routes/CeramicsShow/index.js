@@ -5,6 +5,7 @@ import './index.css';
 import MenuButton from "../../components/MenuButton";
 import TC from '../../JSON/TC/TC.json';
 import * as THREE from 'three'
+import request from "../../utils/request";
 import Orbitcontrols from 'three-orbitcontrols'
 import {MTLLoader,OBJLoader} from 'three-obj-mtl-loader'
 import 'three/examples/js/libs/inflate.min.js'
@@ -24,6 +25,7 @@ class CeramicsShow extends React.Component{
       objurl:'',
       imgurl:'',
       numberOfObjects:'',
+      ceramicsData:TC
     }
   }
 
@@ -74,8 +76,30 @@ class CeramicsShow extends React.Component{
     this.props.history.push('/CeramicsShow/details',{name:name});
   };
 
+  //获取陶瓷数据
+  getCeramicsData=()=>{
+    let {ceramicsData} = this.state;
+    request({url:'/getCeramics',method:'GET'}).then((res)=>{
+      if(res && res.code){
+        let data = res.data;
+        let ceraData = ceramicsData;
+        ceraData.map((item,index)=>{
+          if(!(data.length<index)){
+            item.id=data[index].id;
+            item.title = data[index].title;
+            item.content = data[index].content;
+          }
+        });
+        this.setState({
+          ceramicsData:ceraData
+        })
+      }
+    })
+  };
+
   componentDidMount() {
     let t = this;
+    t.getCeramicsData();
     new Swiper('.swiper-container',{
       autoplay:false,
       loop:false,
@@ -152,7 +176,6 @@ class CeramicsShow extends React.Component{
     let name = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-name');
     let dataItem = document.getElementsByClassName('swiper-slide-active')[0].getAttribute('data-item');
     document.getElementById('bgimage').setAttribute('class','bgimgchange');
-    console.log("dataItem:", JSON.parse(dataItem));
     let mtlurl = JSON.parse(dataItem).mtlUrl;
     let objurl = JSON.parse(dataItem).objUrl;
     let textureurl=JSON.parse(dataItem).textureUrl;
@@ -173,7 +196,7 @@ class CeramicsShow extends React.Component{
   };
 
   render(){
-    let {name,details,bgimg,dataItem,mtlurl,objurl} = this.state;
+    let {name,details,bgimg,dataItem,mtlurl,objurl,ceramicsData} = this.state;
     return (
       <div className='box'>
         <div    id='bgimage' className='bgimg' style={{backgroundImage:`url(${bgimg?require("../../JSON/TC/Images/"+bgimg):''})`}}>
@@ -187,7 +210,7 @@ class CeramicsShow extends React.Component{
           <div className='swiper-container'>
             <div className='swiper-wrapper'>
               {
-                TC.map((item,index)=>{
+                ceramicsData.map((item,index)=>{
                   return(
                     <div className='swiper-slide'
                          key={index}
